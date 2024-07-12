@@ -7,9 +7,9 @@ export default function Header() {
   const { user } = useContext(UserContext);
   return (
     <>
-      <header className="flex justify-between mb-10">
+      <header className="flex justify-between mb-10 px-10 py-4">
         <Link to={'/'} className="flex items-center gap-1">
-          <img className="w-10 h-10" src="https://cdn-icons-png.flaticon.com/128/12435/12435328.png" alt="" />
+          <img className="w-10 h-10" src="https://cdn-icons-png.flaticon.com/128/9299/9299496.png" alt="لوگو" />
         </Link>
 
         <Link to={user ? '/account' : '/login'} className="flex items-center bg-gray-100 gap-2 border border-gray-300 rounded-lg py-1 px-4">

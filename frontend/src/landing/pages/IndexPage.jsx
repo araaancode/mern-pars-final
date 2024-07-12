@@ -25,7 +25,7 @@ export default function IndexPage() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center px-8">
         <div className="text">
           <h1 className="text-gray-900 text-2xl font-bold">اجاره ویلا در مقصدهای محبوب</h1>
           <h4 className="text-gray-900 mt-1">اقامتگاه در شهرهای پرطرفدار با ما</h4>
@@ -36,7 +36,7 @@ export default function IndexPage() {
         </div>
       </div>
 
-      <div className="mt-8 mb-10 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-6 lg:grid-cols-6 min-w-4xl">
+      <div className="mt-8 mb-10 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-6 lg:grid-cols-6 min-w-4xl px-8">
         {places.length > 0 && places.map(place => (
           <Link to={'/place/' + place._id} key={place._id}>
             <div className="bg-gray-500 mb-2 rounded-xl flex">

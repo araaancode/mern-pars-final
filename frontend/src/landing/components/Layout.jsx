@@ -5,7 +5,7 @@ import {Outlet} from "react-router-dom";
 export default function Layout() {
   return (
     
-    <div className="p-8 flex flex-col">
+    <div className="flex flex-col">
       <Header />
       <Outlet />
       <Footer />

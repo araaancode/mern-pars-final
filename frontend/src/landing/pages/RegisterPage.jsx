@@ -1,47 +1,68 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import { RiEyeLine, RiEyeOffLine } from '@remixicon/react';
+import {Link} from "react-router-dom"
 
-export default function RegisterPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+const LoginPage = () => {
   const [password, setPassword] = useState('');
-  async function registerUser(ev) {
-    ev.preventDefault();
-    try {
-      await axios.post('/api/register', {
-        name,
-        email,
-        password,
-      });
-      alert('با موفقیت ثبت نام شدید');
-    } catch (e) {
-      alert('خطایی وجود دارد. ثبت نام نشدید!');
-    }
-  }
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <div className="mt-4 grow flex items-center justify-around">
-      <div className="mb-64">
-        <h1 className="text-4xl text-center mb-4">ثبت نام</h1>
-        <form className="max-w-md mx-auto" onSubmit={registerUser}>
-          <input type="text"
-            placeholder="نام"
-            value={name}
-            onChange={ev => setName(ev.target.value)} />
-          <input type="email"
-            placeholder="ایمیل"
-            value={email}
-            onChange={ev => setEmail(ev.target.value)} />
-          <input type="password"
-            placeholder="پسورد"
-            value={password}
-            onChange={ev => setPassword(ev.target.value)} />
-          <button className="primary">ثبت نام</button>
-          <div className="text-center py-2 text-gray-500">
-            حساب دارید؟ <Link className="underline text-black" to={'/login'}> ورود</Link>
+    <div dir="rtl" className="flex justify-center items-center">
+      <div className="w-full max-w-md p-8 space-y-4 bg-white rounded border">
+        <h2 className="text-2xl font-bold text-center text-gray-700">ورود</h2>
+        <p style={{textAlign:'center'}} className='text-center text-gray-500 mt-1 mb-4'>در زیر می توانید وارد سایت شوید</p>
+        <form className="space-y-4">
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="phone">
+              شماره تلفن
+            </label>
+            <input style={{borderRadius:'6px'}}
+              type="text"
+              id="phone"
+              className="w-full px-3 py-2 rounded border border-gray-300 shadow-sm focus:outline-none focus:border-2 focus:border-blue-200"
+              placeholder="شماره تلفن"
+            />
           </div>
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="password">
+              رمز عبور
+            </label>
+            <div className="relative mb-4">
+              <input style={{borderRadius:'6px'}}
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:border-2 focus:border-blue-200"
+                placeholder="رمز عبور"
+              />
+              <div
+                className="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? (
+                  <RiEyeOffLine className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <RiEyeLine className="h-5 w-5 text-gray-500" />
+                )}
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="w-full rounded mb-10 px-4 py-2 font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            ورود
+          </button>
+          <p className='text-sm text-gray-800'>حساب ندارید؟ <a href='/register' className='hover:text-blue-800 hover:cursor-pointer'>ثبت نام</a></p>
         </form>
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;
