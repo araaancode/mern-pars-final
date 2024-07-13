@@ -6,7 +6,7 @@ import LinkedinIcon from '@iconscout/react-unicons/icons/uil-linkedin'
 
 const Footer = () => {
     return (
-        <footer dir='ltr' className="mt-10 text-right mb-0 bg-gray-200">
+        <footer dir='ltr' className="text-right mb-0 bg-gray-200">
             <hr className="my-2 sm:mx-auto lg:my-2" />
             <div className="mx-auto w-full max-w-screen-xl px-8 p-6">
                 <div className="md:flex md:justify-between ">

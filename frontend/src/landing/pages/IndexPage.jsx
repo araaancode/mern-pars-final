@@ -10,6 +10,7 @@ import ArrowLeftIcon from '@iconscout/react-unicons/icons/uil-angle-left.js'
 import ArrowRightIcon from '@iconscout/react-unicons/icons/uil-angle-right.js'
 
 import places from "../../places.json"
+import Header from "../components/Header";
 
 export default function IndexPage() {
   // const [places, setPlaces] = useState([]);
@@ -24,7 +25,7 @@ export default function IndexPage() {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <div className="flex justify-between items-center px-8">
         <div className="text">
           <h1 className="text-gray-900 text-2xl font-bold">اجاره ویلا در مقصدهای محبوب</h1>

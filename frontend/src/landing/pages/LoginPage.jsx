@@ -11,7 +11,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div dir="rtl" className="flex justify-center items-center">
+    <div dir="rtl" className="flex justify-center items-center my-20">
       <div className="w-full max-w-md p-8 space-y-4 bg-white rounded border">
         <h2 className="text-2xl font-bold text-center text-gray-700">ورود</h2>
         <p style={{textAlign:'center'}} className='text-center text-gray-500 mt-1 mb-4'>در زیر می توانید وارد سایت شوید</p>
