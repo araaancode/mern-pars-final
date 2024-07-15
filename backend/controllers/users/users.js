@@ -4,7 +4,7 @@ const User = require("../../models/User")
 
 exports.getMe=async(req,res)=>{
     try {
-        let user = await User.findById(req.user.id)
+        let user = await User.findById(req.user._id)
         if(user){
             return res.status(StatusCodes.OK).json({
                 status: 'success',

@@ -23,6 +23,9 @@ import ProtectedRoute from './landing/routing/ProtectedRoute';
 
 import { UserContextProvider } from "./landing/components/UserContext";
 
+import PublicRoutes from "./landing/routing/publicRoutes"
+import PrivateRoutes from "./landing/routing/privateRoutes"
+
 
 // Importing pages
 const Layout = lazy(() => import('./admin/containers/Layout'))
@@ -81,18 +84,24 @@ function App() {
             {/* landing page */}
             <Route path="/" element={<IndexLayout />}>
               <Route index element={<IndexPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route element={<ProtectedRoute />}>
+              <Route element={<PublicRoutes />}>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+              </Route>
+              <Route element={<PrivateRoutes />}>
+                <Route path="/account/places" element={<PlacesPage />} />
+                <Route path="/account/places/new" element={<PlacesFormPage />} />
+                <Route path="/account/places/:id" element={<PlacesFormPage />} />
+                <Route path="/place/:id" element={<PlacePage />} />
+                <Route path="/account/bookings" element={<BookingsPage />} />
+                <Route path="/account/bookings/:id" element={<BookingPage />} />
                 <Route path='/profile' element={<ProfilePage />} />
               </Route>
-              <Route path="/account/places" element={<PlacesPage />} />
-              <Route path="/account/places/new" element={<PlacesFormPage />} />
-              <Route path="/account/places/:id" element={<PlacesFormPage />} />
-              <Route path="/place/:id" element={<PlacePage />} />
-              <Route path="/account/bookings" element={<BookingsPage />} />
-              <Route path="/account/bookings/:id" element={<BookingPage />} />
             </Route>
+
+
+
+
 
             {/* admins routes*/}
             <Route path="/admins/login" element={<Login />} />

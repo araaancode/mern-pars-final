@@ -18,6 +18,9 @@ export default function Header() {
   })
 
 
+
+  const userToken = localStorage.getItem("userToken")
+
   return (
     <div style={{
       backgroundImage: "url(" + "https://wallpapercave.com/wp/wp2065959.jpg" + ")",
@@ -34,7 +37,7 @@ export default function Header() {
           <RiTentLine className="w-12 h-12 text-white" />
         </Link>
 
-        <Link to={userInfo ? '/profile' : '/login'} className="flex items-center rounded-lg py-1 px-4">
+        <Link to={userToken ? '/profile' : '/login'} className="flex items-center rounded-lg py-1 px-4">
 
           {!!userInfo && (
             <div className="text-white">

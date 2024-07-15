@@ -4,9 +4,8 @@ import { NavLink, Outlet } from 'react-router-dom'
 const ProtectedRoute = () => {
   const { userInfo } = useSelector((state) => state.auth)
 
-  const userToken = localStorage.getItem("userToken")
+  const userToken = localStorage.getItem("userToken") || userInfo
 
-  console.log(userToken);
 
   // show unauthorized screen if no user is found in redux store
   if (!userToken) {
@@ -22,7 +21,9 @@ const ProtectedRoute = () => {
     <NavLink to='/' />
   }
 
-  return <Outlet />
+ 
 }
 
 export default ProtectedRoute
+
+

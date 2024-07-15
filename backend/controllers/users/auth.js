@@ -141,13 +141,13 @@ exports.login = async (req, res, next) => {
     // 3) If everything ok, send token to client
     // createSendToken(user,StatusCodes.OK, 'success','با موفقیت وارد سایت شدید', req, res);
     if (user) {
-      res.status(StatusCodes.OK).json({
+       return res.status(StatusCodes.OK).json({
         status: 'success',
         msg: "با موفقیت وارد سایت شدید",
         user
       });
     } else {
-      res.status(StatusCodes.NOT_FOUND).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         status: 'failure',
         msg: "کاربر یافت نشد. باید ثبت نام کنید.",
       });
