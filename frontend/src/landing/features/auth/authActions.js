@@ -23,17 +23,18 @@ export const userLogin = createAsyncThunk(
         config
       )
 
-      // store user's token in local storage
-      // localStorage.setItem('userToken', data.userToken)
-
-      console.log(data);
+      await axios.post(
+        `${backendURL}/api/users/auth/send-otp`,
+        { phone },
+        config
+      )
 
       return data
       
     } catch (error) {
       // return custom error message from API if any
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
+      if (error.response && error.response.data.msg) {
+        return rejectWithValue(error.response.data.msg)
       } else {
         return rejectWithValue(error.message)
       }
@@ -86,8 +87,8 @@ export const sendOTP = createAsyncThunk(
 
 
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
+      if (error.response && error.response.data.msg) {
+        return rejectWithValue(error.response.data.msg)
       } else {
         return rejectWithValue(error.message)
       }
@@ -115,8 +116,8 @@ export const verifyOTP = createAsyncThunk(
       localStorage.setItem('userToken', data.token)
       return data
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
+      if (error.response && error.response.data.msg) {
+        return rejectWithValue(error.response.data.msg)
       } else {
         return rejectWithValue(error.message)
       }

@@ -1,38 +1,50 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-// import { UserContext } from "../components/UserContext";
+import { useDispatch, useSelector } from 'react-redux'
 import ExtraLinks from "../components/ExtraLinks";
 import Navbar from "../components/Navbar";
+import { useGetUserDetailsQuery } from "../app/services/auth/authService"
 
-import { RiTentLine,RiUser3Fill } from "@remixicon/react";
+import { RiTentLine, RiUser3Fill,RiSearchLine } from "@remixicon/react";
 
 
 export default function Header() {
-  const { user } = "user"
+  const { userInfo } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+
+  // automatically authenticate user if token is found
+  const { data, isFetching } = useGetUserDetailsQuery('userDetails', {
+    // perform a refetch every 15mins
+    pollingInterval: 900000,
+  })
+
+
   return (
     <div style={{
-      backgroundImage: "url(" + "https://www.homsa.net/images/slider/slider_1656249633.png" + ")",
+      backgroundImage: "url(" + "https://wallpapercave.com/wp/wp2065959.jpg" + ")",
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      height:'550px',
-    }} className="mb-20 ">
+      height: '580px',
+      borderBottomLeftRadius:'25px',
+      borderBottomRightRadius:'25px',
+    }} className="mb-20">
 
-      <header className="flex justify-between mb-10 px-10 py-4">
+      <header className="flex justify-between mb-10 px-10 py-6">
         <Link to={'/'} className="flex items-center gap-1">
-          <RiTentLine className="w-8 h-8" />
+          <RiTentLine className="w-12 h-12 text-white" />
         </Link>
 
-        <Link to={user ? '/account' : '/login'} className="flex items-center rounded-lg py-1 px-4">
-          <div className="rounded-full overflow-hidden">
-           <RiUser3Fill className="w-8 h-8" />
-          </div>
+        <Link to={userInfo ? '/profile' : '/login'} className="flex items-center rounded-lg py-1 px-4">
 
-          {!!user && (
-            <div>
-              {user.name}
+          {!!userInfo && (
+            <div className="text-white">
+              {userInfo.phone}
             </div>
           )}
+
+          <div className="rounded-full overflow-hidden">
+            <RiUser3Fill className="w-5 h-5 text-white mr-2" />
+          </div>
         </Link>
 
       </header>

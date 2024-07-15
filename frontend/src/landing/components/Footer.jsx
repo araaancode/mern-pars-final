@@ -3,6 +3,7 @@ import React from 'react'
 import TwitterIcon from '@iconscout/react-unicons/icons/uil-twitter'
 import InstagramIcon from '@iconscout/react-unicons/icons/uil-instagram'
 import LinkedinIcon from '@iconscout/react-unicons/icons/uil-linkedin'
+import { RiTentLine, RiUser3Fill } from "@remixicon/react";
 
 const Footer = () => {
     return (
@@ -12,7 +13,8 @@ const Footer = () => {
                 <div className="md:flex md:justify-between ">
                     <div className="mb-2 md:mb-0 ">
                         <a href="/" className="flex items-center">
-                            <img src="https://cdn-icons-png.flaticon.com/128/9299/9299496.png" className="h-16 w-16 " alt="Logo" />
+                            {/* <img src="https://cdn-icons-png.flaticon.com/128/9299/9299496.png" className="h-16 w-16 " alt="Logo" /> */}
+                            <RiTentLine className="w-12 h-12" />
                         </a>
                         <p className='text-gray-800 mt-2 mb-4'>ما را در شبکه های اجتماعی دنبال کنید</p>
                         <div className='flex flex-row mt-2'>

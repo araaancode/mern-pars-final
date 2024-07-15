@@ -3,7 +3,6 @@ import { RiEyeLine, RiEyeOffLine } from '@remixicon/react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useHistory, useNavigationType } from 'react-router-dom'
 import { registerUser } from "../features/auth/authActions"
-import Error from "../components/Error"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

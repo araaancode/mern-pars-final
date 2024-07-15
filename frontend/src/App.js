@@ -5,7 +5,7 @@ import { themeChange } from 'theme-change'
 import checkAuth from './admin/app/auth';
 import initializeApp from './admin/app/init';
 import axios from "axios"
-import {data} from "autoprefixer"
+import { data } from "autoprefixer"
 
 // landing pages 
 import IndexLayout from "./landing/components/Layout"
@@ -18,6 +18,8 @@ import PlacesFormPage from "./landing/pages/PlacesFormPage"
 import PlacePage from "./landing/pages/PlacePage"
 import BookingsPage from "./landing/pages/BookingsPage"
 import BookingPage from "./landing/pages/BookingPage"
+import ProtectedRoute from './landing/routing/ProtectedRoute';
+
 
 import { UserContextProvider } from "./landing/components/UserContext";
 
@@ -48,6 +50,8 @@ const CooksForgotPassword = lazy(() => import('./cooks/pages/ForgotPassword'))
 const CooksRegister = lazy(() => import('./cooks/pages/Register'))
 
 
+
+
 // Initializing different libraries
 initializeApp()
 
@@ -57,6 +61,8 @@ const token = checkAuth()
 
 axios.defaults.baseURL = "http://localhost:5000/";
 axios.defaults.withCredentials = true;
+
+
 
 function App() {
 
@@ -77,7 +83,9 @@ function App() {
               <Route index element={<IndexPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="/account" element={<ProfilePage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path='/profile' element={<ProfilePage />} />
+              </Route>
               <Route path="/account/places" element={<PlacesPage />} />
               <Route path="/account/places/new" element={<PlacesFormPage />} />
               <Route path="/account/places/:id" element={<PlacesFormPage />} />

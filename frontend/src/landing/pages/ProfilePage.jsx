@@ -1,9 +1,18 @@
-import React from 'react'
+import { useSelector } from 'react-redux'
 
-const ProfilePage = () => {
+const ProfileScreen = () => {
+  const { userInfo } = useSelector((state) => state.auth)
+
+    
   return (
-    <div>ProfilePage</div>
+    <div>
+      <figure>{userInfo.phone}</figure>
+      <span>
+        Welcome <strong>{userInfo.phone}!</strong> You can view this page
+        because you're logged in
+      </span>
+    </div>
   )
 }
 
-export default ProfilePage
+export default ProfileScreen

@@ -11,6 +11,7 @@ import ArrowRightIcon from '@iconscout/react-unicons/icons/uil-angle-right.js'
 
 import places from "../../places.json"
 import Header from "../components/Header";
+import Footer from "../components/Footer.jsx";
 
 export default function IndexPage() {
   // const [places, setPlaces] = useState([]);
@@ -19,8 +20,6 @@ export default function IndexPage() {
   //     setPlaces(response.data);
   //   });
   // }, []);
-
-  console.log(places);
 
 
   return (
@@ -58,6 +57,7 @@ export default function IndexPage() {
       <PhotoSlider places={places} />
       <North places={places} />
       <Center places={places} />
+      <Footer />
     </>
 
   );
