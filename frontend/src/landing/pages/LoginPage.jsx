@@ -77,8 +77,8 @@ const LoginPage = () => {
           </div> 
           ) : (
         <div className="w-full max-w-md p-8 space-y-4 bg-white rounded border">
-          <h2 className="text-xl font-bold text-gray-700">ورود</h2>
-          <p className='text-gray-500 mt-1 mb-4'>برای ورود شماره موبایل خود را وارد کنید. </p>
+          <h2 className="text-center text-xl font-bold text-gray-700">ورود</h2>
+          <p className='text-center text-gray-500 mt-1 mb-4'>برای ورود شماره موبایل خود را وارد کنید. </p>
           <form className="space-y-4" onSubmit={handleSubmit(submitForm)}>
             <div>
               <label className="block mb-2 mt-6 text-sm font-medium text-gray-700">

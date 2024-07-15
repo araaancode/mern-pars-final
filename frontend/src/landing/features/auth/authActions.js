@@ -57,8 +57,9 @@ export const registerUser = createAsyncThunk(
         config
       )
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
+      console.log(error);
+      if (error.response && error.response.data.msg) {
+        return rejectWithValue(error.response.data.msg)
       } else {
         return rejectWithValue(error.message)
       }
