@@ -68,7 +68,7 @@ function App() {
 
   return (
     <>
-      <UserContextProvider>
+      <>
         <Router>
           <Routes>
 
@@ -118,7 +118,7 @@ function App() {
 
           </Routes>
         </Router>
-      </UserContextProvider>
+      </>
     </>
   )
 }

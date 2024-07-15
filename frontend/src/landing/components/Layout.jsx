@@ -7,7 +7,7 @@ export default function Layout() {
     
     <div className="flex flex-col">
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

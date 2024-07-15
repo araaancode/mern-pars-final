@@ -26,30 +26,30 @@ connection()
 const userAuthRoutes = require("./routes/users/auth")
 const userRoutes = require("./routes/users/users")
 
-const adminAuthRoutes = require("./routes/admins/auth")
-const adminRoutes = require("./routes/admins/admins")
-const adminUserRoutes = require("./routes/admins/users")
-const adminDriverRoutes = require("./routes/admins/drivers")
-const adminOwnerRoutes = require("./routes/admins/owners")
-const adminCookRoutes = require("./routes/admins/cooks")
-const adminHouseRoutes = require("./routes/admins/houses")
-const adminHouseReservationRoutes = require("./routes/admins/houseReservations")
-const adminBusRoutes = require("./routes/admins/buses")
-const adminBusesTicketRoutes = require("./routes/admins/busTickets")
-const adminSupportTicketRoutes = require("./routes/admins/supportTickets")
+// const adminAuthRoutes = require("./routes/admins/auth")
+// const adminRoutes = require("./routes/admins/admins")
+// const adminUserRoutes = require("./routes/admins/users")
+// const adminDriverRoutes = require("./routes/admins/drivers")
+// const adminOwnerRoutes = require("./routes/admins/owners")
+// const adminCookRoutes = require("./routes/admins/cooks")
+// const adminHouseRoutes = require("./routes/admins/houses")
+// const adminHouseReservationRoutes = require("./routes/admins/houseReservations")
+// const adminBusRoutes = require("./routes/admins/buses")
+// const adminBusesTicketRoutes = require("./routes/admins/busTickets")
+// const adminSupportTicketRoutes = require("./routes/admins/supportTickets")
 
-const driverAuthRoutes = require("./routes/drivers/auth")
-const driverRoutes = require("./routes/drivers/drivers")
+// const driverAuthRoutes = require("./routes/drivers/auth")
+// const driverRoutes = require("./routes/drivers/drivers")
 
-const ownerAuthRoutes = require("./routes/owners/auth")
-const ownerRoutes = require("./routes/owners/owners")
+// const ownerAuthRoutes = require("./routes/owners/auth")
+// const ownerRoutes = require("./routes/owners/owners")
 
 // middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:5173',
+  origin: 'http://localhost:3000',
 }));
 
 app.use(cookieParser())
@@ -79,25 +79,25 @@ app.use('/api/users/auth', userAuthRoutes)
 app.use('/api/users', userRoutes)
 
 // *** admins endpoints ***
-app.use('/api/admins/auth', adminAuthRoutes)
-app.use('/api/admins/drivers', adminDriverRoutes)
-app.use('/api/admins/users', adminUserRoutes)
-app.use('/api/admins/owners', adminOwnerRoutes)
-app.use('/api/admins/cooks', adminCookRoutes)
-app.use('/api/admins/houses', adminHouseRoutes)
-app.use('/api/admins/houses-reservations', adminHouseReservationRoutes)
-app.use('/api/admins/buses', adminBusRoutes)
-app.use('/api/admins/buses-tickets', adminBusesTicketRoutes)
-app.use('/api/admins/support-tickets', adminSupportTicketRoutes)
-app.use('/api/admins', adminRoutes)
+// app.use('/api/admins/auth', adminAuthRoutes)
+// app.use('/api/admins/drivers', adminDriverRoutes)
+// app.use('/api/admins/users', adminUserRoutes)
+// app.use('/api/admins/owners', adminOwnerRoutes)
+// app.use('/api/admins/cooks', adminCookRoutes)
+// app.use('/api/admins/houses', adminHouseRoutes)
+// app.use('/api/admins/houses-reservations', adminHouseReservationRoutes)
+// app.use('/api/admins/buses', adminBusRoutes)
+// app.use('/api/admins/buses-tickets', adminBusesTicketRoutes)
+// app.use('/api/admins/support-tickets', adminSupportTicketRoutes)
+// app.use('/api/admins', adminRoutes)
 
 // *** drivers endpoints ***
-app.use('/api/drivers/auth', driverAuthRoutes)
-app.use('/api/drivers', driverRoutes)
+// app.use('/api/drivers/auth', driverAuthRoutes)
+// app.use('/api/drivers', driverRoutes)
 
 // *** owners endpoints ***
-app.use('/api/owners/auth', ownerAuthRoutes)
-app.use('/api/owners', ownerRoutes)
+// app.use('/api/owners/auth', ownerAuthRoutes)
+// app.use('/api/owners', ownerRoutes)
 
 
 // error middlewares

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { RiEyeLine, RiEyeOffLine } from '@remixicon/react';
 import {Link} from "react-router-dom"
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -11,10 +11,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div dir="rtl" className="flex justify-center items-center">
+    <div dir="rtl" className="flex justify-center items-center h-screen">
       <div className="w-full max-w-md p-8 space-y-4 bg-white rounded border">
-        <h2 className="text-2xl font-bold text-center text-gray-700">ورود</h2>
-        <p style={{textAlign:'center'}} className='text-center text-gray-500 mt-1 mb-4'>در زیر می توانید وارد سایت شوید</p>
+        <h2 className="text-2xl font-bold text-center text-gray-700">ثبت نام</h2>
+        <p style={{textAlign:'center'}} className='text-center text-gray-500 mt-1 mb-4'>در زیر می توانید ثبت نام کنید</p>
         <form className="space-y-4">
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="phone">
@@ -56,13 +56,13 @@ const LoginPage = () => {
             type="button"
             className="w-full rounded mb-10 px-4 py-2 font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            ورود
+            ثبت نام
           </button>
-          <p className='text-sm text-gray-800'>حساب ندارید؟ <a href='/register' className='hover:text-blue-800 hover:cursor-pointer'>ثبت نام</a></p>
+          <p className='text-sm text-gray-800'>حساب دارید؟ <a href='/login' className='hover:text-blue-800 hover:cursor-pointer'>ورود</a></p>
         </form>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

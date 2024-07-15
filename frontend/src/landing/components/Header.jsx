@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../components/UserContext";
+// import { UserContext } from "../components/UserContext";
 import ExtraLinks from "../components/ExtraLinks";
 import Navbar from "../components/Navbar";
 
@@ -8,7 +8,7 @@ import { RiTentLine,RiUser3Fill } from "@remixicon/react";
 
 
 export default function Header() {
-  const { user } = useContext(UserContext);
+  const { user } = "user"
   return (
     <div style={{
       backgroundImage: "url(" + "https://www.homsa.net/images/slider/slider_1656249633.png" + ")",
