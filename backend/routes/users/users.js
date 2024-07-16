@@ -6,8 +6,11 @@ const userCtrls = require("../../controllers/users/users")
 
 const protect = require("../../middlewares/authUser")
 
+const { userUpload } = require("../../utils/upload")
+
 router.get('/me', protect, userCtrls.getMe)
-router.put('/update-avatar', userCtrls.updateAvatar)
+router.put('/update-profile', protect, userCtrls.updateProfile)
+router.put('/update-avatar', protect, userUpload.single('avatar'), userCtrls.updateAvatar)
 router.get('/search-houses', userCtrls.searchHouses)
 router.post('/book-house', userCtrls.bookHouse)
 router.get('/notifications', userCtrls.notifications)

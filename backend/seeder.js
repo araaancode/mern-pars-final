@@ -4,9 +4,6 @@ const dotenv = require('dotenv');
 const colors = require('colors');
 const House = require('./models/House');
 const houses = require("./data/houses")
-// const Bus = require('../models/Bus');
-// const buses = require("../data/buses")
-
 
 const connectDB = require('./config/db');
 
@@ -18,7 +15,6 @@ connectDB()
 const importData = async () => {
   try {
     await House.deleteMany()
-    // await Bus.deleteMany()
 
     // import houses
     const sampleHouses = houses.map((house) => {
@@ -26,14 +22,6 @@ const importData = async () => {
     })
 
     await House.insertMany(sampleHouses)
-
-    // // import buses
-    // const sampleBuses = buses.map((bus) => {
-    //   return { ...bus }
-    // })
-
-    // await Bus.insertMany(sampleBuses)
-
 
     console.log('Data Imported!'.green.inverse)
     process.exit()

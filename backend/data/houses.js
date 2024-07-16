@@ -3,6 +3,10 @@ const moment = require("moment")
 const mongoose = require('mongoose');
 const { BSON } = require('bson');
 const { ObjectId, Long, Double, Int32, Decimal128, Timestamp } = BSON;
+const axios = require("axios")
+const accessKey = "tqMsEOfDWYkmAJBdiJ66SLHP7-jwTwYyHdB1PY94kak"
+const { Agent, fetch, setGlobalDispatcher } = require("undici")
+
 
 const cities = [
     "arak",
@@ -38,9 +42,18 @@ const cities = [
     "yazd",
 ];
 
-
+const houseTypes=["cottage","apartment","garden","villa","room"]
 
 function makeRandomCity(arr) {
+    if (!Array.isArray(arr) || arr.length === 0) {
+        throw new Error('Input must be a non-empty array of strings');
+    }
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    return arr[randomIndex];
+}
+
+
+function makeRandomHouseType(arr) {
     if (!Array.isArray(arr) || arr.length === 0) {
         throw new Error('Input must be a non-empty array of strings');
     }
@@ -55,15 +68,39 @@ function makeRandomPrice(min = 150000, max = 1000000) {
 }
 
 
+
+function generateRandomHouseImage() {
+    const apiKey = 'tqMsEOfDWYkmAJBdiJ66SLHP7-jwTwYyHdB1PY94kak'; // Replace with your Unsplash API key
+    const url = `https://api.unsplash.com/photos/random?query=cottage&client_id=${apiKey}`;
+
+    try {
+        const response = fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+
+        const data = response.json();
+        const imageUrl = data.urls.regular;
+
+
+        return imageUrl
+
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+}
+
+
 let houses = []
 
 for (let i = 1; i <= 500; i++) {
     let data = {
         "owner": new ObjectId().toString(),
-        "name": `house ${i}`,
+        "name": `خانه ${i}`,
         "province":makeRandomCity(cities),
         "city": makeRandomCity(cities),
         "price":makeRandomPrice(),
+        "houseType":makeRandomHouseType(houseTypes),
         "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4AmsnPw1mmGtdSxSdLIRgTLenF-NdiGJAElnuFE8n5DbMuWb_g6AKpbGrWKLQzzO05U&usqp=CAU",
         "images": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4AmsnPw1mmGtdSxSdLIRgTLenF-NdiGJAElnuFE8n5DbMuWb_g6AKpbGrWKLQzzO05U&usqp=CAU","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4AmsnPw1mmGtdSxSdLIRgTLenF-NdiGJAElnuFE8n5DbMuWb_g6AKpbGrWKLQzzO05U&usqp=CAU","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4AmsnPw1mmGtdSxSdLIRgTLenF-NdiGJAElnuFE8n5DbMuWb_g6AKpbGrWKLQzzO05U&usqp=CAU"]
     }
