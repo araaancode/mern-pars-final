@@ -1,14 +1,11 @@
-import { useSelector } from 'react-redux'
+import React from "react"
 
 const ProfileScreen = () => {
-  const { userInfo } = useSelector((state) => state.auth)
-
-    
   return (
     <div>
-      <figure>{userInfo.phone}</figure>
+      <figure></figure>
       <span>
-        Welcome <strong>{userInfo.phone}!</strong> You can view this page
+        Welcome <strong>!</strong> You can view this page
         because you're logged in
       </span>
     </div>

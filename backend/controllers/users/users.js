@@ -93,7 +93,7 @@ exports.updateAvatar = async (req, res) => {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             msg: "خطای داخلی سرور",
             error: error
-        }) 
+        })
     }
 }
 
@@ -133,7 +133,7 @@ exports.getHouse = async (req, res) => {
                 house: house
             })
         } else {
-            return res.status(StatusCodes.BAD_REQUEST).json({
+            return res.status(400).json({
                 status: 'failure',
                 msg: "خانه پیدا نشد"
             })
@@ -148,8 +148,43 @@ exports.getHouse = async (req, res) => {
     }
 }
 
-exports.searchHouses = (req, res) => {
-    res.send("user searchHouses")
+exports.searchHouses = async (req, res) => {
+    let { city, checkIn, checkOut, guests } = req.body
+
+    try {
+        let houses = await House.find({})
+
+        let findHouses = []
+
+        for (let i = 0; i < houses.length; i++) {
+            if(houses[i].city === city){
+                findHouses.push(houses[i]);
+            }
+        }
+
+
+        if (findHouses.length > 0) {
+            res.status(StatusCodes.OK).json({
+                status: 'success',
+                msg: "اقامتگاه پیدا شد",
+                count: findHouses.length,
+                houses: findHouses
+            });
+        } else {
+            res.status(StatusCodes.NOT_FOUND).json({
+                status: 'failure',
+                msg: "اقامتگاهی یافت نشد",
+            });
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
 }
 
 exports.bookHouse = (req, res) => {

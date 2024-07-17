@@ -19,6 +19,7 @@ import PlacePage from "./landing/pages/PlacePage"
 import BookingsPage from "./landing/pages/BookingsPage"
 import BookingPage from "./landing/pages/BookingPage"
 import ProtectedRoute from './landing/routing/ProtectedRoute';
+import SearchResultsPage from './landing/pages/SearchResultsPage';
 
 
 import { UserContextProvider } from "./landing/components/UserContext";
@@ -60,7 +61,7 @@ initializeApp()
 
 
 // Check for login and initialize axios
-const token = checkAuth()
+// const token = checkAuth()
 
 axios.defaults.baseURL = "http://localhost:5000/";
 axios.defaults.withCredentials = true;
@@ -84,11 +85,11 @@ function App() {
             {/* landing page */}
             <Route path="/" element={<IndexLayout />}>
               <Route index element={<IndexPage />} />
-              <Route element={<PublicRoutes />}>
+              {/* <Route element={<PublicRoutes />}> */}
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-              </Route>
-              <Route element={<PrivateRoutes />}>
+              {/* </Route> */}
+              {/* <Route element={<PrivateRoutes />}> */}
                 <Route path="/account/places" element={<PlacesPage />} />
                 <Route path="/account/places/new" element={<PlacesFormPage />} />
                 <Route path="/account/places/:id" element={<PlacesFormPage />} />
@@ -96,42 +97,39 @@ function App() {
                 <Route path="/account/bookings" element={<BookingsPage />} />
                 <Route path="/account/bookings/:id" element={<BookingPage />} />
                 <Route path='/profile' element={<ProfilePage />} />
-              </Route>
+                <Route path='/search-houses' element={<SearchResultsPage />} />
+              {/* </Route> */}
             </Route>
 
-
-
-
-
             {/* admins routes*/}
-            <Route path="/admins/login" element={<Login />} />
+            {/* <Route path="/admins/login" element={<Login />} />
             <Route path="/admins/forgot-password" element={<ForgotPassword />} />
             <Route path="/admins/register" element={<Register />} />
             <Route path="/admins/*" element={<Layout />} />
-            <Route path="/admins" element={<Navigate to={token ? "/admins/welcome" : "/admins/login"} replace />} />
+            <Route path="/admins" element={<Navigate to={token ? "/admins/welcome" : "/admins/login"} replace />} /> */}
 
 
 
             {/* drivers pages */}
-            <Route path="/drivers" element={<Navigate to={token ? "/drivers/welcome" : "/drivers/login"} replace />} />
+            {/* <Route path="/drivers" element={<Navigate to={token ? "/drivers/welcome" : "/drivers/login"} replace />} />
             <Route path="/drivers/*" element={<DriversLayout />} />
             <Route path="/drivers/login" element={<DriversLogin />} />
             <Route path="/drivers/forgot-password" element={<DriversForgotPassword />} />
-            <Route path="/drivers/register" element={<DriversRegister />} />
+            <Route path="/drivers/register" element={<DriversRegister />} /> */}
 
             {/* owners pages */}
-            <Route path="/owners" element={<Navigate to={token ? "/owners/welcome" : "/owners/login"} replace />} />
+            {/* <Route path="/owners" element={<Navigate to={token ? "/owners/welcome" : "/owners/login"} replace />} />
             <Route path="/owners/*" element={<OwnersLayout />} />
             <Route path="/owners/login" element={<OwnersLogin />} />
             <Route path="/owners/forgot-password" element={<OwnersForgotPassword />} />
-            <Route path="/owners/register" element={<OwnersRegister />} />
+            <Route path="/owners/register" element={<OwnersRegister />} /> */}
 
             {/* owners pages */}
-            <Route path="/cooks" element={<Navigate to={token ? "/cooks/welcome" : "/cooks/login"} replace />} />
+            {/* <Route path="/cooks" element={<Navigate to={token ? "/cooks/welcome" : "/cooks/login"} replace />} />
             <Route path="/cooks/*" element={<CooksLayout />} />
             <Route path="/cooks/login" element={<CooksLogin />} />
             <Route path="/cooks/forgot-password" element={<CooksForgotPassword />} />
-            <Route path="/cooks/register" element={<CooksRegister />} />
+            <Route path="/cooks/register" element={<CooksRegister />} /> */}
 
           </Routes>
         </Router>

@@ -64,7 +64,7 @@ const houseSchema = new mongoose.Schema({
         type: Number,
     },
 
-    capicity: {
+    capacity: {
         type: Number,
     },
 
@@ -80,7 +80,7 @@ const houseSchema = new mongoose.Schema({
         type: String,
     },
 
-    images: [{type:String}],
+    images: [{ type: String }],
 
     houseRoles: {
         type: String,
@@ -94,6 +94,10 @@ const houseSchema = new mongoose.Schema({
         type: String,
         enum: ["cottage", "apartment", "garden", "villa", "room"]
     },
+
+    checkIn: Number,
+    
+    checkOut: Number,
 
     floor: {
         type: String,

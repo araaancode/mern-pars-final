@@ -34,9 +34,9 @@ export default function PlacePage() {
 
   return (
     <>
-      <header className="flex justify-between mb-10 px-10 pt-6">
+      <header className="flex justify-between mb-2 px-10 pt-6 items-center">
         <Link to={'/'} className="flex items-center gap-1">
-          <RiTentLine className="w-12 h-12 " />
+          <RiTentLine className="w-12 h-12" />
         </Link>
 
         <div className="flex jusrify-center">
@@ -54,7 +54,7 @@ export default function PlacePage() {
           )}
 
           <div className="rounded-full overflow-hidden">
-            <RiUser3Fill className="w-5 h-5  mr-2" />
+            <RiUser3Fill className="w-6 h-6  mr-2" />
           </div>
         </Link>
 
