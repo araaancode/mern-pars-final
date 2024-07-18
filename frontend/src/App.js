@@ -13,9 +13,9 @@ import IndexPage from "./landing/pages/IndexPage"
 import LoginPage from "./landing/pages/LoginPage"
 import RegisterPage from "./landing/pages/RegisterPage"
 import ProfilePage from "./landing/pages/ProfilePage"
-import PlacesPage from "./landing/pages/PlacesPage"
-import PlacesFormPage from "./landing/pages/PlacesFormPage"
-import PlacePage from "./landing/pages/PlacePage"
+import HousesPage from "./landing/pages/HousesPage"
+import HousesFormPage from "./landing/pages/HousesFormPage"
+import HousePage from "./landing/pages/HousePage"
 import BookingsPage from "./landing/pages/BookingsPage"
 import BookingPage from "./landing/pages/BookingPage"
 import ProtectedRoute from './landing/routing/ProtectedRoute';
@@ -90,10 +90,10 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
               {/* </Route> */}
               {/* <Route element={<PrivateRoutes />}> */}
-                <Route path="/account/places" element={<PlacesPage />} />
-                <Route path="/account/places/new" element={<PlacesFormPage />} />
-                <Route path="/account/places/:id" element={<PlacesFormPage />} />
-                <Route path="/place/:id" element={<PlacePage />} />
+                <Route path="/account/places" element={<HousesPage />} />
+                <Route path="/account/places/new" element={<HousesFormPage />} />
+                <Route path="/account/places/:id" element={<HousesFormPage />} />
+                <Route path="/house/:id" element={<HousePage />} />
                 <Route path="/account/bookings" element={<BookingsPage />} />
                 <Route path="/account/bookings/:id" element={<BookingPage />} />
                 <Route path='/profile' element={<ProfilePage />} />

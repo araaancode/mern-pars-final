@@ -8,7 +8,7 @@ import Image from "../components/Image";
 
 
 
-const Center = ({ places }) => {
+const Center = ({ houses }) => {
 
     return (
         <div className='p-8 mt-10'>
@@ -22,20 +22,20 @@ const Center = ({ places }) => {
                     <button className="btn mr-2 w-10 h-10 bg-white text-black p-2 border border-gray-300 rounded-xl"><ArrowLeftIcon /></button>
                 </div>
             </div>
-            <div className="mt-8 mb-10 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-6 lg:grid-cols-6 min-w-4xl">
-                {places.length > 0 && places.slice(20,26).map(place => (
-                    <Link to={'/place/' + place._id}>
+            <div className="mt-8 mb-10 grid gap-x-6 gap-y-8 grid-cols-6 md:grid-cols-4 lg:grid-cols-4 min-w-4xl">
+                {houses.length > 0 && houses.slice(20,26).map(house => (
+                    <Link to={'/house/' + house._id} key={house._id}>
                         <div className="bg-gray-500 mb-2 rounded-xl flex">
-                            {place.photos?.[0] && (
-                                <Image className="rounded-xl object-cover aspect-square" src={place.photos?.[0]} alt="" />
+                            {house.images?.[0] && (
+                                <Image className="rounded-xl object-cover aspect-square" src={house.images?.[0]} alt="" />
                             )}
                         </div>
-                        <h2 className="font-bold">{place.address}</h2>
-                        <h3 className="text-sm text-gray-500">{place.title}</h3>
+                        <h2 className="font-bold">{house.address}</h2>
+                        <h3 className="text-sm text-gray-500">{house.name}</h3>
                         <div className="mt-1">
                             قیمت به ازای هر شب
-                            <span className="font-bold"> {place.price}</span>
-                            <small className="text-gray-500 block">{place.description}</small>
+                            <span className="font-bold"> {house.price}</span>
+                            <small className="text-gray-500 block">{house.description}</small>
                         </div>
                     </Link>
                 ))}

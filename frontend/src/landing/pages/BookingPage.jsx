@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import AddressLink from "../components/AddressLink";
-import PlaceGallery from "../components/PlaceGallery";
+import HouseGallery from "../components/HouseGallery";
 import BookingDates from "../components/BookingDates";
 
 export default function BookingPage() {
@@ -10,7 +10,7 @@ export default function BookingPage() {
   const [booking,setBooking] = useState(null);
   useEffect(() => {
     if (id) {
-      axios.get('/api/bookings').then(response => {
+      axios.get('/api/users/bookings').then(response => {
         const foundBooking = response.data.find(({_id}) => _id === id);
         if (foundBooking) {
           setBooking(foundBooking);
@@ -25,8 +25,8 @@ export default function BookingPage() {
 
   return (
     <div className="my-8">
-      <h1 className="text-3xl">{booking.place.title}</h1>
-      <AddressLink className="my-2 block">{booking.place.address}</AddressLink>
+      <h1 className="text-3xl">{booking.house.title}</h1>
+      <AddressLink className="my-2 block">{booking.house.address}</AddressLink>
       <div className="bg-gray-200 p-6 my-6 rounded-2xl flex items-center justify-between">
         <div>
           <h2 className="text-2xl mb-4">اطلاعات رزرو شما:</h2>
@@ -37,7 +37,7 @@ export default function BookingPage() {
           <div className="text-3xl">{booking.price}</div>
         </div>
       </div>
-      <PlaceGallery place={booking.place} />
+      <HouseGallery place={booking.house} />
       <div className="bg-white -mx-8 px-8 py-8 border-t">
         <div className="mt-4 mb-4">
           <h2 className="font-semibold text-2xl">اطلاعات اضافی</h2>

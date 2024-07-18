@@ -3,7 +3,8 @@ import AccountNav from "../components/AccountNav";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import PlaceImg from "../components/PlaceImg";
-export default function PlacesPage() {
+
+export default function HousesPage() {
   const [places,setPlaces] = useState([]);
   useEffect(() => {
     axios.get('/api/user-places').then(({data}) => {

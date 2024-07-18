@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BookingWidget from "../components/BookingWidget";
-import PlaceGallery from "../components/PlaceGallery";
+import HouseGallery from "../components/HouseGallery";
 import AddressLink from "../components/AddressLink";
 import MapPage from "../components/MapPage"
 import Header from "../components/Header"
@@ -12,23 +12,22 @@ import { RiTentLine, RiUser3Fill, RiSearchLine } from "@remixicon/react";
 import { useDispatch, useSelector } from 'react-redux'
 
 
-export default function PlacePage() {
+export default function HousePage() {
   const { userInfo } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const { id } = useParams();
-  // const [place, setPlace] = useState(null);
-  // useEffect(() => {
-  //   if (!id) {
-  //     return;
-  //   }
-  //   axios.get(`/api/places/${id}`).then(response => {
-  //     setPlace(response.data);
-  //   });
-  // }, [id]);
+  const [house, setHouse] = useState(null);
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+    axios.get(`/api/users/houses/${id}`).then(response => {
+      setHouse(response.data.house);
+    });
+  }, [id]);
 
-  // if (!place) return '';
+  if (!house) return '';
 
-  const place = places.find(place => place._id == id)
 
 
 
@@ -61,28 +60,28 @@ export default function PlacePage() {
       </header>
       <div className="border shadow shadow-lg"></div>
       <div dir="ltr" className="bg-gray-100 px-8 pt-8">
-        <h1 className="text-3xl">{place.title}</h1>
-        <AddressLink>{place.address}</AddressLink>
-        <PlaceGallery place={place} />
+        <h1 className="text-3xl">{house.name}</h1>
+        <AddressLink>{house.address}</AddressLink>
+        <HouseGallery house={house} />
         <div className="mt-8 mb-8 grid gap-6 grid-cols-1 md:grid-cols-[2fr_1fr]">
           <div>
             <div className="my-4">
               <h2 className="font-semibold text-2xl mb-4">توضیحات</h2>
-              {place.description}
+              {house.description}
             </div>
-            تاریخ ورود: {place.checkIn}<br />
-            تاریخ خروج: {place.checkOut}<br />
-            تعداد مهمان ها: {place.maxGuests}
+            تاریخ ورود: {house.checkIn}<br />
+            تاریخ خروج: {house.checkOut}<br />
+            تعداد مهمان ها: {house.capacity}
           </div>
-          <div>
-            <BookingWidget place={place} />
+          <div className="w-full">
+            <BookingWidget house={house} />
           </div>
         </div>
         <div dir="rtl" className="bg-white -mx-8 px-8 py-8 border-t">
           <div className="mt-4 mb-4">
             <h2 className="font-semibold text-2xl">اطلاعات اضافی</h2>
           </div>
-          <p className="mt-2">{place.extraInfo}</p>
+          <p className="mt-2">{house.options}</p>
           <div className="grid grid-cols-3 grid-rows-2 mt-6">
             <div className="mt-4 mb-4">        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />

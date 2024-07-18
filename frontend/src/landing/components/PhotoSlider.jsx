@@ -8,7 +8,7 @@ import Image from "../components/Image";
 
 
 
-const PhotoSlider = ({ places }) => {
+const PhotoSlider = ({ houses }) => {
 
     return (
         <div className='bg-black text-white p-8'>
@@ -23,19 +23,19 @@ const PhotoSlider = ({ places }) => {
                 </div>
             </div>
             <div className="mt-8 mb-10 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-6 lg:grid-cols-6 min-w-4xl">
-                {places.length > 0 && places.slice(6,12).map(place => (
-                    <Link to={'/place/' + place._id}>
+                {houses.length > 0 && houses.slice(6,12).map(house => (
+                    <Link to={'/house/' + house._id} key={house._id}>
                         <div className="bg-gray-500 mb-2 rounded-xl flex">
-                            {place.photos?.[0] && (
-                                <Image className="rounded-xl object-cover aspect-square" src={place.photos?.[0]} alt="" />
+                            {house.images?.[0] && (
+                                <Image className="rounded-xl object-cover aspect-square" src={house.images?.[0]} alt="" />
                             )}
                         </div>
-                        <h2 className="font-bold">{place.address}</h2>
-                        <h3 className="text-sm text-gray-500">{place.title}</h3>
+                        <h2 className="font-bold">{house.address}</h2>
+                        <h3 className="text-sm text-gray-500">{house.title}</h3>
                         <div className="mt-1">
                             قیمت به ازای هر شب
-                            <span className="font-bold"> {place.price}</span>
-                            <small className="text-gray-500 block">{place.description}</small>
+                            <span className="font-bold"> {house.price}</span>
+                            <small className="text-gray-500 block">{house.description}</small>
                         </div>
                     </Link>
                 ))}

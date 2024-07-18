@@ -102,7 +102,12 @@ for (let i = 1; i <= 500; i++) {
         "price":makeRandomPrice(),
         "houseType":makeRandomHouseType(houseTypes),
         "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4AmsnPw1mmGtdSxSdLIRgTLenF-NdiGJAElnuFE8n5DbMuWb_g6AKpbGrWKLQzzO05U&usqp=CAU",
-        "images": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4AmsnPw1mmGtdSxSdLIRgTLenF-NdiGJAElnuFE8n5DbMuWb_g6AKpbGrWKLQzzO05U&usqp=CAU","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4AmsnPw1mmGtdSxSdLIRgTLenF-NdiGJAElnuFE8n5DbMuWb_g6AKpbGrWKLQzzO05U&usqp=CAU","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4AmsnPw1mmGtdSxSdLIRgTLenF-NdiGJAElnuFE8n5DbMuWb_g6AKpbGrWKLQzzO05U&usqp=CAU"]
+        "images": [
+            "https://a0.muscache.com/im/pictures/e7e1331d-7863-426e-9401-894eef41de5b.jpg?im_w=960",
+            "https://a0.muscache.com/im/pictures/23838e25-ef37-42ad-b5a2-721fc2ef3489.jpg?im_w=720",
+            "https://a0.muscache.com/im/pictures/abd48c2f-b09d-43ae-863d-e9689c5047e0.jpg?im_w=720",
+            "https://a0.muscache.com/im/pictures/62a2d181-c66d-4af0-8671-6cd694eaebd4.jpg?im_w=720"
+        ]
     }
 
     houses.push(data)

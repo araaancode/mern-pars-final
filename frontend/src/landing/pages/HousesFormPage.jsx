@@ -5,7 +5,7 @@ import axios from "axios";
 import AccountNav from "../components/AccountNav";
 import {Navigate, useParams} from "react-router-dom";
 
-export default function PlacesFormPage() {
+export default function HousesFormPage() {
   const {id} = useParams();
   const [title,setTitle] = useState('');
   const [address,setAddress] = useState('');

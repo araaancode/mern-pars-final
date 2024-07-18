@@ -148,7 +148,7 @@ const Navbar = () => {
                     </div>
                     <div className="border-l border-gray-300 w-100"></div>
                     <button className="bg-primary text-white py-2 px-4 rounded-full">
-                        {loading ? <RiLoader2Fill /> : <RiSearchLine className='w-5 h-5 font-bold' />}
+                        {loading ? <RiSearchLine /> : <RiLoader2Fill className='w-5 h-5 font-bold' />}
                     </button>
                 </div>
             </form>

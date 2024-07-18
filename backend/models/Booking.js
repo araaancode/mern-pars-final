@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const houseReservationSchema = new mongoose.Schema({
+const bookingSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
@@ -36,6 +36,6 @@ const houseReservationSchema = new mongoose.Schema({
 },{ timestamps: true });
 
 
-const HouseReservation = mongoose.model('HouseReservation', houseReservationSchema);
+const Booking = mongoose.model('Booking', bookingSchema);
 
-module.exports = HouseReservation;
+module.exports = Booking;

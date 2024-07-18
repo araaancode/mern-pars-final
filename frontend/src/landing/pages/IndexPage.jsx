@@ -9,18 +9,59 @@ import Center from "../components/Center.jsx"
 import ArrowLeftIcon from '@iconscout/react-unicons/icons/uil-angle-left.js'
 import ArrowRightIcon from '@iconscout/react-unicons/icons/uil-angle-right.js'
 
-import places from "../../places.json"
 import Header from "../components/Header";
 import Footer from "../components/Footer.jsx";
 
-export default function IndexPage() {
-  // const [places, setPlaces] = useState([]);
-  // useEffect(() => {
-  //   axios.get('/api/places').then(response => {
-  //     setPlaces(response.data);
-  //   });
-  // }, []);
 
+const images = [
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+];
+
+
+export default function IndexPage() {
+  const [houses, setHouses] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/users/houses').then(response => {
+      setHouses(response.data.houses.slice(0, 24));
+    });
+  }, []);
+
+
+  // photo slider 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const imagesPerPage = 6;
+
+  const nextSlide = () => {
+    if (currentIndex < images.length - imagesPerPage) {
+      setCurrentIndex(currentIndex + imagesPerPage);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - imagesPerPage);
+    }
+  };
 
   return (
     <>
@@ -31,32 +72,70 @@ export default function IndexPage() {
           <h4 className="text-gray-900 mt-1">اقامتگاه در شهرهای پرطرفدار با ما</h4>
         </div>
         <div className="buttons ">
-          <button className="btn mr-2 w-10 h-10 bg-white p-2 border border-gray-300 rounded-xl"><ArrowRightIcon /></button>
-          <button className="btn mr-2 w-10 h-10 bg-white p-2 border border-gray-300 rounded-xl"><ArrowLeftIcon /></button>
+          {/* <button className="btn mr-2 w-10 h-10 bg-white p-2 border border-gray-300 rounded-xl"><ArrowRightIcon /></button> */}
+          {/* <button className="btn mr-2 w-10 h-10 bg-white p-2 border border-gray-300 rounded-xl"><ArrowLeftIcon /></button> */}
+          <button
+            onClick={prevSlide}
+            className="btn mr-2 w-10 h-10 bg-white p-2 border border-gray-300 rounded-xl"
+            disabled={currentIndex === 0}
+          >
+            <ArrowRightIcon />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="btn mr-2 w-10 h-10 bg-white p-2 border border-gray-300 rounded-xl"
+            disabled={currentIndex >= images.length - imagesPerPage}
+          >
+            <ArrowLeftIcon />
+          </button>
         </div>
       </div>
 
-      <div className="mt-8 mb-10 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-6 lg:grid-cols-6 min-w-4xl px-8">
-        {places.length > 0 && places.map(place => (
-          <Link to={'/place/' + place._id} key={place._id}>
+      {/* <div className="mt-8 mb-10 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-6 lg:grid-cols-6 min-w-4xl px-8">
+        {houses.length > 0 && houses.map(house => (
+          <Link to={'/house/' + house._id} key={house._id}>
             <div className="bg-gray-500 mb-2 rounded-xl flex">
-              {place.photos?.[0] && (
-                <Image className="rounded-xl object-cover aspect-square" src={place.photos?.[0]} alt="" />
+              {house.images?.[0] && (
+                <Image className="rounded-xl object-cover aspect-square" src={house.images?.[0]} alt="" />
               )}
             </div>
-            <h2 className="font-bold">{place.address}</h2>
-            <h3 className="text-sm text-gray-500">{place.title}</h3>
+            <h2 className="font-bold">{house.address}</h2>
+            <h3 className="text-sm text-gray-500">{house.name}</h3>
             <div className="mt-1">
               قیمت به ازای هر شب
-              <span className="font-bold"> {place.price}</span>
-              <small className="text-gray-500 block">{place.description}</small>
+              <span className="font-bold"> {house.price}</span>
+              <small className="text-gray-500 block">{house.description}</small>
             </div>
           </Link>
         ))}
+      </div>  */}
+
+
+      <div className="relative w-full my-16">
+        <div className="flex overflow-hidden">
+          {images.slice(currentIndex, currentIndex + imagesPerPage).map((image, index) => (
+            <img key={index} src={image} alt={`Slide ${index}`} className="w-1/6 h-1/6 mx-4 rounded-lg" />
+          ))}
+        </div>
+        {/* <button
+          onClick={prevSlide}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white px-4 py-2"
+          disabled={currentIndex === 0}
+        >
+          Prev
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white px-4 py-2"
+          disabled={currentIndex >= images.length - imagesPerPage}
+        >
+          Next
+        </button> */}
       </div>
-      <PhotoSlider places={places} />
-      <North places={places} />
-      <Center places={places} />
+
+      <PhotoSlider houses={houses} />
+      <North houses={houses} />
+      <Center houses={houses} />
       <Footer />
     </>
 

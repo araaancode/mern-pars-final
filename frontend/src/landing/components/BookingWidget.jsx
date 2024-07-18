@@ -4,9 +4,17 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
 
+
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import "react-multi-date-picker/styles/colors/teal.css";
+
+
 export default function BookingWidget({ place }) {
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
+  const [checkIn, setCheckIn] = useState(new Date());
+  const [checkOut, setCheckOut] = useState(new Date());
+
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -41,23 +49,40 @@ export default function BookingWidget({ place }) {
   return (
     <div dir="rtl" className="bg-white shadow p-8 rounded-2xl">
       <div className="text-sm text-center text-gray-700">
-        <b>قیمت به ازای هر شب: </b>  {place.price}
+        <b>قیمت به ازای هر شب: 455</b>
+        {/* {place.price} */}
       </div>
       <div className="border rounded-2xl mt-4">
         <div className="flex">
           <div className="py-3 px-4">
             <label>تاریخ ورود:</label>
-            <input type="date"
+            {/* <input type="date"
               value={checkIn}
               onChange={ev => setCheckIn(ev.target.value)}
               className="mt-2"
+            /> */}
+            <DatePicker
+              value={checkIn}
+              onChange={ev => setCheckIn(ev.target.value)}
+              calendar={persian}
+              locale={persian_fa}
+              className="blue"
+              style={{ border: 'none' }}
             />
           </div>
           <div className="py-3 px-4 border-l">
             <label>تاریخ خروج:</label>
-            <input type="date" value={checkOut}
+            {/* <input type="date" value={checkOut}
               onChange={ev => setCheckOut(ev.target.value)}
               className="mt-2"
+            /> */}
+            <DatePicker
+              value={checkOut}
+              onChange={ev => setCheckOut(ev.target.value)}
+              calendar={persian}
+              locale={persian_fa}
+              className="blue"
+              style={{ border: 'none' }}
             />
           </div>
         </div>
