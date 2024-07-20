@@ -10,7 +10,7 @@ import Footer from "../components/Footer"
 import places from "../../places.json"
 import { RiTentLine, RiUser3Fill, RiSearchLine } from "@remixicon/react";
 import { useDispatch, useSelector } from 'react-redux'
-
+import HeaderLog from "../components/HeaderLog";
 
 export default function HousePage() {
   const { userInfo } = useSelector((state) => state.auth)
@@ -33,32 +33,9 @@ export default function HousePage() {
 
   return (
     <>
-      <header className="flex justify-between mb-2 px-10 pt-6 items-center">
-        <Link to={'/'} className="flex items-center gap-1">
-          <RiTentLine className="w-12 h-12" />
-        </Link>
-
-        <div className="flex jusrify-center">
-          <input type="text" className="border border-gray-700 p-4" />
-          <RiSearchLine />
-        </div>
+      <HeaderLog />
 
 
-        <Link to={userInfo ? '/profile' : '/login'} className="flex items-center rounded-lg py-1 px-4">
-
-          {!!userInfo && (
-            <div className="">
-              {userInfo.phone}
-            </div>
-          )}
-
-          <div className="rounded-full overflow-hidden">
-            <RiUser3Fill className="w-6 h-6  mr-2" />
-          </div>
-        </Link>
-
-      </header>
-      <div className="border shadow shadow-lg"></div>
       <div dir="ltr" className="bg-gray-100 px-8 pt-8">
         <h1 className="text-3xl">{house.name}</h1>
         <AddressLink>{house.address}</AddressLink>

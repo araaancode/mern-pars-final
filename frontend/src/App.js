@@ -85,11 +85,11 @@ function App() {
             {/* landing page */}
             <Route path="/" element={<IndexLayout />}>
               <Route index element={<IndexPage />} />
-              {/* <Route element={<PublicRoutes />}> */}
+              <Route element={<PublicRoutes />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-              {/* </Route> */}
-              {/* <Route element={<PrivateRoutes />}> */}
+              </Route>
+              <Route element={<PrivateRoutes />}>
                 <Route path="/account/places" element={<HousesPage />} />
                 <Route path="/account/places/new" element={<HousesFormPage />} />
                 <Route path="/account/places/:id" element={<HousesFormPage />} />
@@ -98,7 +98,7 @@ function App() {
                 <Route path="/account/bookings/:id" element={<BookingPage />} />
                 <Route path='/profile' element={<ProfilePage />} />
                 <Route path='/search-houses' element={<SearchResultsPage />} />
-              {/* </Route> */}
+              </Route>
             </Route>
 
             {/* admins routes*/}

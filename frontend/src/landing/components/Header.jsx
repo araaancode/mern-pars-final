@@ -27,7 +27,7 @@ export default function Header() {
           <RiTentLine className="w-12 h-12 text-white" />
         </Link>
 
-        <Link to={userToken ? '/' : '/login'} className="flex items-center rounded-lg py-1 px-4">
+        <Link to={userToken ? '/profile' : '/login'} className="flex items-center rounded-lg py-1 px-4">
 
           {!!userToken && (
             <div className="text-white">
@@ -36,7 +36,7 @@ export default function Header() {
           )}
 
           <div className="rounded-full overflow-hidden">
-            <RiUser3Fill className="w-5 h-5 text-white mr-2" />
+            <RiUser3Fill className="text-2xl text-white mr-2" />
           </div>
         </Link>
 

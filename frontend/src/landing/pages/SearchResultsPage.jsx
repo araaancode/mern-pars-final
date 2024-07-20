@@ -6,6 +6,8 @@ import { RiTentLine, RiUser3Fill, RiSearchLine } from "@remixicon/react";
 import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios"
 
+import HeaderLog from '../components/HeaderLog';
+
 const itemsPerPage = 8;
 
 const SearchResultsPage = () => {
@@ -33,7 +35,7 @@ const SearchResultsPage = () => {
         },
       }
       try {
-        const response = await axios.post('/api/users/search-houses', { city: "rasht" }, config);
+        const response = await axios.post('/api/users/search-houses', { city: city }, config);
         console.log(response.data.houses);
         setHouses(response.data.houses)
       } catch (err) {
@@ -63,32 +65,7 @@ const SearchResultsPage = () => {
 
   return (
     <>
-      <header className="flex justify-between mb-2 px-10 pt-6 items-center">
-        <Link to={'/'} className="flex items-center gap-1">
-          <RiTentLine className="w-12 h-12" />
-        </Link>
-
-        <div className="flex jusrify-center">
-          <input type="text" className="border border-gray-700" />
-          <RiSearchLine />
-        </div>
-
-
-        <Link to={userInfo ? '/profile' : '/login'} className="flex items-center rounded-lg py-1 px-4">
-
-          {!!userInfo && (
-            <div className="">
-              {userInfo.phone}
-            </div>
-          )}
-
-          <div className="rounded-full overflow-hidden">
-            <RiUser3Fill className="w-6 h-6  mr-2" />
-          </div>
-        </Link>
-
-      </header>
-      <div className="border shadow shadow-lg"></div>
+      <HeaderLog />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6">
         {currenthouses.map(house => (

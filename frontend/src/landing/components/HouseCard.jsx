@@ -9,7 +9,7 @@ const HouseCard = ({ house }) => {
       </Link>
       <h2 className="text-lg font-semibold">{house.name}</h2>
       <p className="text-gray-500">{house.description}</p>
-      <p className="text-blue-500 font-bold mt-2">${house.price}</p>
+      <p className="text-blue-500 font-bold mt-2">{house.price}</p>
     </div>
   );
 };
