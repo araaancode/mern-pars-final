@@ -20,6 +20,15 @@ const userSchema = new mongoose.Schema({
     min: 10,
     max: 10
   },
+  gender: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  province: {
+    type: String,
+  },
   email: {
     type: String,
     lowercase: true,

@@ -39,6 +39,9 @@ exports.updateProfile = async (req, res) => {
                 email: req.body.email,
                 username: req.body.username,
                 nationalCode: req.body.nationalCode,
+                province: req.body.province,
+                city: req.body.city,
+                gender: req.body.gender,
             },
             { new: true }
         ).then((user) => {

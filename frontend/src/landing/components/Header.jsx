@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ExtraLinks from "../components/ExtraLinks";
 import Navbar from "../components/Navbar";
 
-import { RiTentLine, RiUser3Fill,RiSearchLine } from "@remixicon/react";
+import { RiTentLine, RiUser3Fill, RiSearchLine, RiMenuLine } from "@remixicon/react";
 
 
 export default function Header() {
@@ -18,8 +18,8 @@ export default function Header() {
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       height: '580px',
-      borderBottomLeftRadius:'25px',
-      borderBottomRightRadius:'25px',
+      borderBottomLeftRadius: '25px',
+      borderBottomRightRadius: '25px',
     }} className="mb-20">
 
       <header className="flex justify-between mb-10 px-10 py-6">
@@ -27,16 +27,16 @@ export default function Header() {
           <RiTentLine className="w-12 h-12 text-white" />
         </Link>
 
-        <Link to={userToken ? '/profile' : '/login'} className="flex items-center rounded-lg py-1 px-4">
-
-          {!!userToken && (
-            <div className="text-white">
-              09383901145
+        <Link to={userToken ? '/profile' : '/login'}>
+          <div className="flex items-center p-2 space-x-2 w-2/8 justify-end hover:border hover:rounded-full hover:shadow-lg">
+            <div className=" w-10 h-10 mx-3">
+              <img
+                src="https://www.homsa.net/images/user_pic-225x225.png"
+                alt="Avatar"
+                className="w-full h-full object-cover rounded-full"
+              />
             </div>
-          )}
-
-          <div className="rounded-full overflow-hidden">
-            <RiUser3Fill className="text-2xl text-white mr-2" />
+            <RiMenuLine className="text-white" />
           </div>
         </Link>
 
