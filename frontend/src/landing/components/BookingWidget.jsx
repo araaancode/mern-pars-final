@@ -3,6 +3,7 @@ import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
+import AddressLink from "./AddressLink";
 
 
 import DatePicker from "react-multi-date-picker";
@@ -47,15 +48,15 @@ export default function BookingWidget({ place }) {
   }
 
   return (
-    <div dir="rtl" className="bg-white shadow p-8 rounded-2xl">
-      <div className="text-sm text-center text-gray-700">
-        <b>قیمت به ازای هر شب: 455</b>
-        {/* {place.price} */}
+    <div dir="rtl" className="bg-white border p-8 rounded-2xl">
+      <div className="text-sm text-center text-gray-700 flex justify-between">
+        <p style={{ fontSize: '16px' }} className="inline">قیمت به ازای هر شب/  <b style={{ fontSize: "20px" }}>45550 تومان</b> </p>
+        <AddressLink></AddressLink>
       </div>
-      <div className="border rounded-2xl mt-4">
+      <div style={{ borderRadius: '5px' }} className="border mt-4">
         <div className="flex">
           <div className="py-3 px-4">
-            <label>تاریخ ورود:</label>
+            <label className="mx-3 py-4" style={{ fontSize: '18px' }}>تاریخ ورود:</label>
             {/* <input type="date"
               value={checkIn}
               onChange={ev => setCheckIn(ev.target.value)}
@@ -66,12 +67,13 @@ export default function BookingWidget({ place }) {
               onChange={ev => setCheckIn(ev.target.value)}
               calendar={persian}
               locale={persian_fa}
-              className="blue"
-              style={{ border: 'none' }}
+              className="blue focus:outline-none"
+              style={{ border: 'none', borderRadius: '5px', marginTop: '2px' }}
             />
           </div>
+          <div className="w-px bg-gray-300"></div>
           <div className="py-3 px-4 border-l">
-            <label>تاریخ خروج:</label>
+            <label className="mx-3 py-4" style={{ fontSize: '18px' }}>تاریخ خروج:</label>
             {/* <input type="date" value={checkOut}
               onChange={ev => setCheckOut(ev.target.value)}
               className="mt-2"
@@ -82,13 +84,13 @@ export default function BookingWidget({ place }) {
               calendar={persian}
               locale={persian_fa}
               className="blue"
-              style={{ border: 'none' }}
+              style={{ border: 'none', borderRadius: '5px', marginTop: '2px' }}
             />
           </div>
         </div>
         <div className="py-3 px-4 border-t">
           <label>تعداد مهمان ها:</label>
-          <input type="number"
+          <input style={{ borderRadius: '5px' }} type="number" className="focus:outline-blue-200"
             value={numberOfGuests}
             onChange={ev => setNumberOfGuests(ev.target.value)} />
         </div>
@@ -105,7 +107,7 @@ export default function BookingWidget({ place }) {
           </div>
         )}
       </div>
-      <button onClick={bookThisPlace} className="bg-transparent hover:bg-blue-800 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mt-4 w-full">
+      <button onClick={bookThisPlace} style={{ fontSize: '18px' }} className="bg-transparent hover:bg-blue-800 text-blue-700 font-bold hover:text-white py-4 px-4 border border-blue-500 hover:border-transparent rounded mt-4 w-full">
         رزرو این اقامتگاه
         {numberOfNights > 0 && (
           <span> {numberOfNights * place.price}</span>

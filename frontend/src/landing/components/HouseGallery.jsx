@@ -1,12 +1,8 @@
 import { useState } from "react";
 import Image from "./Image";
+import {RiGridFill} from "@remixicon/react"
 
-const images = [
-  'https://via.placeholder.com/150', // Image 1
-  'https://via.placeholder.com/150', // Image 2
-  'https://via.placeholder.com/150', // Image 3
-  'https://via.placeholder.com/150'  // Image 4
-];
+const houseImageUrl = 'https://via.placeholder.com/150';
 
 
 export default function HouseGallery({ house }) {
@@ -18,8 +14,8 @@ export default function HouseGallery({ house }) {
 
   if (showAllPhotos) {
     return (
-      <div dir="rtl" className="absolute inset-0 text-white min-h-screen">
-        <div className="bg-white p-8 grid gap-4">
+      <div dir="rtl" className="absolute inset-0 text-white min-h-screen ">
+        <div className="bg-white grid gap-4">
           <div>
             <button onClick={() => setShowAllPhotos(false)} className="right-12 mb-2 flex gap-1 py-2 px-4 rounded-2xl shadow shadow-black bg-white text-black">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -29,21 +25,21 @@ export default function HouseGallery({ house }) {
             </button>
           </div>
           {/* {house?.images?.length > 0 && house.images.map(image => ( */}
-            <div className="container mx-auto p-4">
-              {/* First Row */}
-              <div className="grid grid-cols-1 gap-4 mb-4">
-                <img src={images[0]} alt="Image 1" className="w-full" />
-              </div>
-              {/* Second Row */}
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <img style={{height:'350px'}} src={images[1]} alt="Image 2" className="w-full" />
-                <img style={{height:'350px'}} src={images[2]} alt="Image 3" className="w-full" />
-              </div>
-              {/* Third Row */}
-              <div className="grid grid-cols-1 gap-4">
-                <img src={images[3]} alt="Image 4" className="w-full" />
-              </div>
+          <div className="container mx-auto p-4">
+            {/* First Row */}
+            <div className="grid grid-cols-1 gap-4 mb-4">
+              <img src={images[0]} alt="Image 1" className="w-full" />
             </div>
+            {/* Second Row */}
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <img style={{ height: '350px' }} src={images[1]} alt="Image 2" className="w-full" />
+              <img style={{ height: '350px' }} src={images[2]} alt="Image 3" className="w-full" />
+            </div>
+            {/* Third Row */}
+            <div className="grid grid-cols-1 gap-4">
+              <img src={images[3]} alt="Image 4" className="w-full" />
+            </div>
+          </div>
           {/* ))} */}
 
         </div>
@@ -53,7 +49,8 @@ export default function HouseGallery({ house }) {
 
   return (
     <div className="relative">
-      <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-3xl overflow-hidden">
+
+      {/* <div className="grid gap-2 grid-cols-3 overflow-hidden mx-8">
         <div>
           {house.images?.[0] && (
             <div>
@@ -70,12 +67,54 @@ export default function HouseGallery({ house }) {
               <Image onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover relative top-2" src={house.images[2]} alt="" />
             )}
           </div>
+          <div className="overflow-hidden">
+            {house.images?.[3] && (
+              <Image onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover relative top-2" src={house.images[3]} alt="" />
+            )}
+          </div>
+        </div>
+      </div> */}
+
+      <div className="flex px-8 items-center">
+        {/* <div className="w-1/2 p-2 relative group">
+          <Image onClick={() => setShowAllPhotos(true)} className="w-full hover:cursor-pointer h-full object-cover" src={house.cover} alt="" />
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300"></div> */}
+
+        {/* <div className="relative group w-64 h-64">
+            <img src={house.cover} alt="Your Image" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300"></div>
+          </div> */}
+        {/* </div> */}
+
+        <div style={{ height: '485px' }} className="relative group">
+          <img style={{borderTopLeftRadius:'20px',borderBottomLeftRadius:'20px'}} src={house.cover} alt="" className="w-full h-full object-cover" />
+          <div style={{borderTopLeftRadius:'20px',borderBottomLeftRadius:'20px'}} className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
+        </div>
+
+        {/*  */}
+        <div className="w-1/4 px-1 my-3 ml-1 flex flex-col justify-between">
+          <div className="relative group h-1/2 mb-2">
+            <img src={house.images[0]} alt="" style={{height:'238px'}} className="w-full object-cover" />
+            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
+          </div>
+          <div className="relative group h-1/2">
+            <img src={house.images[1]} alt="" style={{height:'238px'}} className="w-full object-cover" />
+            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
+          </div>
+        </div>
+        <div className="w-1/4 px-1 my-3 flex flex-col justify-between">
+          <div className="relative group h-1/2 mb-2">
+            <img src={house.images[2]} alt="" style={{height:'238px',borderTopRightRadius:'20px'}} className="w-full object-cover" />
+            <div style={{height:'238px',borderTopRightRadius:'20px'}} className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
+          </div>
+          <div className="relative group h-1/2">
+            <img src={house.images[3]} alt="" style={{height:'238px',borderBottomRightRadius:'20px'}} className="w-full object-cover" />
+            <div style={{height:'238px',borderBottomRightRadius:'20px'}} className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
+          </div>
         </div>
       </div>
-      <button onClick={() => setShowAllPhotos(true)} className="flex gap-1 absolute bottom-2 right-2 py-2 px-4 bg-white rounded-2xl shadow shadow-md shadow-gray-500">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-          <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-        </svg>
+      <button style={{borderRadius:'5px'}} onClick={() => setShowAllPhotos(true)} className="flex gap-1 absolute bottom-2 right-2 py-2 pr-2 mx-10 my-4 bg-white rounded-2xl border border-black shadow shadow-md shadow-gray-500">
+        <RiGridFill className="mx-2" />
         دیدن همه عکس ها
       </button>
     </div>

@@ -1,23 +1,21 @@
 const mongoose = require('mongoose');
 
+// house booking
 const bookingSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: true,
-        unique: true,
     },
     owner: {
         type: mongoose.Schema.ObjectId,
         ref: 'Owner',
         required: true,
-        unique: true,
     },
     house: {
         type: mongoose.Schema.ObjectId,
         ref: 'House',
         required: true,
-        unique: true,
     },
     price: {
         type: Number,

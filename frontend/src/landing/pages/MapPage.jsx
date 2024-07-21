@@ -2,11 +2,10 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet/src/images/marker.svg';
 
 const MapPage = () => {
     return (
-        <div className="map my-6" id="map">
+        <div className="map" id="map">
             <MapContainer center={[35.7219, 51.3347]} zoom={13} style={{ height: '400px', width: '100%' }}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const House = require("../../models/House")
 const User = require("../../models/User")
+const Booking = require("../../models/Booking")
 
 exports.getMe = async (req, res) => {
     try {
@@ -190,8 +191,49 @@ exports.searchHouses = async (req, res) => {
     }
 }
 
-exports.bookHouse = (req, res) => {
-    res.send("user book house")
+exports.bookHouse = async(req, res) => {
+    try {
+        let house = await House.findOne({_id:req.body.house})
+
+        if(house){
+           let newBooking = await Booking.create({
+            user:req.user._id,
+            owner:house.owner,
+            house:house._id,
+            price:house.price * (req.body.checkOut - req.body.checkIn) * (req.body.guests),
+            checkIn:req.body.checkIn,
+            checkOut:req.body.checkOut,
+            guests:req.body.guests,
+        })
+
+        if(newBooking){
+            res.status(StatusCodes.CREATED).json({
+                status: 'success',
+                msg: "اقامتگاه رزرو شد",
+                booking:newBooking
+            });
+        }else{
+            res.status(StatusCodes.BAD_REQUEST).json({
+                status: 'failure',
+                msg: "اقامتگاه رزرو نشد",
+            });
+        }
+        }else{
+            res.status(StatusCodes.NOT_FOUND).json({
+                status: 'failure',
+                msg: "اقامتگاه پیدا نشد",
+            }); 
+        }
+
+        
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
 }
 
 exports.notifications = (req, res) => {

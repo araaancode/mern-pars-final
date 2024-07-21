@@ -96,8 +96,15 @@ const houseSchema = new mongoose.Schema({
     },
 
     checkIn: Number,
-    
     checkOut: Number,
+
+    lat:{
+        type:String
+    },
+
+    lng:{
+        type:String
+    },
 
     floor: {
         type: String,

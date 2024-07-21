@@ -15,15 +15,15 @@ import Footer from "../components/Footer.jsx";
 
 const images = [
   'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-1049362398343619920/original/3d8fdec5-2501-4b45-8cd5-6f10ea1dfdb0.jpeg?im_w=720',
+  'https://a0.muscache.com/im/pictures/21b39a28-901d-40cb-8652-f59b6db4219b.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/a4412ff4-22fb-401b-99b4-45fbb2e62d19.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/d40fee07-6462-4f6b-95ec-fc7ef759b623.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-865707200364012433/original/d3680419-95c6-471e-baf7-717c401c314f.jpeg?im_w=720',
+  'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NzcwMDgwOTUxNzU3Mzc4MTUw/original/c7aeed4c-a11d-4447-96ca-e78c886d5a69.jpeg?im_w=720',
+  'https://a0.muscache.com/im/pictures/74634b50-1119-43e8-be2d-a467ae2ba342.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-1129772018868233070/original/1266517c-44d1-4979-be14-585edf3616ec.jpeg?im_w=720',
+  'https://a0.muscache.com/im/pictures/6f61efe3-23b7-4115-9d0e-db9901d78f68.jpg?im_w=720',
   'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
   'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
   'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
@@ -114,7 +114,7 @@ export default function IndexPage() {
       <div className="relative w-full my-16">
         <div className="flex overflow-hidden">
           {images.slice(currentIndex, currentIndex + imagesPerPage).map((image, index) => (
-            <img key={index} src={image} alt={`Slide ${index}`} className="w-1/6 h-1/6 mx-4 rounded-lg" />
+            <img key={index} src={image} alt={`Slide ${index}`} className="w-2/6 h-50 mx-4 rounded-lg" />
           ))}
         </div>
         {/* <button

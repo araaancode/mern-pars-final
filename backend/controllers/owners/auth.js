@@ -1,8 +1,10 @@
-const OTP = require("../../models/OTP")
-const Owner = require("../../models/Owner")
-const { StatusCodes } = require('http-status-codes');
+const crypto = require('crypto');
+const { promisify } = require('util');
 const randKey = require("random-key");
-const jwt = require("jsonwebtoken")
+const jwt = require('jsonwebtoken');
+const Owner = require('../../models/Owner');
+const OTP = require("../../models/OTP")
+const { StatusCodes } = require("http-status-codes")
 
 const signToken = id => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -10,12 +12,55 @@ const signToken = id => {
     });
 };
 
-const createSendToken = (owner, authStatus, msg, statusCode, req, res) => {   // authStatus -> success or failure
+
+const sendOTPCode = async (phone, owner, req, res) => {
+    const code = randKey.generateDigits(5);
+    let otp = await OTP.findOne({ phone })
+
+    if (otp) {
+        otp.code = code;
+        otp.save().then((data) => {
+            if (data) {
+                res.status(StatusCodes.CREATED).json({
+                    msg: "کد تایید ارسال شد",
+                    data
+                })
+            }
+
+        }).catch((error) => {
+            console.log(error);
+            res.status(StatusCodes.BAD_REQUEST).json({
+                msg: "کد تایید ارسال نشد",
+                error
+            })
+        })
+    } else {
+        let newOtp = await OTP.create({
+            phone: phone,
+            code
+        })
+
+        if (newOtp) {
+            res.status(StatusCodes.CREATED).json({
+                msg: "کد تایید جدید ساخته شد",
+                code: newOtp
+            })
+        } else {
+            res.status(StatusCodes.BAD_REQUEST).json({
+                msg: "کد تایید ساخته نشد"
+            })
+        }
+
+    }
+
+};
+
+const createSendToken = (owner, statusCode, statusMsg, msg, req, res) => {
     const token = signToken(owner._id);
 
     res.cookie('jwt', token, {
         expires: new Date(
-            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+            Date.now() + 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
         secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
@@ -25,7 +70,7 @@ const createSendToken = (owner, authStatus, msg, statusCode, req, res) => {   //
     owner.password = undefined;
 
     res.status(statusCode).json({
-        status: authStatus,
+        status: statusMsg,
         msg,
         token,
         data: {
@@ -34,62 +79,30 @@ const createSendToken = (owner, authStatus, msg, statusCode, req, res) => {   //
     });
 };
 
+exports.register = async (req, res, next) => {
 
-const sendOTPCode = async (phone, req, res) => {
-    const code = randKey.generateDigits(5);
-    let otp = await OTP.findOne({ phone })
+    try {
+        let findOwner = await Owner.findOne({ phone: req.body.phone })
 
-
-    if (otp) {
-        otp.code = code;
-        otp.save().then((data) => {
-            res.status(200).json(data)
-        }).catch((error) => {
-            res.status(400).json(error)
-        })
-    } else {
-        let newOtp = await OTP.create({
-            phone: phone,
-            code
-        })
-
-        if (newOtp) {
-            res.status(201).json({
-                msg: "otp code created",
-                code: newOtp
+        if (findOwner) {
+            res.status(StatusCodes.BAD_REQUEST).json({
+                status: 'failure',
+                msg: "کاربر وجود دارد. وارد سایت شوید!",
             })
         } else {
-            res.status(400).json({
-                msg: "otp code not created"
+            let newOwner = await Owner.create({
+                phone: req.body.phone,
+                password: req.body.password,
             })
+
+            if (newOwner) {
+                res.status(StatusCodes.CREATED).json({
+                    status: 'success',
+                    msg: "کاربر با موفقیت ثبت نام شد",
+                    newOwner
+                })
+            }
         }
-
-    }
-
-};
-
-
-// *** owners auth ***
-// # description -> HTTP VERB -> Accesss -> Access Type
-// # owner login -> POST -> Owner -> PRIVATE
-// @route = /api/owners/auth/login
-exports.login = async (req, res) => {
-    let { phone, password } = req.body
-
-    try {
-
-        let owner = await Owner.findOne({ phone }).select('+password');
-
-
-        if (!owner || !(await owner.correctPassword(password, owner.password))) {
-            return res.status(StatusCodes.UNAUTHORIZED).json({
-                status: 'failure',
-                msg: "شماره تلفن یا پسورد نادرست است"
-            })
-        }
-        createSendToken(owner, 'success', 'ملک دار با موفقیت وارد سایت شد', 201, req, res)
-
-
     } catch (error) {
         console.error(error.message);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -101,38 +114,48 @@ exports.login = async (req, res) => {
 
 }
 
-// *** owners auth ***
-// # description -> HTTP VERB -> Accesss -> Access Type
-// # owner login -> POST -> Owner -> PRIVATE
-// @route = /api/owners/auth/register
-exports.register = async (req, res) => {
-    let { phone, password } = req.body
-
-    if (!phone || !password) {
-        return res.status(StatusCodes.BAD_REQUEST).json({
-            status: 'failure',
-            msg: "همه فیلدها باید وارد شود"
-        })
-    }
+exports.login = async (req, res, next) => {
 
     try {
-        let owner = await Owner.findOne({ phone: phone })
+        const { phone, password } = req.body;
 
+        // 1) Check if phone and password exist
+        if (!phone || !password) {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                status: 'failure',
+                msg: "همه فیلدها باید وارد شوند!",
+            });
+        }
+
+
+        // 2) Check if owner exists && password is correct
+        const owner = await Owner.findOne({ phone })
+
+
+        if (!owner || !(owner.correctPassword(password, owner.password))) {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                status: 'failure',
+                msg: "پسورد نادرست است",
+            });
+        }
+
+        // 3) If everything ok, send token to client
+        // createSendToken(owner,StatusCodes.OK, 'success','با موفقیت وارد سایت شدید', req, res);
         if (owner) {
-            return res.status(StatusCodes.BAD_REQUEST).json({
+            return res.status(StatusCodes.OK).json({
+                status: 'success',
+                msg: "با موفقیت وارد سایت شدید",
+                owner
+            });
+        } else {
+            return res.status(StatusCodes.NOT_FOUND).json({
                 status: 'failure',
-                msg: "ملک دارد وجود دارد. باید وارد سایت شوید!"
-            })
-        }
-
-        let newOwner = await Owner.create({ phone, password })
-
-        if (newOwner) {
-            createSendToken(newOwner, 'success', 'ملک دار با موفقیت ثبت نام شد', 201, req, res)
+                msg: "کاربر یافت نشد. باید ثبت نام کنید.",
+            });
         }
 
     } catch (error) {
-        console.error(error.message);
+        console.error(error);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             status: 'failure',
             msg: "خطای داخلی سرور",
@@ -140,6 +163,7 @@ exports.register = async (req, res) => {
         });
     }
 }
+
 
 
 exports.sendOtp = async (req, res) => {
@@ -147,21 +171,19 @@ exports.sendOtp = async (req, res) => {
         let { phone } = req.body
         let owner = await Owner.findOne({ phone })
 
-        if (owner) {
-            await sendOTPCode(phone, req, res)
-        } else {
-            res.status(404).json({
-                stauts: 'success',
-                msg: "owner not found",
-            })
-        }
+        await sendOTPCode(phone, owner, req, res)
+        //  else {
+        //   res.status(StatusCodes.BAD_REQUEST).json({
+        //     msg: "کاربر یافت نشد",
+        //   })
+        // }
     } catch (error) {
         console.error(error.message);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            status: 'failure',
-            msg: "خطای داخلی سرور",
-            error
-        });
+        // res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        //   status: 'failure',
+        //   msg: "خطای داخلی سرور",
+        //   error
+        // });
     }
 }
 
@@ -171,10 +193,11 @@ exports.verifyOtp = async (req, res) => {
 
         let ownerOtp = await OTP.findOne({ phone })
         let owner = await Owner.findOne({ phone })
+
         if (ownerOtp.code === code) {
-            createSendToken(owner, 'success', "کد تایید شد", 200, req, res)
+            createSendToken(owner, StatusCodes.OK, 'success', 'کد تایید با موفقیت ارسال شد', req, res)
         } else {
-            res.status(404).json({
+            res.status(StatusCodes.BAD_REQUEST).json({
                 msg: "کد وارد شده اشتباه است!"
             })
         }
@@ -194,7 +217,8 @@ exports.logout = (req, res) => {
         httpOnly: true
     });
     res.status(200).json({ status: 'success' });
-}
+};
+
 
 exports.forgotPassword = (req, res) => {
     res.send("owners forgot password")

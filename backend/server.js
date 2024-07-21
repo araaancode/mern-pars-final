@@ -41,7 +41,7 @@ const userRoutes = require("./routes/users/users")
 // const driverAuthRoutes = require("./routes/drivers/auth")
 // const driverRoutes = require("./routes/drivers/drivers")
 
-// const ownerAuthRoutes = require("./routes/owners/auth")
+const ownerAuthRoutes = require("./routes/owners/auth")
 // const ownerRoutes = require("./routes/owners/owners")
 
 // middlewares
@@ -96,7 +96,7 @@ app.use('/api/users', userRoutes)
 // app.use('/api/drivers', driverRoutes)
 
 // *** owners endpoints ***
-// app.use('/api/owners/auth', ownerAuthRoutes)
+app.use('/api/owners/auth', ownerAuthRoutes)
 // app.use('/api/owners', ownerRoutes)
 
 
