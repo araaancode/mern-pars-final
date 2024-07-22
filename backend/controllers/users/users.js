@@ -161,7 +161,7 @@ exports.searchHouses = async (req, res) => {
         let findHouses = []
 
         for (let i = 0; i < houses.length; i++) {
-            if(houses[i].city === city){
+            if (houses[i].city === city) {
                 findHouses.push(houses[i]);
             }
         }
@@ -191,41 +191,69 @@ exports.searchHouses = async (req, res) => {
     }
 }
 
-exports.bookHouse = async(req, res) => {
+exports.bookHouse = async (req, res) => {
+
     try {
-        let house = await House.findOne({_id:req.body.house})
+        let house = await House.findOne({ _id: req.body.house })
+        let checkInMounth = new Date(req.body.checkIn).toLocaleDateString().split('/')[0]
+        let checkInDay = new Date(req.body.checkIn).toLocaleDateString().split('/')[1]
 
-        if(house){
-           let newBooking = await Booking.create({
-            user:req.user._id,
-            owner:house.owner,
-            house:house._id,
-            price:house.price * (req.body.checkOut - req.body.checkIn) * (req.body.guests),
-            checkIn:req.body.checkIn,
-            checkOut:req.body.checkOut,
-            guests:req.body.guests,
-        })
+        let checkOutMounth = new Date(req.body.checkOut).toLocaleDateString().split('/')[0]
+        let checkOutDay = new Date(req.body.checkOut).toLocaleDateString().split('/')[1]
 
-        if(newBooking){
-            res.status(StatusCodes.CREATED).json({
-                status: 'success',
-                msg: "اقامتگاه رزرو شد",
-                booking:newBooking
-            });
-        }else{
-            res.status(StatusCodes.BAD_REQUEST).json({
-                status: 'failure',
-                msg: "اقامتگاه رزرو نشد",
-            });
+
+
+        if (checkOutMounth == checkInMounth) {
+            console.log("equal");
+        } 
+
+        if (1 <= checkOutMounth <= 6) {
+            console.log("1 to 6");
         }
-        }else{
-            res.status(StatusCodes.NOT_FOUND).json({
-                status: 'failure',
-                msg: "اقامتگاه پیدا نشد",
-            }); 
-        }
-
         
+        if (checkOutMounth >= 7) {
+            console.log("7 to 12");
+        }
+
+
+        // console.log("checkInMounth: ",checkInMounth);
+        // console.log("checkOutMounth: ",checkOutMounth);
+        // console.log("checkInDay: ",checkInDay);
+        // console.log("checkOutDay: ",checkOutDay);
+
+
+        // if (house) {
+        //     let newBooking = await Booking.create({
+        //         user: req.user._id,
+        //         owner: house.owner,
+        //         house: house._id,
+        //         price: house.price * (req.body.checkOut - req.body.checkIn) * (req.body.guests),
+        //         checkIn: req.body.checkIn,
+        //         checkOut: req.body.checkOut,
+        //         guests: req.body.guests,
+        //     })
+
+        //     if (newBooking) {
+        //         res.status(StatusCodes.CREATED).json({
+        //             status: 'success',
+        //             msg: "اقامتگاه رزرو شد",
+        //             booking: newBooking
+        //         });
+        //     } else {
+        //         res.status(StatusCodes.BAD_REQUEST).json({
+        //             status: 'failure',
+        //             msg: "اقامتگاه رزرو نشد",
+        //         });
+        //     }
+        // }
+        // else{
+        //     res.status(StatusCodes.NOT_FOUND).json({
+        //         status: 'failure',
+        //         msg: "اقامتگاه پیدا نشد",
+        //     }); 
+        // }
+
+
     } catch (error) {
         console.error(error);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

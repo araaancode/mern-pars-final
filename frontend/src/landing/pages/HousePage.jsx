@@ -40,7 +40,6 @@ export default function HousePage() {
       return;
     }
     axios.get(`/api/users/houses/${id}`).then(response => {
-      console.log(response.data.house);
       setHouse(response.data.house);
     });
   }, [id]);
