@@ -54,7 +54,9 @@ const North = ({ houses }) => {
                 ))} */}
                     {houses.slice(13, 19).map((_, index) => (
                         <PhotoCard key={index} photos={houses[index].images} />
+                        
                     ))}
+
 
             </div>
         </div>

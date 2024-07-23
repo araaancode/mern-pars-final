@@ -43,6 +43,12 @@ const Card = ({ photos }) => {
                     <RiArrowRightSLine className='font-bold shadow' />
                 </button>
             </div>
+            <h3 className="text-sm text-gray-500 mt-1">name</h3>
+            <div className="mt-1">
+                قیمت به ازای هر شب
+                <span className="font-bold"> 20000</span>
+                <small className="text-gray-500 block">description</small>
+            </div>
         </div>
     );
 };
