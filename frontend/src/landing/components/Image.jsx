@@ -3,6 +3,6 @@ export default function Image({src,...rest}) {
     ? src
     : 'http://localhost:5000/uploads/'+src;
   return (
-    <img className="" {...rest} src={src} alt={''} />
+    <img style={{height:'300px'}} className="w-full" {...rest} src={src} alt={''} />
   );
 }

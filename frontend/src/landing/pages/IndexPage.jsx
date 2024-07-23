@@ -24,16 +24,16 @@ const images = [
   'https://a0.muscache.com/im/pictures/74634b50-1119-43e8-be2d-a467ae2ba342.jpg?im_w=720',
   'https://a0.muscache.com/im/pictures/miso/Hosting-1129772018868233070/original/1266517c-44d1-4979-be14-585edf3616ec.jpeg?im_w=720',
   'https://a0.muscache.com/im/pictures/6f61efe3-23b7-4115-9d0e-db9901d78f68.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
-  'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  'https://www.homsa.net/images/rooms/52449/21524491690111515__330x183.jpg',
+  'https://www.homsa.net/images/rooms/31294/10312941692602374__330x183.jpg',
+  'https://www.homsa.net/images/rooms/87774/40877741714243892__330x183.jpg',
+  'https://a0.muscache.com/im/pictures/a04d9dad-9704-49e4-8829-71293299f7fb.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-52467593/original/45f1fc91-dd83-44fe-b23e-8a264d8216bc.jpeg?im_w=720',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-52747997/original/660e23d0-9eb2-4679-92de-741645837e44.jpeg?im_w=720',
+  'https://a0.muscache.com/im/pictures/84e1ad50-c6d2-4aed-b086-3d682b832f4f.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/prohost-api/Hosting-48112717/original/383dd856-483f-48cb-83ce-076fe676cf19.jpeg?im_w=720',
+  'https://a0.muscache.com/im/pictures/63614626/36779d8e_original.jpg?im_w=720',
+  'https://a0.muscache.com/im/pictures/hosting/Hosting-1126122443984195882/original/31cc9a17-b777-48f8-a390-52bfcc5cc5c8.jpeg?im_w=720',
 ];
 
 
@@ -44,6 +44,7 @@ export default function IndexPage() {
     axios.get('/api/users/houses').then(response => {
       setHouses(response.data.houses.slice(0, 24));
     });
+
   }, []);
 
 
@@ -114,7 +115,7 @@ export default function IndexPage() {
       <div className="relative w-full my-16">
         <div className="flex overflow-hidden">
           {images.slice(currentIndex, currentIndex + imagesPerPage).map((image, index) => (
-            <img key={index} src={image} alt={`Slide ${index}`} className="w-2/6 h-50 mx-4 rounded-lg" />
+            <img style={{ height: '300px' }} key={index} src={image} alt={`Slide ${index}`} className="w-2/6 mx-4 rounded-lg" />
           ))}
         </div>
         {/* <button

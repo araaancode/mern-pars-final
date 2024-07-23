@@ -5,10 +5,25 @@ import ArrowRightIcon from '@iconscout/react-unicons/icons/uil-angle-right.js'
 import { Link } from "react-router-dom"
 import Image from "../components/Image";
 
-
+import {
+    RiArrowLeftSLine,
+    RiArrowRightSLine,
+    RiHeart3Line
+} from "@remixicon/react";
 
 
 const Center = ({ houses }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const handleNext = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % houses.images.length);
+    };
+
+    const handlePrevious = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex === 0 ? houses.images.length - 1 : prevIndex - 1
+        );
+    };
 
     return (
         <div className='p-8 mt-10'>
@@ -23,11 +38,42 @@ const Center = ({ houses }) => {
                 </div>
             </div>
             <div className="mt-8 mb-10 grid gap-x-6 gap-y-8 grid-cols-6 md:grid-cols-4 lg:grid-cols-4 min-w-4xl">
-                {houses.length > 0 && houses.slice(20,26).map(house => (
+                {houses.length > 0 && houses.slice(20, 26).map(house => (
                     <Link to={'/house/' + house._id} key={house._id}>
                         <div className="bg-gray-500 mb-2 rounded-xl flex">
                             {house.images?.[0] && (
-                                <Image className="rounded-xl object-cover aspect-square" src={house.images?.[0]} alt="" />
+                                // <div className="bg-white rounded-lg overflow-hidden">
+                                //     {/* <Image className="rounded-xl object-cover aspect-square" src={house.images?.[0]} alt="" /> */}
+                                // <img style={{ height: '300px' }}
+                                //     className="w-full object-cover"
+                                //     src={house.images?.[0]}
+                                // />
+                                //     <RiHeart3Line style={{ width: '30px', height: '30px' }} className="absolute top-5 right-0 cursor-pointer transform -translate-y-1/2 bg-opacity-80 hover:bg-opacity-100 mx-2 p-1 rounded-full focus:outline-none" />
+                                // </div>
+                                <div className="bg-white rounded-lg overflow-hidden">
+                                    <div className="relative">
+                                        <img style={{ height: '300px' }}
+                                            className="w-full object-cover"
+                                            src={house.images?.[0]}
+                                            alt={`Slide ${currentIndex}`}
+                                        />
+                                        <RiHeart3Line style={{ width: '40px', height: '40px' }} className="absolute top-4 right-0 cursor-pointer text-white p-1 transform -translate-y-1/2 bg-opacity-20 m-3  focus:outline-none" />
+
+                                        <button
+                                            onClick={handlePrevious}
+                                            className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-opacity-50 hover:bg-opacity-100 bg-white mx-2 p-1 rounded-full focus:outline-none"
+                                        >
+                                            <RiArrowLeftSLine className='font-bold shadow' />
+                                        </button>
+
+                                        <button
+                                            onClick={handleNext}
+                                            className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-opacity-50 hover:bg-opacity-100 bg-white mx-2 p-1 rounded-full focus:outline-none"
+                                        >
+                                            <RiArrowRightSLine className='font-bold shadow' />
+                                        </button>
+                                    </div>
+                                </div>
                             )}
                         </div>
                         <h2 className="font-bold">{house.address}</h2>
@@ -39,7 +85,7 @@ const Center = ({ houses }) => {
                         </div>
                     </Link>
                 ))}
-               
+
             </div>
         </div>
     )

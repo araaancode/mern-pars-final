@@ -201,19 +201,49 @@ exports.bookHouse = async (req, res) => {
         let checkOutMounth = new Date(req.body.checkOut).toLocaleDateString().split('/')[0]
         let checkOutDay = new Date(req.body.checkOut).toLocaleDateString().split('/')[1]
 
+        let countDays = 0;
 
+        // switch (checkOutMounth) {
+        //     case 1:
+        //         countDays = 
+        //         break;
 
-        if (checkOutMounth == checkInMounth) {
-            console.log("equal");
-        } 
+        //     case 2:
+        //         break;
 
-        if (1 <= checkOutMounth <= 6) {
-            console.log("1 to 6");
-        }
-        
-        if (checkOutMounth >= 7) {
-            console.log("7 to 12");
-        }
+        //     case 3:
+        //         break;
+
+        //     case 4:
+        //         break;
+
+        //     case 5:
+        //         break;
+
+        //     case 6:
+        //         break;
+
+        //     case 7:
+        //         break;
+
+        //     case 8:
+        //         break;
+
+        //     case 9:
+        //         break;
+
+        //     case 10:
+        //         break;
+
+        //     case 11:
+        //         break;
+
+        //     case 12:
+        //         break;
+
+        //     default:
+        //         break;
+        // }
 
 
         // console.log("checkInMounth: ",checkInMounth);
