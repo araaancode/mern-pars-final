@@ -8,6 +8,8 @@ import axios from "axios"
 import HeaderLog from '../components/HeaderLog';
 import Footer from "../components/Footer"
 
+import { IoIosCamera } from "react-icons/io";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -98,16 +100,15 @@ const ProfilePage = () => {
 
         {/* User Basic Information Column 1 */}
         <div className="w-full md:w-1/4 py-6 bg-white border border-gray-200 rounded-lg shadow mb-4 md:mb-0">
-          <h2 style={{ fontSize: '18px' }} className="text-center px-8 font-bold mb-4 text-blue-800">اطلاعات کاربری</h2>
           <div className="mb-4 px-8 text-center mx-auto flex justify-center">
-            <div className="relative w-24 h-24">
+            <div className="relative" style={{width:'160px',height:'160px'}}>
               <img
                 src="https://www.homsa.net/images/user_pic-225x225.png"
                 alt="Avatar"
                 className="w-full h-full object-cover rounded-full"
               />
-              <div className="absolute bottom-0 left-0 p-2 bg-white shadow shadow-lg rounded-full">
-                <RiCameraFill className='text-pink-600 h-5 w-5' />
+              <div className="absolute bottom-3 left-0 p-2 bg-white cursor-pointer shadow shadow-full rounded-full">
+                <IoIosCamera className='text-pink-600 h-8 w-8' />
               </div>
             </div>
           </div>
@@ -116,10 +117,18 @@ const ProfilePage = () => {
           </div>
           <div className='border'></div>
           <div className='my-6 px-8'>
+            <Link to="/profile">
+              <li className="flex items-center mb-2">
+                <span className="mr-2 text-gray-400"><RiUser3Fill className='text-pink-600' /></span>
+                <span style={{ fontSize: '18px' }} className="mr-4 text-pink-600">حساب کاربری</span>
+              </li>
+            </Link>
+          </div>
+          <div className='my-6 px-8'>
             <Link to="/bookings">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiCalendar2Line /></span>
-                <span className="mr-4">رزروهای من</span>
+                <span style={{fontSize:'18px'}} className="mr-4">رزروهای من</span>
               </li>
             </Link>
           </div>
@@ -127,7 +136,7 @@ const ProfilePage = () => {
             <Link to="/favorites">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiHeart2Line /></span>
-                <span className="mr-4"> لیست علاقه مندی ها</span>
+                <span style={{fontSize:'18px'}} className="mr-4"> لیست علاقه مندی ها</span>
               </li>
             </Link>
           </div>
@@ -135,7 +144,7 @@ const ProfilePage = () => {
             <Link to="/bank">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiBankCard2Line /></span>
-                <span className="mr-4">اطلاعات حساب بانکی</span>
+                <span style={{fontSize:'18px'}} className="mr-4">اطلاعات حساب بانکی</span>
               </li>
             </Link>
           </div>
@@ -143,7 +152,7 @@ const ProfilePage = () => {
             <Link to="/notifications">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiNotificationLine /></span>
-                <span className="mr-4">لیست اعلان ها</span>
+                <span style={{fontSize:'18px'}} className="mr-4">لیست اعلان ها</span>
               </li>
             </Link>
           </div>
@@ -152,7 +161,7 @@ const ProfilePage = () => {
             <Link to="/support">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiCustomerService2Line /></span>
-                <span className="mr-4">پشتیبانی</span>
+                <span style={{fontSize:'18px'}} className="mr-4">پشتیبانی</span>
               </li>
             </Link>
           </div>
@@ -160,7 +169,7 @@ const ProfilePage = () => {
             <Link to="/logout">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiLogoutBoxRLine /></span>
-                <span className="mr-4">خروج</span>
+                <span style={{fontSize:'18px'}} className="mr-4">خروج</span>
               </li>
             </Link>
           </div>
@@ -168,7 +177,6 @@ const ProfilePage = () => {
 
         {/* Update User Information Column 2 */}
         <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-6">
-          <h2 style={{ fontSize: '18px' }} className="font-bold mx-4 my-2 text-blue-800">ویرایش اطلاعات</h2>
           <form onSubmit={updateUser}>
             <div className='flex flex-col md:flex-row p-2 rtl mt-2'>
               {/* col 1 */}

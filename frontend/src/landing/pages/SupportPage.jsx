@@ -1,4 +1,4 @@
-// src/BookingsPage.js
+// src/SupportPage.js
 import React, { useState, useEffect } from 'react';
 import { RiTentLine, RiUser3Fill, RiSearchLine, RiCalendar2Line, RiLogoutBoxRLine, RiHeart2Line, RiBankCard2Line, RiNotificationLine, RiCustomerService2Line, RiCameraFill } from "@remixicon/react";
 import { FaCamera } from 'react-icons/fa';
@@ -14,35 +14,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const BookingsPage = () => {
+const SupportPage = () => {
+
 
   const userToken = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
 
   const [name, setName] = useState('')
   const [user, setUser] = useState('')
-
-  const items = [
-    'React',
-    'Angular',
-    'Vue',
-    'Svelte',
-    'Tailwind CSS',
-    'Bootstrap',
-    'Material UI',
-  ];
-
-  // State to hold the search query
-  const [searchTerm, setSearchTerm] = useState('');
-
-  // Function to handle the input change
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  // Filter the items based on the search term
-  const filteredItems = items.filter(item =>
-    item.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   useEffect(() => {
     axios.get('/api/users/me', {
@@ -55,6 +33,7 @@ const BookingsPage = () => {
       })
       .catch((err) => console.error(err));
   }, [])
+
 
   return (
     <>
@@ -90,8 +69,8 @@ const BookingsPage = () => {
           <div className='my-6 px-8'>
             <Link to="/bookings">
               <li className="flex items-center mb-2">
-                <span className="mr-2 text-gray-400"><RiCalendar2Line className='text-pink-600' /></span>
-                <span style={{ fontSize: '18px' }} className="mr-4 text-pink-600">رزروهای من</span>
+                <span className="mr-2 text-gray-400"><RiCalendar2Line /></span>
+                <span style={{ fontSize: '18px' }} className="mr-4">رزروهای من</span>
               </li>
             </Link>
           </div>
@@ -123,8 +102,8 @@ const BookingsPage = () => {
           <div className='my-6 px-8'>
             <Link to="/support">
               <li className="flex items-center mb-2">
-                <span className="mr-2 text-gray-400"><RiCustomerService2Line /></span>
-                <span style={{ fontSize: '18px' }} className="mr-4">پشتیبانی</span>
+                <span className="mr-2 text-gray-400"><RiCustomerService2Line className='text-pink-600' /></span>
+                <span style={{ fontSize: '18px' }} className="mr-4 text-pink-600">پشتیبانی</span>
               </li>
             </Link>
           </div>
@@ -140,24 +119,7 @@ const BookingsPage = () => {
 
         {/* Update User Information Column 2 */}
         <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-6">
-          <div className="max-w-md mx-auto mt-10">
-            <div className="mb-4">
-              <input
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={handleChange}
-              />
-            </div>
-            <ul className="bg-white border border-gray-300 rounded-lg divide-y divide-gray-200">
-              {filteredItems.map((item, index) => (
-                <li key={index} className="p-2 hover:bg-gray-100">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+
         </div>
         <ToastContainer />
       </div>
@@ -166,4 +128,4 @@ const BookingsPage = () => {
   );
 };
 
-export default BookingsPage;
+export default SupportPage;

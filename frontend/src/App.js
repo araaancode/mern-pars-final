@@ -20,6 +20,10 @@ import BookingsPage from "./landing/pages/BookingsPage"
 import BookingPage from "./landing/pages/BookingPage"
 import ProtectedRoute from './landing/routing/ProtectedRoute';
 import SearchResultsPage from './landing/pages/SearchResultsPage';
+import FavoritesPage from './landing/pages/FavoritesPage';
+import BankPage from './landing/pages/BankPage';
+import NotificationsPage from './landing/pages/NotificationsPage';
+import SupportPage from './landing/pages/SupportPage';
 
 
 import { UserContextProvider } from "./landing/components/UserContext";
@@ -94,10 +98,14 @@ function App() {
                 <Route path="/account/places/new" element={<HousesFormPage />} />
                 <Route path="/account/places/:id" element={<HousesFormPage />} />
                 <Route path="/house/:id" element={<HousePage />} />
-                <Route path="/account/bookings" element={<BookingsPage />} />
-                <Route path="/account/bookings/:id" element={<BookingPage />} />
+                <Route path="/bookings" element={<BookingsPage />} />
+                <Route path="/bookings/:id" element={<BookingPage />} />
                 <Route path='/profile' element={<ProfilePage />} />
                 <Route path='/search-houses' element={<SearchResultsPage />} />
+                <Route path='/favorites' element={<FavoritesPage />} />
+                <Route path='/bank' element={<BankPage />} />
+                <Route path='/notifications' element={<NotificationsPage />} />
+                <Route path='/support' element={<SupportPage />} />
               </Route>
             </Route>
 
