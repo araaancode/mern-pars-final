@@ -35,6 +35,33 @@ const SupportPage = () => {
   }, [])
 
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission (e.g., send the data to a server)
+    console.log("Form submitted:", formData);
+    alert("Thank you for contacting support!");
+
+    // Clear form after submission
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+  };
+
   return (
     <>
       <HeaderLog />
@@ -118,8 +145,36 @@ const SupportPage = () => {
         </div>
 
         {/* Update User Information Column 2 */}
-        <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-6">
+        <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg mx-6">
+          <div className="w-full flex items-center justify-center">
+            <div className="bg-white p-2 rounded-lg w-full flex flex-col items-center">
+              <img src="https://cdn-icons-png.flaticon.com/128/3355/3355341.png" className='text-center mb-6' alt="support" />
+              <h3 className='font-bold mt-4'>برای رفع مشکل خود با ما تماس حاصل نمایید</h3>
+              <span className='py-3 px-6 my-2 text-xl bg-gray-200 rounded-full font-bold'>0951xxxxxxx</span>
+              <span className='py-3 px-6 my-2 text-xl bg-gray-200 rounded-full font-bold'>0951xxxxxxx</span>
+              <form onSubmit={handleSubmit} className="space-y-10">
 
+                <h1 className='font-bold my-4'>و یا مشکل خود را با ما در میان بگذارید تا در سریع ترین زمان با شما تماس بگیریم</h1>
+                <div>
+                  <textarea
+                    name="message"
+                    id="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 focus:outline-none"
+                    rows="5"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-blue-900 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  ارسال پیام
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
         <ToastContainer />
       </div>

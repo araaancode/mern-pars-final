@@ -1,6 +1,6 @@
 // src/NotificationsPage.js
 import React, { useState, useEffect } from 'react';
-import { RiTentLine, RiUser3Fill, RiSearchLine, RiCalendar2Line, RiLogoutBoxRLine, RiHeart2Line, RiBankCard2Line, RiNotificationLine, RiCustomerService2Line, RiCameraFill } from "@remixicon/react";
+import { RiTentLine, RiUser3Fill, RiSearchLine, RiCalendar2Line, RiLogoutBoxRLine, RiHeart2Line, RiBankCard2Line, RiNotificationLine, RiCustomerService2Line, RiCameraFill,RiCloseLine } from "@remixicon/react";
 import { FaCamera } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from "react-router-dom";
@@ -9,6 +9,7 @@ import HeaderLog from '../components/HeaderLog';
 import Footer from "../components/Footer"
 
 import { IoIosCamera } from "react-icons/io";
+import { MdOutlineCancel } from "react-icons/md";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -118,7 +119,19 @@ const NotificationsPage = () => {
 
         {/* Update User Information Column 2 */}
         <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-6">
-
+          <div className="w-full flex justify-between rounded overflow-hidden border bg-gray-200 my-4 py-4">
+            <div className="px-6 py-4">
+              <div className="font-bold text-xl mb-2">3 مرداد 1403 - 01:12:54</div>
+              <p className="text-gray-700 text-base">
+                رد رزرو: رزرو شماره 564805 برای اقامتگاه رزرو سوئیت جنگلی 4 توسط شما رد شد.
+              </p>
+            </div>
+            <div className="px-6 my-auto">
+              <a href="#" className="mx-4 font-bold py-4 px-6 rounded">
+                <RiCloseLine />
+              </a>
+            </div>
+          </div>
         </div>
         <ToastContainer />
       </div>

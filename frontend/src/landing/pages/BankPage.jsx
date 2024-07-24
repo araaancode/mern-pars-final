@@ -9,6 +9,7 @@ import HeaderLog from '../components/HeaderLog';
 import Footer from "../components/Footer"
 
 import { IoIosCamera } from "react-icons/io";
+import { LiaPlusSolid } from "react-icons/lia";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -116,7 +117,34 @@ const BankPage = () => {
         </div>
 
         {/* Update User Information Column 2 */}
-        <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-6">
+        <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow m-auto h-screen mx-6">
+
+          {/* <div className="flex flex-col justify-center m-auto w-full">
+            <div className='bg-gray-100 block p-12 rounded-full w-20 h-20'>
+              <RiBankCard2Line className='w-10 h-10 text-gray-300' />
+            </div>
+            <div className="p-4 block">
+              <h1 style={{fontSize:'20px'}} className='text-gray-500'>هنوز هیچ حساب بانکی وجود ندارد</h1>
+              <h2 className='text-gray-400'>جهت دریافت وجه، اطلاعات حساب خود را اضافه کنید</h2>
+            </div>
+            <div className="p-4 block">
+              <button class="bg-blue-800 hover:bg-blue-900 text-white font-bold p-4 rounded">+ افزودن اطلاعات حساب </button>
+            </div>
+          </div> */}
+
+
+          <div className="flex items-center justify-center h-screen">
+            <div className="bg-whit p-8 text-center">
+              <div style={{ width: '150px', height: '150px',margin:'20px auto' }} className="flex items-center justify-center w-16 h-16 bg-gray-200 rounded-full">
+                <RiBankCard2Line className="text-gray-400 w-12 h-12 " />
+              </div>
+              <h2 style={{fontSize:'20px'}} className="text-gray-500 mb-2">هنوز هیچ حساب بانکی وجود ندارد</h2>
+              <h2 style={{fontSize:'20px'}} className="text-gray-500">جهت دریافت وجه، اطلاعات حساب خود را اضافه کنید</h2>
+              <button style={{ borderRadius: "10px",margin:'50px 0' }} className="bg-blue-800 text-white py-4 px-8 hover:bg-blue-900 font-bold transition duration-300">
+                + افزودن اطلاعات حساب
+              </button>
+            </div>
+          </div>
 
         </div>
         <ToastContainer />

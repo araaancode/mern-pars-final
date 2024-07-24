@@ -9,9 +9,45 @@ import HeaderLog from '../components/HeaderLog';
 import Footer from "../components/Footer"
 
 import { IoIosCamera } from "react-icons/io";
+import { FaTrash } from 'react-icons/fa';
+import { BsTrash } from "react-icons/bs";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
+const cardData = [
+  {
+    title: 'Card 1',
+    description: 'This is the description for card 1.',
+    imageUrl: 'https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720',
+  },
+  {
+    title: 'Card 2',
+    description: 'This is the description for card 2.',
+    imageUrl: 'https://a0.muscache.com/im/pictures/miso/Hosting-1049362398343619920/original/3d8fdec5-2501-4b45-8cd5-6f10ea1dfdb0.jpeg?im_w=720',
+  },
+  {
+    title: 'Card 3',
+    description: 'This is the description for card 3.',
+    imageUrl: 'https://a0.muscache.com/im/pictures/21b39a28-901d-40cb-8652-f59b6db4219b.jpg?im_w=720',
+  },
+  {
+    title: 'Card 4',
+    description: 'This is the description for card 4.',
+    imageUrl: 'https://a0.muscache.com/im/pictures/a4412ff4-22fb-401b-99b4-45fbb2e62d19.jpg?im_w=720',
+  },
+  {
+    title: 'Card 5',
+    description: 'This is the description for card 5.',
+    imageUrl: 'https://a0.muscache.com/im/pictures/miso/Hosting-865707200364012433/original/d3680419-95c6-471e-baf7-717c401c314f.jpeg?im_w=720',
+  },
+  {
+    title: 'Card 6',
+    description: 'This is the description for card 6.',
+    imageUrl: 'https://www.homsa.net/images/rooms/31294/10312941692602374__330x183.jpg',
+  }
+];
 
 
 const FavoritesPage = () => {
@@ -117,7 +153,25 @@ const FavoritesPage = () => {
 
         {/* Update User Information Column 2 */}
         <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-6">
-
+          <div className="container mx-auto px-4 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {cardData.map((card, index) => (
+                <div className="rounded-lg overflow-hidden transition-shadow duration-300">
+                  <div className="relative group">
+                    <img style={{borderRadius:'8px'}} src={card.imageUrl} alt={card.title} className="w-full h-48 object-cover" />
+                    {/* Trash icon on hover */}
+                    <div className="absolute top-2 left-2 p-1 opacity-0 rounded-full group-hover:opacity-100 bg-white transition-opacity duration-300">
+                      <BsTrash className="text-pink-600 w-10 h-10 cursor-pointer bg-white bg-opacity-50 rounded-full p-2" />
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
+                    <p className="text-gray-600">{card.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         <ToastContainer />
       </div>
