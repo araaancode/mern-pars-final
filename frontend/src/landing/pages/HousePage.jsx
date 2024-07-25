@@ -27,14 +27,18 @@ import { BiSpeaker } from "react-icons/bi";
 import { MdOutlineKebabDining, MdOutlineCoffeeMaker, MdOutlineMicrowave } from "react-icons/md";
 import { IoIosFootball } from "react-icons/io";
 
-import { useDispatch, useSelector } from 'react-redux'
 import HeaderLog from "../components/HeaderLog";
 
 export default function HousePage() {
-  const { userInfo } = useSelector((state) => state.auth)
-  const dispatch = useDispatch()
   const { id } = useParams();
   const [house, setHouse] = useState(null);
+
+  const [name, setName] = useState('')
+  const [user, setUser] = useState('')
+
+
+  const userToken = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
+
   useEffect(() => {
     if (!id) {
       return;
@@ -42,11 +46,30 @@ export default function HousePage() {
     axios.get(`/api/users/houses/${id}`).then(response => {
       setHouse(response.data.house);
     });
+
+ 
+
+
   }, [id]);
 
   if (!house) return '';
 
 
+
+
+
+
+  // useEffect(() => {
+  //   axios.get('/api/users/me', {
+  //     headers: {
+  //       'authorization': 'Bearer ' + userToken
+  //     }
+  //   })
+  //     .then((res) => {
+  //       setUser(res.data.user)
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, [])
 
 
   return (
@@ -72,7 +95,7 @@ export default function HousePage() {
 
         <div className="flex px-8 mx-auto">
           <div className="w-2/5 p-4 mt-4 mb-4">
-            <BookingWidget house={house} />
+            <BookingWidget house={house} id={id} />
           </div>
           <div dir="rtl" className="w-3/5 p-4 mt-4 mb-8 text-justify">
             <div className="my-4 text-justify">

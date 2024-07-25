@@ -196,92 +196,68 @@ exports.bookHouse = async (req, res) => {
     try {
         let house = await House.findOne({ _id: req.body.house })
         let checkInMounth = new Date(req.body.checkIn).toLocaleDateString().split('/')[0]
-        let checkInDay = new Date(req.body.checkIn).toLocaleDateString().split('/')[1]
-
         let checkOutMounth = new Date(req.body.checkOut).toLocaleDateString().split('/')[0]
+
+        let checkInDay = new Date(req.body.checkIn).toLocaleDateString().split('/')[1]
         let checkOutDay = new Date(req.body.checkOut).toLocaleDateString().split('/')[1]
+
+        let differ = checkOutMounth - checkInMounth
 
         let countDays = 0;
 
-        // switch (checkOutMounth) {
-        //     case 1:
-        //         countDays = 
-        //         break;
 
-        //     case 2:
-        //         break;
-
-        //     case 3:
-        //         break;
-
-        //     case 4:
-        //         break;
-
-        //     case 5:
-        //         break;
-
-        //     case 6:
-        //         break;
-
-        //     case 7:
-        //         break;
-
-        //     case 8:
-        //         break;
-
-        //     case 9:
-        //         break;
-
-        //     case 10:
-        //         break;
-
-        //     case 11:
-        //         break;
-
-        //     case 12:
-        //         break;
-
-        //     default:
-        //         break;
-        // }
-
-
-        // console.log("checkInMounth: ",checkInMounth);
-        // console.log("checkOutMounth: ",checkOutMounth);
-        // console.log("checkInDay: ",checkInDay);
-        // console.log("checkOutDay: ",checkOutDay);
-
-
-        // if (house) {
-        //     let newBooking = await Booking.create({
-        //         user: req.user._id,
-        //         owner: house.owner,
-        //         house: house._id,
-        //         price: house.price * (req.body.checkOut - req.body.checkIn) * (req.body.guests),
-        //         checkIn: req.body.checkIn,
-        //         checkOut: req.body.checkOut,
-        //         guests: req.body.guests,
-        //     })
-
-        //     if (newBooking) {
-        //         res.status(StatusCodes.CREATED).json({
-        //             status: 'success',
-        //             msg: "اقامتگاه رزرو شد",
-        //             booking: newBooking
-        //         });
+        // function compare() {
+        //     if (1 <= checkOutMounth <= 6) {
+        //         return 31;
+        //     } else if (1 <= checkOutMounth <= 11) {
+        //         return 30;
         //     } else {
-        //         res.status(StatusCodes.BAD_REQUEST).json({
-        //             status: 'failure',
-        //             msg: "اقامتگاه رزرو نشد",
-        //         });
+        //         return 29;
         //     }
         // }
-        // else{
-        //     res.status(StatusCodes.NOT_FOUND).json({
-        //         status: 'failure',
-        //         msg: "اقامتگاه پیدا نشد",
-        //     }); 
+
+        // let base = compare()
+        // console.log(base);
+
+        // if (checkInMounth == checkOutMounth) {
+        //     countDays = checkOutDay - checkInDay
+        // } else if (checkOutMounth > checkInMounth) {
+        //     let base = compare()
+        //     console.log(base);
         // }
+
+
+        if (house) {
+            let newBooking = await Booking.create({
+                user: req.user._id,
+                owner: house.owner,
+                house: house._id,
+                // price: Number(house.price) * Number(req.body.guests) * Number(checkOutMounth > checkInMounth ? (checkOutDay > checkInDay ?  (checkOutDay - checkInDay  + 30) : (((checkOutDay - checkInDay) * (-1))  + 30)) : (checkOutMounth == checkInMounth ? (1) : ((checkOutDay - checkInDay)))),
+                price: Number(house.price) ,
+                checkIn: req.body.checkIn,
+                checkOut: req.body.checkOut,
+                guests: req.body.guests,
+            })
+
+            if (newBooking) {
+                res.status(StatusCodes.CREATED).json({
+                    status: 'success',
+                    msg: "اقامتگاه رزرو شد",
+                    booking: newBooking
+                });
+            } else {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    status: 'failure',
+                    msg: "اقامتگاه رزرو نشد",
+                });
+            }
+        }
+        else {
+            res.status(StatusCodes.NOT_FOUND).json({
+                status: 'failure',
+                msg: "اقامتگاه پیدا نشد",
+            });
+        }
 
 
     } catch (error) {
@@ -323,8 +299,30 @@ exports.myFavourites = (req, res) => {
     res.send("user my favourites")
 }
 
-exports.myBookings = (req, res) => {
-    res.send("user my bookings")
+exports.myBookings = async (req, res) => {
+    try {
+        let bookings = await Booking.find({ user: req.user._id })
+        if (bookings.length > 0) {
+            return res.status(StatusCodes.OK).json({
+                status: 'success',
+                msg: "رزروها پیدا شدند",
+                count: bookings.length,
+                bookings: bookings
+            })
+        } else {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                status: 'failure',
+                msg: "رزروها پیدا نشدند"
+            })
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
 }
 
 

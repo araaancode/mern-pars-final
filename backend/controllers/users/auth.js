@@ -141,17 +141,16 @@ exports.login = async (req, res, next) => {
     // 3) If everything ok, send token to client
     // createSendToken(user,StatusCodes.OK, 'success','با موفقیت وارد سایت شدید', req, res);
     if (user) {
-       return res.status(StatusCodes.OK).json({
+      return res.status(StatusCodes.OK).json({
         status: 'success',
         msg: "با موفقیت وارد سایت شدید",
         user
       });
-    } else {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        status: 'failure',
-        msg: "کاربر یافت نشد. باید ثبت نام کنید.",
-      });
     }
+    res.status(StatusCodes.NOT_FOUND).json({
+      status: 'failure',
+      msg: "کاربر یافت نشد. باید ثبت نام کنید.",
+    });
 
   } catch (error) {
     console.error(error);
@@ -211,22 +210,22 @@ exports.verifyOtp = async (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    res.cookie('jwt', 'loggedout', {
-      expires: new Date(Date.now() + 10 * 1000),
-      httpOnly: true
-    });
-    res.status(200).json({ status: 'success' });
-  };
-  
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+  res.status(200).json({ status: 'success' });
+};
+
 
 exports.forgotPassword = (req, res) => {
-    res.send("users forgot password")
+  res.send("users forgot password")
 }
 
 exports.resetPassword = (req, res) => {
-    res.send("users reset password")
+  res.send("users reset password")
 }
 
 exports.changePassword = (req, res) => {
-    res.send("users change password")
+  res.send("users change password")
 }

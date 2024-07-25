@@ -19,7 +19,7 @@ router.get('/my-tickets', userCtrls.myTickets)
 router.post('/create-ticket', userCtrls.createTicket)
 router.post('/add-favourite', userCtrls.addFavourite)
 router.get('/my-favourites', userCtrls.myFavourites)
-router.get('/my-bookings', userCtrls.myBookings)
+router.get('/bookings', protect, userCtrls.myBookings)
 
 router.get('/houses', userCtrls.getHouses)
 router.get('/houses/:houseId', userCtrls.getHouse)
