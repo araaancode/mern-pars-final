@@ -5,20 +5,8 @@ import ArrowRightIcon from '@iconscout/react-unicons/icons/uil-angle-right.js'
 import { Link } from "react-router-dom"
 import PhotoCard from "./PhotoCard"
 
-const photoUrls = [
-    'https://a0.muscache.com/im/pictures/119cc032-6da5-4868-bed1-8a2222a54a94.jpg?im_w=720',
-    'https://a0.muscache.com/im/pictures/a04d9dad-9704-49e4-8829-71293299f7fb.jpg?im_w=720',
-    'https://a0.muscache.com/im/pictures/8421eb85-a3db-4fdf-8aa1-a2e71221b666.jpg?im_w=720',
-    'https://a0.muscache.com/im/pictures/miso/Hosting-754078284353522259/original/011e82d7-0a74-4522-8d95-3ba518f67fa1.jpeg?im_w=720',
-    'https://a0.muscache.com/im/pictures/b1c7be21-6d85-4701-9e57-fc903f2ffa99.jpg?im_w=720',
-    'https://a0.muscache.com/im/pictures/b1c7be21-6d85-4701-9e57-fc903f2ffa99.jpg?im_w=720',
-    'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1050606510236780815/original/5f1844a7-9377-4351-a870-022774f3e405.jpeg?im_w=720',
-    'https://a0.muscache.com/im/pictures/prohost-api/Hosting-47460174/original/abff9a0b-48db-4f99-93a8-14efcafbf4d2.jpeg?im_w=720',
-    'https://a0.muscache.com/im/pictures/miso/Hosting-585348692816295810/original/0fea5832-b573-4f15-8cd3-04b5afcd08e7.jpeg?im_w=720',
-];
 
 const North = ({ houses }) => {
-    console.log(houses);
     return (
         <div className='p-8 mt-10'>
             <div className="flex justify-between items-center">
@@ -52,9 +40,8 @@ const North = ({ houses }) => {
                     <h1>Hello</h1>
 
                 ))} */}
-                    {houses.slice(13, 19).map((_, index) => (
-                        <PhotoCard key={index} photos={houses[index].images} />
-                        
+                    {houses.slice(0, 8).map((_, index) => (
+                        <PhotoCard key={index} images={houses[index].images} house={houses[index]} />
                     ))}
 
 

@@ -7,9 +7,12 @@ module.exports = {
   darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
-      colors:{
+      colors: {
         primary: '#4756b3',
-      }
+      },
+      fontFamily: {
+        vazir: ['Vazir', 'sans-serif'], // Name of your Persian font
+      },
     },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
@@ -18,3 +21,5 @@ module.exports = {
   },
 
 }
+
+

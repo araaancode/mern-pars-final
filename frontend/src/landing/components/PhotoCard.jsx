@@ -3,19 +3,22 @@ import React, { useState } from 'react';
 import {
     RiArrowLeftSLine,
     RiArrowRightSLine,
-    RiHeart3Line
+    RiHeart3Line,
+    RiStarFill,
+    RiStarHalfLine
 } from "@remixicon/react";
 
-const Card = ({ photos }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+import { Link } from "react-router-dom"
 
+const Card = ({ images, house }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
     const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     };
 
     const handlePrevious = () => {
         setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? photos.length - 1 : prevIndex - 1
+            prevIndex === 0 ? images.length - 1 : prevIndex - 1
         );
     };
 
@@ -24,7 +27,7 @@ const Card = ({ photos }) => {
             <div className="relative">
                 <img style={{ height: '300px' }}
                     className="w-full object-cover"
-                    src={photos[currentIndex]}
+                    src={images[currentIndex]}
                     alt={`Slide ${currentIndex}`}
                 />
                 <RiHeart3Line style={{ width: '40px', height: '40px' }} className="absolute top-4 right-0 cursor-pointer text-white p-1 transform -translate-y-1/2 bg-opacity-20 m-3  focus:outline-none" />
@@ -43,13 +46,30 @@ const Card = ({ photos }) => {
                     <RiArrowRightSLine className='font-bold shadow' />
                 </button>
             </div>
-            <h3 className="text-sm text-gray-500 mt-1">name</h3>
-            <div className="mt-1">
-                قیمت به ازای هر شب
-                <span className="font-bold"> 20000</span>
-                <small className="text-gray-500 block">description</small>
+
+
+            <div className='mt-2 flex justify-between items-center'>
+                <Link to={'/house/' + house._id}>
+                    <h3 className="text-gray-500 font-vazir">{house.name}</h3>
+                </Link>
+
+                <div className='flex items-center'>
+                    <span className='mt-2 text-gray-500'>
+                        ({house.reviews.length} نظر)
+                    </span>
+
+                    <RiStarFill className='text-blue-800 w-4 h-4 mr-2' />
+                </div>
             </div>
-        </div>
+
+            <div>
+                <span style={{ fontSize: '18px' }} className="text-gray-700 block font-semibold">{house.description.slice(0, 35)}...</span>
+                <span className="text-gray-500"> قیمت به ازای هر شب</span>
+                <span style={{ fontSize: '18px' }} className="font-semibold mt-1 font-vazir"> {house.price}</span>
+            </div>
+
+
+        </div >
     );
 };
 

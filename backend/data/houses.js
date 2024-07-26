@@ -42,7 +42,7 @@ const cities = [
     "yazd",
 ];
 
-const houseTypes=["cottage","apartment","garden","villa","room"]
+const houseTypes = ["cottage", "apartment", "garden", "villa", "room"]
 
 function makeRandomCity(arr) {
     if (!Array.isArray(arr) || arr.length === 0) {
@@ -67,6 +67,9 @@ function makeRandomPrice(min = 150000, max = 1000000) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function makeRandomRating(min = 1, max = 5) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 
 function generateRandomHouseImage() {
@@ -97,10 +100,11 @@ for (let i = 1; i <= 500; i++) {
     let data = {
         "owner": new ObjectId().toString(),
         "name": `خانه ${i}`,
-        "province":makeRandomCity(cities),
+        "province": makeRandomCity(cities),
         "city": makeRandomCity(cities),
-        "price":makeRandomPrice(),
-        "houseType":makeRandomHouseType(houseTypes),
+        "price": makeRandomPrice(),
+        "houseType": makeRandomHouseType(houseTypes),
+        "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
         "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4AmsnPw1mmGtdSxSdLIRgTLenF-NdiGJAElnuFE8n5DbMuWb_g6AKpbGrWKLQzzO05U&usqp=CAU",
         "images": [
             "https://a0.muscache.com/im/pictures/e7e1331d-7863-426e-9401-894eef41de5b.jpg?im_w=960",
@@ -112,6 +116,14 @@ for (let i = 1; i <= 500; i++) {
             "https://a0.muscache.com/im/pictures/abd48c2f-b09d-43ae-863d-e9689c5047e0.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/62a2d181-c66d-4af0-8671-6cd694eaebd4.jpg?im_w=720",
             "https://a0.muscache.com/im/pictures/62a2d181-c66d-4af0-8671-6cd694eaebd4.jpg?im_w=720",
+        ],
+        "reviews": [
+            {
+                "name": `کامنت ${i}`,
+                "rating": makeRandomRating(),
+                "comment": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. ",
+                "user":"66a281c79d053134cd52a7e6",
+            }
         ]
     }
 

@@ -2,6 +2,21 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+const reviewSchema = mongoose.Schema(
+    {
+        name: { type: String, required: true },
+        rating: { type: Number, required: true },
+        comment: { type: String, required: true },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User',
+        },
+    },
+    {
+        timestamps: true,
+    }
+)
 
 const houseSchema = new mongoose.Schema({
     owner: {
@@ -98,12 +113,12 @@ const houseSchema = new mongoose.Schema({
     checkIn: Number,
     checkOut: Number,
 
-    lat:{
-        type:String
+    lat: {
+        type: String
     },
 
-    lng:{
-        type:String
+    lng: {
+        type: String
     },
 
     floor: {
@@ -155,6 +170,7 @@ const houseSchema = new mongoose.Schema({
         default: true,
         required: true
     },
+    reviews: [reviewSchema],
 }, { timestamps: true });
 
 
