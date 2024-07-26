@@ -301,8 +301,8 @@ exports.myFavourites = (req, res) => {
 
 exports.myBookings = async (req, res) => {
     try {
-        let bookings = await Booking.find({ user: req.user._id })
-        if (bookings.length > 0) {
+        let bookings = await Booking.find({ user: req.user._id }).populate("house")
+        if (bookings) {
             return res.status(StatusCodes.OK).json({
                 status: 'success',
                 msg: "رزروها پیدا شدند",
@@ -310,7 +310,7 @@ exports.myBookings = async (req, res) => {
                 bookings: bookings
             })
         } else {
-            return res.status(StatusCodes.BAD_REQUEST).json({
+            return res.status(StatusCodes.NOT_FOUND).json({
                 status: 'failure',
                 msg: "رزروها پیدا نشدند"
             })

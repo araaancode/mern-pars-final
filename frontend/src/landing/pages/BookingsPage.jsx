@@ -16,45 +16,19 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const BookingsPage = () => {
 
-  const userToken = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
-
   const [name, setName] = useState('')
   const [user, setUser] = useState('')
+  const [items, setItems] = useState([])
 
-  const items = [
-    { name: 'React', category: 'JavaScript Framework' },
-    { name: 'Angular', category: 'JavaScript Framework' },
-    { name: 'Vue', category: 'JavaScript Framework' },
-    { name: 'Svelte', category: 'JavaScript Framework' },
-    { name: 'Tailwind CSS', category: 'CSS Framework' },
-    { name: 'Bootstrap', category: 'CSS Framework' },
-    { name: 'Material UI', category: 'CSS Framework' },
-  ];
+  const userToken = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
 
 
-  // Unique categories
-  const categories = [...new Set(items.map(item => item.category))];
+
+
 
   // State for the search term and selected category
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-
-  // Handle the search input change
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  // Handle category selection change
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-
-  // Filter items based on search term and selected category
-  const filteredItems = items.filter(item => {
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
 
   useEffect(() => {
     axios.get('/api/users/me', {
@@ -66,7 +40,73 @@ const BookingsPage = () => {
         setUser(res.data.user)
       })
       .catch((err) => console.error(err));
-  }, [])
+
+    // bookings
+    axios.get('/api/users/bookings', {
+      headers: {
+        'authorization': 'Bearer ' + userToken
+      }
+    })
+      .then((res) => {
+        // console.log(res.data.bookings);
+        setItems(res.data.bookings)
+      })
+      .catch((err) => console.error(err));
+  }, [userToken])
+
+
+  // Handle the search input change
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Handle category selection change
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  // Unique categories
+  // const categories = [...new Set(items.map(item => item.house.houseType))];
+  const categories = ["cottage", "apartment", "garden", "villa", "room"];
+
+
+  const persianHouseType = (type) => {
+    switch (type) {
+      case "cottage":
+        return "کلبه"
+        break;
+
+      case "apartment":
+        return "آپارتمان"
+        break;
+
+      case "garden":
+        return "باغ"
+        break;
+
+      case "villa":
+        return "ویلا"
+        break;
+
+      case "room":
+        return "اتاق"
+        break;
+
+      default:
+        break;
+    }
+  }
+
+
+  // Filter items based on search term and selected category
+  const filteredItems = items.filter(item => {
+    let houseType = persianHouseType(item.house.houseType)
+    const matchesSearch = item.house.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || item.house.houseType === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+
 
   return (
     <>
@@ -150,14 +190,14 @@ const BookingsPage = () => {
           </div>
         </div>
 
-        {/* Update User Information Column 2 */}
-        <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-6">
+
+        {items.length > 0 ? (<div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-10">
           <div className='flex justify-between items-center'>
-            <div className="mb-4 ml-10" style={{width:'60%'}}>
+            <div className="mb-4 ml-6" style={{ width: '80%' }}>
               <input
-                style={{ borderRadius: '5px', padding: '20px 30px' }}
+                style={{ borderRadius: '5px', padding: '20px', border: '1px solid black' }}
                 type="text"
-                className="w-full border border-gray-300 focus:outline-none"
+                className="w-full border focus:outline-none"
                 placeholder="جستجو کنید..."
                 value={searchTerm}
                 onChange={handleSearchChange}
@@ -165,15 +205,15 @@ const BookingsPage = () => {
             </div>
             <div className="mb-4">
               <select
-                className="w-full p-6 border border-gray-300 bg-white"
+                className="w-full p-6 border bg-white focus:outline-none"
                 value={selectedCategory}
                 onChange={handleCategoryChange}
-                style={{ borderRadius: '5px', padding: '20px 30px' }}
+                style={{ borderRadius: '5px', padding: '20px', border: '1px solid black' }}
               >
-                <option className='bg-white' value="All">مرتب سازی </option>
+                <option className='bg-white px-4' value="All">مرتب سازی </option>
                 {categories.map((category, index) => (
                   <option className='bg-white' key={index} value={category}>
-                    {category}
+                    {persianHouseType(category)}
                   </option>
                 ))}
               </select>
@@ -184,15 +224,23 @@ const BookingsPage = () => {
             //   {item.name} <span className="text-gray-500 text-sm">({item.category})</span>
             // </div>
 
-            <div className="w-full flex justify-between rounded overflow-hidden border bg-white my-4 py-4">
+            <div className="w-full flex justify-between rounded-lg overflow-hidden border bg-white my-4 py-4" key={index}>
               <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2"> {item.name}</div>
-                <p className="text-gray-700 text-base">
-                  ({item.category})
-                </p>
+                <div className="font-bold text-xl mb-2"> {item.house.name} {persianHouseType(item.house.houseType)}</div>
+                <div className="mb-2 text-gray-500">کد رزرو: {item._id}</div>
+              </div>
+
+              <div className="px-6 my-auto">
+                <div className="mb-2 text-gray-500"> {new Date(item.checkIn).toLocaleString("fa").split(',')[0]}</div>
+                <div className="mb-2 text-gray-500"> الی </div>
+                <div className="mb-2 text-gray-500"> {new Date(item.checkOut).toLocaleString("fa").split(',')[0]}</div>
+              </div>
+
+              <div className="px-6 my-auto">
+                <p className="mb-2 text-gray-500 inline"> {item.price} تومان</p>
               </div>
               <div className="px-6 my-auto">
-                <a href="#" className="bg-blue-700 hover:bg-blue-800 mx-4 text-white font-bold py-4 px-6 rounded">
+                <a href="#" className="bg-blue-700 hover:bg-blue-800 mx-4 text-white font-bold py-4 px-6 rounded shadow-lg">
                   لغو رزرو
                 </a>
 
@@ -203,7 +251,20 @@ const BookingsPage = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div>) : (
+          <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-10">
+
+
+            <div className="flex items-center justify-center h-screen">
+              <div className="bg-whit p-8 text-center">
+                <h1 className='text-xl text-gray-500'>شما هیچ رزروی ندارید !!!</h1>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Update User Information Column 2 */}
+
         <ToastContainer />
       </div>
       <Footer />
