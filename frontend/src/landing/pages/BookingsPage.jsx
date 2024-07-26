@@ -191,7 +191,8 @@ const BookingsPage = () => {
         </div>
 
 
-        {items.length > 0 ? (<div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-10">
+        {items.length > 0 ? (
+        <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-10">
           <div className='flex justify-between items-center'>
             <div className="mb-4 ml-6" style={{ width: '80%' }}>
               <input

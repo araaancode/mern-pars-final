@@ -233,7 +233,7 @@ exports.bookHouse = async (req, res) => {
                 owner: house.owner,
                 house: house._id,
                 // price: Number(house.price) * Number(req.body.guests) * Number(checkOutMounth > checkInMounth ? (checkOutDay > checkInDay ?  (checkOutDay - checkInDay  + 30) : (((checkOutDay - checkInDay) * (-1))  + 30)) : (checkOutMounth == checkInMounth ? (1) : ((checkOutDay - checkInDay)))),
-                price: Number(house.price) ,
+                price: Number(house.price),
                 checkIn: req.body.checkIn,
                 checkOut: req.body.checkOut,
                 guests: req.body.guests,
@@ -286,19 +286,6 @@ exports.createTicket = (req, res) => {
     res.send("user create tickets")
 }
 
-exports.addFavourite = (req, res) => {
-    res.send("user add favourite")
-}
-
-exports.myFavourites = (req, res) => {
-    res.send("user my favourites")
-}
-
-
-exports.myFavourites = (req, res) => {
-    res.send("user my favourites")
-}
-
 exports.myBookings = async (req, res) => {
     try {
         let bookings = await Booking.find({ user: req.user._id }).populate("house")
@@ -325,4 +312,143 @@ exports.myBookings = async (req, res) => {
     }
 }
 
+exports.getFavorites = async (req, res) => {
+    try {
+        let user = await User.findById(req.user._id).populate('favorites')
+        if (user.favorites.length > 0) {
+            return res.status(StatusCodes.OK).json({
+                status: 'success',
+                msg: "خانه ها پیدا شدند",
+                count: user.favorites.length,
+                houses: user.favorites
+            })
+        } else {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                status: 'failure',
+                msg: "خانه ها پیدا نشدند"
+            })
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
+}
 
+exports.getFavorite = async (req, res) => {
+    try {
+        let user = await User.findById(req.user._id).populate('favorites')
+        if (user.favorites.length > 0) {
+            let house = user.favorites.find(f => f._id == req.params.houseId)
+
+            if (house) {
+                 return res.status(StatusCodes.OK).json({
+                    status: 'success',
+                    msg: "خانه پیدا شد",
+                    house
+                })
+            }else{
+                return res.status(StatusCodes.OK).json({
+                    status: 'success',
+                    msg: "خانه پیدا نشد",
+                })
+            }
+
+        } else {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                status: 'failure',
+                msg: "خانه پیدا نشد"
+            })
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
+}
+
+
+exports.addFavorite = async (req, res) => {
+    try {
+
+        let user = await User.findById({ _id: req.user._id })
+
+        if (user) {
+            if (!user.favorites.includes(req.body.house)) {
+                user.favorites.push(req.body.house)
+            } else {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    status: 'failure',
+                    msg: "خانه قبلا به لیست مورد علاقه اضافه شده است",
+                });
+            }
+
+            let newUser = await user.save()
+
+            if (newUser) {
+                res.status(StatusCodes.OK).json({
+                    status: 'success',
+                    msg: "خانه به لیست مورد علاقه اضافه شد",
+                    newUser
+                });
+            } else {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    status: 'failure',
+                    msg: "خانه به لیست مورد علاقه اضافه نشد",
+                });
+            }
+        }
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
+}
+
+exports.deleteFavorite = async (req, res) => {
+    try {
+        let user = await User.findById(req.user._id).populate('favorites')
+        if (user.favorites.length > 0) {
+            let filterHouses = user.favorites.filter(f => f._id != req.body.house)
+          
+            user.favorites = filterHouses
+
+            let newUser = await user.save()
+
+            if (newUser) {
+                res.status(StatusCodes.OK).json({
+                    status: 'success',
+                    msg: "خانه حذف شد",
+                    newUser
+                });
+            } else {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    status: 'failure',
+                    msg: "خانه حذف نشد",
+                });
+            }
+        } else {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                status: 'failure',
+                msg: "خانه ها حذف نشد"
+            })
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
+}

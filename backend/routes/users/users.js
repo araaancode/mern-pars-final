@@ -17,11 +17,15 @@ router.get('/notifications', userCtrls.notifications)
 router.get('/finance', userCtrls.finance)
 router.get('/my-tickets', userCtrls.myTickets)
 router.post('/create-ticket', userCtrls.createTicket)
-router.post('/add-favourite', userCtrls.addFavourite)
-router.get('/my-favourites', userCtrls.myFavourites)
 router.get('/bookings', protect, userCtrls.myBookings)
 
 router.get('/houses', userCtrls.getHouses)
 router.get('/houses/:houseId', userCtrls.getHouse)
+
+router.get('/favorites', protect,userCtrls.getFavorites)
+router.get('/favorites/:houseId', protect,userCtrls.getFavorite)
+router.put('/add-favorite', protect,userCtrls.addFavorite)
+router.put('/delete-favorite', protect,userCtrls.deleteFavorite)
+
 
 module.exports = router

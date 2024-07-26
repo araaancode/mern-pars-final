@@ -65,7 +65,13 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
     select: false
-  }
+  },
+  favorites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'House',
+    }
+  ],
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {

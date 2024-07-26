@@ -158,7 +158,7 @@ const FavoritesPage = () => {
               {cardData.map((card, index) => (
                 <div className="rounded-lg overflow-hidden transition-shadow duration-300">
                   <div className="relative group">
-                    <img style={{borderRadius:'8px'}} src={card.imageUrl} alt={card.title} className="w-full h-48 object-cover" />
+                    <img style={{ borderRadius: '8px' }} src={card.imageUrl} alt={card.title} className="w-full h-48 object-cover" />
                     {/* Trash icon on hover */}
                     <div className="absolute top-2 left-2 p-1 opacity-0 rounded-full group-hover:opacity-100 bg-white transition-opacity duration-300">
                       <BsTrash className="text-pink-600 w-10 h-10 cursor-pointer bg-white bg-opacity-50 rounded-full p-2" />
