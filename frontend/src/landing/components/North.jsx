@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ArrowLeftIcon from '@iconscout/react-unicons/icons/uil-angle-left.js'
 import ArrowRightIcon from '@iconscout/react-unicons/icons/uil-angle-right.js'
 import { Link } from "react-router-dom"
 import PhotoCard from "./PhotoCard"
+
+import {
+    RiArrowLeftSLine,
+    RiArrowRightSLine,
+    RiHeart3Line,
+    RiStarFill,
+    RiStarHalfLine
+} from "@remixicon/react";
 
 
 const North = ({ houses }) => {
@@ -40,9 +47,9 @@ const North = ({ houses }) => {
                     <h1>Hello</h1>
 
                 ))} */}
-                    {houses.slice(0, 8).map((_, index) => (
-                        <PhotoCard key={index} images={houses[index].images} house={houses[index]} />
-                    ))}
+                {houses.slice(0, 8).map((_, index) => (
+                    <PhotoCard key={index} images={houses[index].images} house={houses[index]} />
+                ))}
 
 
             </div>

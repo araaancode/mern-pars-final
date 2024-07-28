@@ -5,7 +5,7 @@ const Booking = require("../../models/Booking")
 
 exports.getMe = async (req, res) => {
     try {
-        let user = await User.findById(req.user._id)
+        let user = await User.findById(req.user._id).populate('favorites').select('-password')
         if (user) {
             return res.status(StatusCodes.OK).json({
                 status: 'success',
@@ -345,12 +345,12 @@ exports.getFavorite = async (req, res) => {
             let house = user.favorites.find(f => f._id == req.params.houseId)
 
             if (house) {
-                 return res.status(StatusCodes.OK).json({
+                return res.status(StatusCodes.OK).json({
                     status: 'success',
                     msg: "خانه پیدا شد",
                     house
                 })
-            }else{
+            } else {
                 return res.status(StatusCodes.OK).json({
                     status: 'success',
                     msg: "خانه پیدا نشد",
@@ -377,13 +377,13 @@ exports.getFavorite = async (req, res) => {
 exports.addFavorite = async (req, res) => {
     try {
 
-        let user = await User.findById({ _id: req.user._id })
+        let user = await User.findById({ _id: req.user._id }).select('-password')
 
         if (user) {
             if (!user.favorites.includes(req.body.house)) {
                 user.favorites.push(req.body.house)
             } else {
-                res.status(StatusCodes.BAD_REQUEST).json({
+                return res.status(StatusCodes.BAD_REQUEST).json({
                     status: 'failure',
                     msg: "خانه قبلا به لیست مورد علاقه اضافه شده است",
                 });
@@ -392,21 +392,22 @@ exports.addFavorite = async (req, res) => {
             let newUser = await user.save()
 
             if (newUser) {
-                res.status(StatusCodes.OK).json({
+                return res.status(StatusCodes.OK).json({
                     status: 'success',
                     msg: "خانه به لیست مورد علاقه اضافه شد",
                     newUser
                 });
-            } else {
-                res.status(StatusCodes.BAD_REQUEST).json({
-                    status: 'failure',
-                    msg: "خانه به لیست مورد علاقه اضافه نشد",
-                });
             }
+            // else {
+            //     res.status(StatusCodes.BAD_REQUEST).json({
+            //         status: 'failure',
+            //         msg: "خانه به لیست مورد علاقه اضافه نشد",
+            //     });
+            // }
         }
 
     } catch (error) {
-        console.error(error.message);
+        console.log(error);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             status: 'failure',
             msg: "خطای داخلی سرور",
@@ -420,7 +421,7 @@ exports.deleteFavorite = async (req, res) => {
         let user = await User.findById(req.user._id).populate('favorites')
         if (user.favorites.length > 0) {
             let filterHouses = user.favorites.filter(f => f._id != req.body.house)
-          
+
             user.favorites = filterHouses
 
             let newUser = await user.save()

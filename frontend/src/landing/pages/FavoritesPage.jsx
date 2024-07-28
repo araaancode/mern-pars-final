@@ -56,6 +56,8 @@ const FavoritesPage = () => {
 
   const [name, setName] = useState('')
   const [user, setUser] = useState('')
+  const [favorites, setFavorites] = useState([])
+  const [houses, setHouses] = useState([])
 
   useEffect(() => {
     axios.get('/api/users/me', {
@@ -65,9 +67,21 @@ const FavoritesPage = () => {
     })
       .then((res) => {
         setUser(res.data.user)
+        setFavorites(res.data.user.favorites)
       })
       .catch((err) => console.error(err));
   }, [])
+
+
+  // favorites.forEach(favorite => {
+  //   axios.get(`/api/users/houses/${favorite}`).then((res) => {
+  //     setHouses(res.data.house)
+  //   }).catch((err) => console.error(err));
+  // });
+
+
+  console.log(favorites);
+
 
   return (
     <>
@@ -153,25 +167,38 @@ const FavoritesPage = () => {
 
         {/* Update User Information Column 2 */}
         <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-6">
-          <div className="container mx-auto px-4 py-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {cardData.map((card, index) => (
-                <div className="rounded-lg overflow-hidden transition-shadow duration-300">
-                  <div className="relative group">
-                    <img style={{ borderRadius: '8px' }} src={card.imageUrl} alt={card.title} className="w-full h-48 object-cover" />
-                    {/* Trash icon on hover */}
-                    <div className="absolute top-2 left-2 p-1 opacity-0 rounded-full group-hover:opacity-100 bg-white transition-opacity duration-300">
-                      <BsTrash className="text-pink-600 w-10 h-10 cursor-pointer bg-white bg-opacity-50 rounded-full p-2" />
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
-                    <p className="text-gray-600">{card.description}</p>
-                  </div>
-                </div>
-              ))}
+          {houses.length > 0 ? (
+            <div className="container mx-auto px-4 py-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {houses.map((house, index) => (
+                  // <div className="rounded-lg overflow-hidden transition-shadow duration-300" key={house.name}>
+                  //   <div className="relative group">
+                  //     <img style={{ borderRadius: '8px' }} src={house.cover} alt={house.name} className="w-full h-48 object-cover" />
+                  //     <div className="absolute top-2 left-2 p-1 opacity-0 rounded-full group-hover:opacity-100 bg-white transition-opacity duration-300">
+                  //       <BsTrash className="text-pink-600 w-10 h-10 cursor-pointer bg-white bg-opacity-50 rounded-full p-2" />
+                  //     </div>
+                  //   </div>
+                  //   <div className="p-4">
+                  //     <h3 className="text-lg font-semibold mb-2">{house.name}</h3>
+                  //     <p className="text-gray-600">{house.description}</p>
+                  //   </div>
+                  // </div>
+                  <h1>sdasdasd</h1>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="w-full md:w-3/4 p-6 bg-white rounded-lg mx-10">
+              <div className="flex items-center justify-center h-screen">
+                <div className="bg-whit p-8 text-center">
+                  <h1 className='text-xl text-gray-500'>
+                    لیست شما خالی است !!!
+                  </h1>
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
         <ToastContainer />
       </div>
