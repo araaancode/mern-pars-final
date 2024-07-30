@@ -16,7 +16,7 @@ const SearchResultsPage = () => {
 
 
   // search functionality
-  const city = window.location.search.split("=")[1];
+  const city = window.location.search.split("=")[1].split("&")[0]
 
   const [houses, setHouses] = useState([]);
   const [loading, setLoading] = useState(true);

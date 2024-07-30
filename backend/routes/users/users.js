@@ -22,10 +22,10 @@ router.get('/bookings', protect, userCtrls.myBookings)
 router.get('/houses', userCtrls.getHouses)
 router.get('/houses/:houseId', userCtrls.getHouse)
 
-router.get('/favorites', protect,userCtrls.getFavorites)
-router.get('/favorites/:houseId', protect,userCtrls.getFavorite)
-router.put('/add-favorite', protect,userCtrls.addFavorite)
-router.put('/delete-favorite', protect,userCtrls.deleteFavorite)
+router.get('/favorites', protect, userCtrls.getFavorites)
+router.get('/favorites/:houseId', protect, userCtrls.getFavorite)
+router.put('/add-favorite', protect, userCtrls.addFavorite)
+router.put('/delete-favorite', protect, userCtrls.deleteFavorite)
 
 
 module.exports = router
