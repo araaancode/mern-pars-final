@@ -27,26 +27,7 @@ const North = ({ houses }) => {
                 </div>
             </div>
             <div className="mt-8 mb-10 grid gap-x-6 gap-y-8 grid-cols-6 md:grid-cols-4 lg:grid-cols-4 min-w-4xl">
-                {/* {houses.length > 0 && houses.slice(13, 19).map(house => (
 
-                    // <Link to={'/house/' + house._id} key={house._id}>
-                    //     <div className="bg-gray-500 mb-2 rounded-xl flex">
-                    //         {house.images?.[0] && (
-                    //             <Image className="rounded-xl object-cover aspect-square" src={house.images?.[0]} alt="" />
-                    //         )}
-                    //     </div>
-                    //     <h2 className="font-bold">{house.address}</h2>
-                    //     <h3 className="text-gray-500">{house.name}</h3>
-                    //     <div className="mt-1 text-sm">
-                    //         قیمت به ازای هر شب
-                    //         <span className="font-bold"> {house.price}</span>
-                    //         <small className="text-gray-500 block">{house.description}</small>
-                    //     </div>
-                    // </Link>
-
-                    <h1>Hello</h1>
-
-                ))} */}
                 {houses.slice(0, 8).map((_, index) => (
                     <PhotoCard key={index} images={houses[index].images} house={houses[index]} />
                 ))}

@@ -31,7 +31,7 @@ const HeaderLog = () => {
                             type="text"
                             name="city"
                             placeholder="نام شهر مورد نظر را وارد کنید.."
-                            className="bg-white rounded-full focus:outline-none w-full"
+                            className="bg-white rounded-full focus:outline-none w-full shadow rounded-full hover:shadow-md"
                         />
                         <button type="submit" className="absolute left-2 mt-2 p-3 bg-blue-800 rounded-full text-white">
                             <FaSearch className='text-sm' />
@@ -54,7 +54,7 @@ const HeaderLog = () => {
                 </Link>
 
             </header>
-            <div className="border shadow shadow-lg"></div>
+            <div className="border border-gray-100"></div>
         </>
     )
 }

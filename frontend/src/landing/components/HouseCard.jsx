@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 const HouseCard = ({ house }) => {
   return (
     <div className="rounded-lg">
-      <Link to={`/place/${house._id}`}>
+      <Link to={`/house/${house._id}`}>
         <img src={house.cover} alt={house.name} className="w-full h-50 object-cover mb-4 rounded-md" />
       </Link>
       <h2 className="text-lg font-semibold">{house.name}</h2>
