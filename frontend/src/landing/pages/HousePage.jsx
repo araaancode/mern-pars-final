@@ -4,8 +4,8 @@ import axios from "axios";
 import BookingWidget from "../components/BookingWidget";
 import HouseGallery from "../components/HouseGallery";
 import AddressLink from "../components/AddressLink";
-import MapPage from "../components/MapPage"
 import Header from "../components/Header"
+import MapPage from "../components/MapPage"
 import Footer from "../components/Footer"
 
 import {
@@ -55,43 +55,12 @@ export default function HousePage() {
   if (!house) return '';
 
 
-
-
-
-
-  // useEffect(() => {
-  //   axios.get('/api/users/me', {
-  //     headers: {
-  //       'authorization': 'Bearer ' + userToken
-  //     }
-  //   })
-  //     .then((res) => {
-  //       setUser(res.data.user)
-  //     })
-  //     .catch((err) => console.error(err));
-  // }, [])
-
-
   return (
     <>
       <HeaderLog />
 
       <div dir="ltr" className="pt-4">
         <HouseGallery house={house} />
-        {/* booking */}
-        {/* <div className="mt-8 mb-8 grid gap-6 grid-cols-1 md:grid-cols-[2fr_1fr] px-8">
-          <div style={{ width: '25%' }}>
-            <BookingWidget house={house} />
-          </div>
-
-          <div className="text-righ text-justify" style={{ width: '75%' }} dir="rtl">
-            <div className="my-4">
-              <h2 className="font-semibold text-2xl mb-4">درباره اقامتگاه: </h2>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-            </div>
-            <AddressLink>{house.address}</AddressLink>
-          </div>
-        </div> */}
 
         <div className="flex px-8 mx-auto">
           <div className="w-2/5 p-4 mt-4 mb-4">

@@ -1,86 +1,133 @@
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
+
 import AddressLink from "../components/AddressLink";
 import HouseGallery from "../components/HouseGallery";
 import BookingDates from "../components/BookingDates";
 
+import { PiDog, PiTelevision, PiSolarRoof, PiBathtub, PiSwimmingPool, PiWashingMachine, PiForkKnifeDuotone, PiOvenDuotone } from "react-icons/pi"
+import { LuParkingCircle, LuRefrigerator } from "react-icons/lu";
+import { HiOutlineRadio } from "react-icons/hi2";
+import { GiVacuumCleaner, GiBarbecue } from "react-icons/gi";
+import { LiaWarehouseSolid } from "react-icons/lia"
+import { BiSpeaker } from "react-icons/bi";
+import { MdOutlineKebabDining, MdOutlineCoffeeMaker, MdOutlineMicrowave } from "react-icons/md";
+import { IoIosFootball } from "react-icons/io";
+import BookingWidget from "../components/BookingWidget";
+import HeaderLog from "../components/HeaderLog";
+
+import MapPage from "../components/MapPage"
+import Footer from "../components/Footer"
+
 export default function BookingPage() {
-  const {id} = useParams();
-  const [booking,setBooking] = useState(null);
+  const { id } = useParams();
+
+
+  const [booking, setBooking] = useState(null);
+  const [user, setUser] = useState('')
+  const [items, setItems] = useState([])
+  const [house, setHouse] = useState(null);
+
+  const userToken = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
+
+
   useEffect(() => {
+    axios.get('/api/users/me', {
+      headers: {
+        'authorization': 'Bearer ' + userToken
+      }
+    })
+      .then((res) => {
+        setUser(res.data.user)
+      })
+      .catch((err) => {
+        console.error(err)
+      });
+
+
     if (id) {
-      axios.get('/api/users/bookings').then(response => {
-        const foundBooking = response.data.find(({_id}) => _id === id);
+      axios.get('/api/users/bookings', {
+        headers: {
+          'authorization': 'Bearer ' + userToken
+        }
+      }).then(response => {
+        // console.log(response.data.bookings);
+        const foundBooking = response.data.bookings.find(({ _id }) => _id === id);
         if (foundBooking) {
           setBooking(foundBooking);
         }
       });
     }
-  }, [id]);
+
+
+  }, [id, userToken]);
 
   if (!booking) {
     return '';
   }
 
+
+  console.log(booking);
+
+
   return (
-    <div className="my-8">
-      <h1 className="text-3xl">{booking.house.title}</h1>
-      <AddressLink className="my-2 block">{booking.house.address}</AddressLink>
-      <div className="bg-gray-200 p-6 my-6 rounded-2xl flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl mb-4">اطلاعات رزرو شما:</h2>
-          <BookingDates booking={booking} />
-        </div>
-        <div className="bg-primary p-6 text-white rounded-2xl">
-          <div>قیمت نهایی</div>
-          <div className="text-3xl">{booking.price}</div>
-        </div>
-      </div>
-      <HouseGallery place={booking.house} />
-      <div className="bg-white -mx-8 px-8 py-8 border-t">
-        <div className="mt-4 mb-4">
-          <h2 className="font-semibold text-2xl">اطلاعات اضافی</h2>
-        </div>
-        <p className="mt-2"></p>
-        <div className="grid grid-cols-3 grid-rows-2 mt-6">
-          <div className="mt-4 mb-4">        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
-          </svg>
-            <span>وای فای</span></div>
-          <div className="mt-4 mb-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-          </svg>
-            <span>پارکینگ رایگان</span></div>
-          <div className="mt-4 mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125z" />
-            </svg>
-            <span>تلویزیون</span>
-          </div>
-          <div className="mt-4 mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 7.5l16.5-4.125M12 6.75c-2.708 0-5.363.224-7.948.655C2.999 7.58 2.25 8.507 2.25 9.574v9.176A2.25 2.25 0 004.5 21h15a2.25 2.25 0 002.25-2.25V9.574c0-1.067-.75-1.994-1.802-2.169A48.329 48.329 0 0012 6.75zm-1.683 6.443l-.005.005-.006-.005.006-.005.005.005zm-.005 2.127l-.005-.006.005-.005.005.005-.005.005zm-2.116-.006l-.005.006-.006-.006.005-.005.006.005zm-.005-2.116l-.006-.005.006-.005.005.005-.005.005zM9.255 10.5v.008h-.008V10.5h.008zm3.249 1.88l-.007.004-.003-.007.006-.003.004.006zm-1.38 5.126l-.003-.006.006-.004.004.007-.006.003zm.007-6.501l-.003.006-.007-.003.004-.007.006.004zm1.37 5.129l-.007-.004.004-.006.006.003-.004.007zm.504-1.877h-.008v-.007h.008v.007zM9.255 18v.008h-.008V18h.008zm-3.246-1.87l-.007.004L6 16.127l.006-.003.004.006zm1.366-5.119l-.004-.006.006-.004.004.007-.006.003zM7.38 17.5l-.003.006-.007-.003.004-.007.006.004zm-1.376-5.116L6 12.38l.003-.007.007.004-.004.007zm-.5 1.873h-.008v-.007h.008v.007zM17.25 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zm0 4.5a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-            </svg>
-            <span>رادیو</span>
-          </div>
-          <div className="mt-4 mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-              stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round"
-                d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
-            </svg>
-            <span>حیوان خانگی</span>
-          </div>
-          <div className="mt-4 mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-            </svg>
-            <span>مجوز ورود و خروج</span>
-          </div>
+    <>
+      <HeaderLog />
+      <div className="flex flex-col md:flex-row gap-4 p-4">
+        {/* First Column */}
+        <div className="flex-1 p-4 h-screen">
+          <h2 className="text-2xl font-bold text-blue-800 mb-2">وضعیت رزرو</h2>
         </div>
 
+        {/* Second Column */}
+        <div className="flex-1 p-4">
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="max-w-sm w-full py-6 px-3">
+              <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+                <div className="bg-cover bg-center h-56 p-4" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80)" }}>
+                  <div className="flex justify-end">
+                    <svg className="h-6 w-6 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12.76 3.76a6 6 0 0 1 8.48 8.48l-8.53 8.54a1 1 0 0 1-1.42 0l-8.53-8.54a6 6 0 0 1 8.48-8.48l.76.75.76-.75zm7.07 7.07a4 4 0 1 0-5.66-5.66l-1.46 1.47a1 1 0 0 1-1.42 0L9.83 5.17a4 4 0 1 0-5.66 5.66L12 18.66l7.83-7.83z"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="uppercase tracking-wide text-sm font-bold text-gray-700">Detached house • 5y old</p>
+                  <p className="text-3xl text-gray-900">{booking.price}</p>
+                  <p className="text-gray-700">742 Evergreen Terrace</p>
+                </div>
+                <div className="flex p-4 border-t border-gray-300 text-gray-700">
+                  <div className="flex-1 inline-flex items-center">
+                    <svg className="h-6 w-6 text-gray-600 fill-current mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M0 16L3 5V1a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v4l3 11v5a1 1 0 0 1-1 1v2h-1v-2H2v2H1v-2a1 1 0 0 1-1-1v-5zM19 5h1V1H4v4h1V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1h2V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1zm0 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V6h-2v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6H3.76L1.04 16h21.92L20.24 6H19zM1 17v4h22v-4H1zM6 4v4h4V4H6zm8 0v4h4V4h-4z"></path>
+                    </svg>
+                    <p><span className="text-gray-900 font-bold">3</span> Bedrooms</p>
+                  </div>
+                  <div className="flex-1 inline-flex items-center">
+                    <svg className="h-6 w-6 text-gray-600 fill-current mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path fillRule="evenodd" d="M17.03 21H7.97a4 4 0 0 1-1.3-.22l-1.22 2.44-.9-.44 1.22-2.44a4 4 0 0 1-1.38-1.55L.5 11h7.56a4 4 0 0 1 1.78.42l2.32 1.16a4 4 0 0 0 1.78.42h9.56l-2.9 5.79a4 4 0 0 1-1.37 1.55l1.22 2.44-.9.44-1.22-2.44a4 4 0 0 1-1.3.22zM21 11h2.5a.5.5 0 1 1 0 1h-9.06a4.5 4.5 0 0 1-2-.48l-2.32-1.15A3.5 3.5 0 0 0 8.56 10H.5a.5.5 0 0 1 0-1h8.06c.7 0 1.38.16 2 .48l2.32 1.15a3.5 3.5 0 0 0 1.56.37H20V2a1 1 0 0 0-1.74-.67c.64.97.53 2.29-.32 3.14l-.35.36-3.54-3.54.35-.35a2.5 2.5 0 0 1 3.15-.32A2 2 0 0 1 21 2v9zm-5.48-9.65l2 2a1.5 1.5 0 0 0-2-2zm-10.23 17A3 3 0 0 0 7.97 20h9.06a3 3 0 0 0 2.68-1.66L21.88 14h-7.94a5 5 0 0 1-2.23-.53L9.4 12.32A3 3 0 0 0 8.06 12H2.12l3.17 6.34z"></path>
+                    </svg>
+                    <p><span className="text-gray-900 font-bold">2</span> Bathrooms</p>
+                  </div>
+                </div>
+                <div className="px-4 pt-3 pb-4 border-t border-gray-300 bg-gray-100">
+                  <div className="text-xs uppercase font-bold text-gray-600 tracking-wide">Realtor</div>
+                  <div className="flex items-center pt-2">
+                    <div className="bg-cover bg-center w-10 h-10 rounded-full mr-3" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1500522144261-ea64433bbe27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80)' }}>
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-900">Tiffany Heffner</p>
+                      <p className="text-sm text-gray-700">(555) 555-4321</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

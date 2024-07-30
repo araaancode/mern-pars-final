@@ -22,10 +22,6 @@ const BookingsPage = () => {
 
   const userToken = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
 
-
-
-
-
   // State for the search term and selected category
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -246,7 +242,7 @@ const BookingsPage = () => {
                     لغو رزرو
                   </a>
 
-                  <a href="#" className="bg-white border py-4 px-6 font-bold rounded">
+                  <a href={`/bookings/${item._id}`} className="bg-white border py-4 px-6 font-bold rounded">
                     جزئیات
                   </a>
 

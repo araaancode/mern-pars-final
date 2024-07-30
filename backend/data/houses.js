@@ -7,7 +7,6 @@ const axios = require("axios")
 const accessKey = "tqMsEOfDWYkmAJBdiJ66SLHP7-jwTwYyHdB1PY94kak"
 const { Agent, fetch, setGlobalDispatcher } = require("undici")
 
-
 const cities = [
     "arak",
     "ardebil",
@@ -52,7 +51,6 @@ function makeRandomCity(arr) {
     return arr[randomIndex];
 }
 
-
 function makeRandomHouseType(arr) {
     if (!Array.isArray(arr) || arr.length === 0) {
         throw new Error('Input must be a non-empty array of strings');
@@ -61,8 +59,6 @@ function makeRandomHouseType(arr) {
     return arr[randomIndex];
 }
 
-
-
 function makeRandomPrice(min = 150000, max = 1000000) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -70,7 +66,6 @@ function makeRandomPrice(min = 150000, max = 1000000) {
 function makeRandomRating(min = 1, max = 5) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
 
 function generateRandomHouseImage() {
     const apiKey = 'tqMsEOfDWYkmAJBdiJ66SLHP7-jwTwYyHdB1PY94kak'; // Replace with your Unsplash API key
@@ -92,7 +87,6 @@ function generateRandomHouseImage() {
         console.error('There was a problem with the fetch operation:', error);
     }
 }
-
 
 let houses = []
 
@@ -129,8 +123,6 @@ for (let i = 1; i <= 500; i++) {
 
     houses.push(data)
 }
-
-
 
 module.exports = houses
 

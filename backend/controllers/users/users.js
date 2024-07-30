@@ -2,6 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const House = require("../../models/House")
 const User = require("../../models/User")
 const Booking = require("../../models/Booking")
+const Owner = require("../../models/Owner")
 
 exports.getMe = async (req, res) => {
     try {
@@ -289,6 +290,11 @@ exports.createTicket = (req, res) => {
 exports.myBookings = async (req, res) => {
     try {
         let bookings = await Booking.find({ user: req.user._id }).populate("house")
+        const owner = bookings[0].owner
+        let owners = await Owner.find({})
+
+        console.log(owners);
+
         if (bookings) {
             return res.status(StatusCodes.OK).json({
                 status: 'success',
