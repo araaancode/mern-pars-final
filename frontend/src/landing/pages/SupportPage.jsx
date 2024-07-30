@@ -69,20 +69,19 @@ const SupportPage = () => {
 
         {/* User Basic Information Column 1 */}
         <div className="w-full md:w-1/4 py-6 bg-white border border-gray-200 rounded-lg shadow mb-4 md:mb-0">
-          <div className="mb-4 px-8 text-center mx-auto flex justify-center">
+          <div className="mb-8 px-4 text-center mx-auto flex justify-center">
             <div className="relative" style={{ width: '160px', height: '160px' }}>
               <img
-                src="https://www.homsa.net/images/user_pic-225x225.png"
-                alt="Avatar"
-                className="w-full h-full object-cover rounded-full"
+                src="https://cdn-icons-png.flaticon.com/128/17384/17384295.png"
+                alt="user"
+                className="object-cover rounded-full mx-auto"
               />
-              <div className="absolute bottom-3 left-0 p-2 bg-white cursor-pointer shadow shadow-full rounded-full">
-                <IoIosCamera className='text-pink-600 h-8 w-8' />
+              <div className="absolute bottom-8 left-0 p-2 bg-white cursor-pointer shadow shadow-full rounded-full">
+                <IoIosCamera className='text-blue-800 h-8 w-8' />
               </div>
+
+              <p className="text-gray-900 text-center mt-2">{name ? user.name : user.phone}</p>
             </div>
-          </div>
-          <div className="mb-4 px-8">
-            <p className="text-gray-900 text-center">{name ? user.name : user.phone}</p>
           </div>
           <div className='border'></div>
           <div className='my-6 px-8'>
@@ -129,8 +128,8 @@ const SupportPage = () => {
           <div className='my-6 px-8'>
             <Link to="/support">
               <li className="flex items-center mb-2">
-                <span className="mr-2 text-gray-400"><RiCustomerService2Line className='text-pink-600' /></span>
-                <span style={{ fontSize: '18px' }} className="mr-4 text-pink-600">پشتیبانی</span>
+                <span className="mr-2 text-gray-400"><RiCustomerService2Line className='text-blue-800' /></span>
+                <span style={{ fontSize: '18px' }} className="mr-4 text-blue-800">پشتیبانی</span>
               </li>
             </Link>
           </div>

@@ -90,20 +90,19 @@ const FavoritesPage = () => {
 
         {/* User Basic Information Column 1 */}
         <div className="w-full md:w-1/4 py-6 bg-white border border-gray-200 rounded-lg shadow mb-4 md:mb-0">
-          <div className="mb-4 px-8 text-center mx-auto flex justify-center">
+          <div className="mb-8 px-4 text-center mx-auto flex justify-center">
             <div className="relative" style={{ width: '160px', height: '160px' }}>
               <img
-                src="https://www.homsa.net/images/user_pic-225x225.png"
-                alt="Avatar"
-                className="w-full h-full object-cover rounded-full"
+                src="https://cdn-icons-png.flaticon.com/128/17384/17384295.png"
+                alt="user"
+                className="object-cover rounded-full mx-auto"
               />
-              <div className="absolute bottom-3 left-0 p-2 bg-white cursor-pointer shadow shadow-full rounded-full">
-                <IoIosCamera className='text-pink-600 h-8 w-8' />
+              <div className="absolute bottom-8 left-0 p-2 bg-white cursor-pointer shadow shadow-full rounded-full">
+                <IoIosCamera className='text-blue-800 h-8 w-8' />
               </div>
+
+              <p className="text-gray-900 text-center mt-2">{name ? user.name : user.phone}</p>
             </div>
-          </div>
-          <div className="mb-4 px-8">
-            <p className="text-gray-900 text-center">{name ? user.name : user.phone}</p>
           </div>
           <div className='border'></div>
           <div className='my-6 px-8'>
@@ -125,8 +124,8 @@ const FavoritesPage = () => {
           <div className='my-6 px-8'>
             <Link to="/favorites">
               <li className="flex items-center mb-2">
-                <span className="mr-2 text-gray-400"><RiHeart2Line className='text-pink-600' /></span>
-                <span style={{ fontSize: '18px' }} className="mr-4 text-pink-600"> لیست علاقه مندی ها</span>
+                <span className="mr-2 text-gray-400"><RiHeart2Line className='text-blue-800' /></span>
+                <span style={{ fontSize: '18px' }} className="mr-4 text-blue-800"> لیست علاقه مندی ها</span>
               </li>
             </Link>
           </div>
@@ -175,7 +174,7 @@ const FavoritesPage = () => {
                   //   <div className="relative group">
                   //     <img style={{ borderRadius: '8px' }} src={house.cover} alt={house.name} className="w-full h-48 object-cover" />
                   //     <div className="absolute top-2 left-2 p-1 opacity-0 rounded-full group-hover:opacity-100 bg-white transition-opacity duration-300">
-                  //       <BsTrash className="text-pink-600 w-10 h-10 cursor-pointer bg-white bg-opacity-50 rounded-full p-2" />
+                  //       <BsTrash className="text-blue-800 w-10 h-10 cursor-pointer bg-white bg-opacity-50 rounded-full p-2" />
                   //     </div>
                   //   </div>
                   //   <div className="p-4">
@@ -188,7 +187,7 @@ const FavoritesPage = () => {
               </div>
             </div>
           ) : (
-            <div className="w-full md:w-3/4 p-6 bg-white rounded-lg mx-10">
+            <div className="w-full md:w-3/4 p-6 bg-white rounded-lg mx-auto">
               <div className="flex items-center justify-center h-screen">
                 <div className="bg-whit p-8 text-center">
                   <h1 className='text-xl text-gray-500'>

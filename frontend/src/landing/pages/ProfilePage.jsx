@@ -100,27 +100,27 @@ const ProfilePage = () => {
 
         {/* User Basic Information Column 1 */}
         <div className="w-full md:w-1/4 py-6 bg-white border border-gray-200 rounded-lg shadow mb-4 md:mb-0">
-          <div className="mb-4 px-8 text-center mx-auto flex justify-center">
-            <div className="relative" style={{width:'160px',height:'160px'}}>
+          <div className="mb-8 px-4 text-center mx-auto flex justify-center">
+            <div className="relative" style={{ width: '160px', height: '160px' }}>
               <img
-                src="https://www.homsa.net/images/user_pic-225x225.png"
-                alt="Avatar"
-                className="w-full h-full object-cover rounded-full"
+                src="https://cdn-icons-png.flaticon.com/128/17384/17384295.png"
+                alt="user"
+                className="object-cover rounded-full mx-auto"
               />
-              <div className="absolute bottom-3 left-0 p-2 bg-white cursor-pointer shadow shadow-full rounded-full">
-                <IoIosCamera className='text-pink-600 h-8 w-8' />
-              </div>
+              <div className="absolute bottom-8 left-0 p-2 bg-white cursor-pointer shadow shadow-full rounded-full">
+                <IoIosCamera className='text-blue-800 h-8 w-8' />
+              </div> 
+             
+              <p className="text-gray-900 text-center mt-2">{name ? user.name : user.phone}</p>
             </div>
           </div>
-          <div className="mb-4 px-8">
-            <p className="text-gray-900 text-center">{name ? user.name : user.phone}</p>
-          </div>
+
           <div className='border'></div>
           <div className='my-6 px-8'>
             <Link to="/profile">
               <li className="flex items-center mb-2">
-                <span className="mr-2 text-gray-400"><RiUser3Fill className='text-pink-600' /></span>
-                <span style={{ fontSize: '18px' }} className="mr-4 text-pink-600">حساب کاربری</span>
+                <span className="mr-2 text-gray-400"><RiUser3Fill className='text-blue-800' /></span>
+                <span style={{ fontSize: '18px' }} className="mr-4 text-blue-800">حساب کاربری</span>
               </li>
             </Link>
           </div>
@@ -128,7 +128,7 @@ const ProfilePage = () => {
             <Link to="/bookings">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiCalendar2Line /></span>
-                <span style={{fontSize:'18px'}} className="mr-4">رزروهای من</span>
+                <span style={{ fontSize: '18px' }} className="mr-4">رزروهای من</span>
               </li>
             </Link>
           </div>
@@ -136,7 +136,7 @@ const ProfilePage = () => {
             <Link to="/favorites">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiHeart2Line /></span>
-                <span style={{fontSize:'18px'}} className="mr-4"> لیست علاقه مندی ها</span>
+                <span style={{ fontSize: '18px' }} className="mr-4"> لیست علاقه مندی ها</span>
               </li>
             </Link>
           </div>
@@ -144,7 +144,7 @@ const ProfilePage = () => {
             <Link to="/bank">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiBankCard2Line /></span>
-                <span style={{fontSize:'18px'}} className="mr-4">اطلاعات حساب بانکی</span>
+                <span style={{ fontSize: '18px' }} className="mr-4">اطلاعات حساب بانکی</span>
               </li>
             </Link>
           </div>
@@ -152,7 +152,7 @@ const ProfilePage = () => {
             <Link to="/notifications">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiNotificationLine /></span>
-                <span style={{fontSize:'18px'}} className="mr-4">لیست اعلان ها</span>
+                <span style={{ fontSize: '18px' }} className="mr-4">لیست اعلان ها</span>
               </li>
             </Link>
           </div>
@@ -161,7 +161,7 @@ const ProfilePage = () => {
             <Link to="/support">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiCustomerService2Line /></span>
-                <span style={{fontSize:'18px'}} className="mr-4">پشتیبانی</span>
+                <span style={{ fontSize: '18px' }} className="mr-4">پشتیبانی</span>
               </li>
             </Link>
           </div>
@@ -169,7 +169,7 @@ const ProfilePage = () => {
             <Link to="/logout">
               <li className="flex items-center mb-2">
                 <span className="mr-2 text-gray-400"><RiLogoutBoxRLine /></span>
-                <span style={{fontSize:'18px'}} className="mr-4">خروج</span>
+                <span style={{ fontSize: '18px' }} className="mr-4">خروج</span>
               </li>
             </Link>
           </div>
@@ -288,7 +288,7 @@ const ProfilePage = () => {
             <div className="flex items-center justify-between px-4">
               <button
                 type="submit"
-                className="bg-blue-800 hover:bg-blue-900 text-white py-4 px-8 rounded focus:outline-none focus:border-blue-200"
+                className="bg-blue-800 hover:bg-blue-900 font-bold text-white py-4 px-8 rounded focus:outline-none focus:border-blue-200"
               >
                 تغییر اطلاعات
               </button>
