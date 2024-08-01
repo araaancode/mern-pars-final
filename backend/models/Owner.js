@@ -4,22 +4,34 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const ownerSchema = new mongoose.Schema({
-  firstName: {
+  name: {
     type: String,
   },
-  lastName: {
-    type: String,
-  },
+
   username: {
     type: String,
     trim: true,
-    unique: true,
     min: 3,
     max: 20
   },
+
+  nationalCode: {
+    type: String,
+    trim: true,
+    min: 10,
+    max: 10
+  },
+  gender: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  province: {
+    type: String,
+  },
   email: {
     type: String,
-    unique: true,
     lowercase: true,
     validate: [validator.isEmail, 'Please provide a valid email']
   },
@@ -31,7 +43,7 @@ const ownerSchema = new mongoose.Schema({
       },
       message: (props) => `${props.value} is not a valid phone number!`,
     },
-    required: [true, "User phone number required"],
+    required: [true, "owner phone number required"],
     unique: true,
   },
   avatar: {
@@ -46,13 +58,21 @@ const ownerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a password'],
     minlength: 8,
-    select: false
   },
+  passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
   active: {
     type: Boolean,
     default: true,
     select: false
-  }
+  },
+  favorites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'House',
+    }
+  ],
 }, { timestamps: true });
 
 ownerSchema.pre('save', async function (next) {
@@ -82,9 +102,9 @@ ownerSchema.pre(/^find/, function (next) {
 
 ownerSchema.methods.correctPassword = async function (
   candidatePassword,
-  userPassword
+  ownerPassword
 ) {
-  return await bcrypt.compare(candidatePassword, userPassword);
+  return await bcrypt.compare(candidatePassword, ownerPassword);
 };
 
 ownerSchema.methods.changedPasswordAfter = function (JWTTimestamp) {

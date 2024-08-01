@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
-    "importHouses":"node backend/seeder.js -i",
-    "removeHouses":"node backend/seeder.js -d"
+    "import":"node backend/seeder.js -i",
+    "remove":"node backend/seeder.js -d"
   },
   "author": "araaancode@gmail.com",
   "license": "MIT",

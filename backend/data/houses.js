@@ -90,7 +90,7 @@ function generateRandomHouseImage() {
 
 let houses = []
 
-for (let i = 1; i <= 500; i++) {
+for (let i = 1; i <= 1000; i++) {
     let data = {
         "owner": new ObjectId().toString(),
         "name": `خانه ${i}`,

@@ -2,8 +2,12 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const colors = require('colors');
+
 const House = require('./models/House');
 const houses = require("./data/houses")
+
+const Owner = require('./models/Owner');
+const owners = require("./data/owners")
 
 const connectDB = require('./config/db');
 
@@ -15,6 +19,7 @@ connectDB()
 const importData = async () => {
   try {
     await House.deleteMany()
+    await Owner.deleteMany()
 
     // import houses
     const sampleHouses = houses.map((house) => {
@@ -22,6 +27,13 @@ const importData = async () => {
     })
 
     await House.insertMany(sampleHouses)
+
+    // import owners
+    const sampleOwners = owners.map((owner) => {
+      return { ...owner }
+    })
+
+    await Owner.insertMany(sampleOwners)
 
     console.log('Data Imported!'.green.inverse)
     process.exit()
@@ -36,6 +48,7 @@ const destroyData = async () => {
   try {
     // await Bus.deleteMany()
     await House.deleteMany()
+    await Owner.deleteMany()
 
     console.log('Data Destroyed!'.red.inverse)
     process.exit()

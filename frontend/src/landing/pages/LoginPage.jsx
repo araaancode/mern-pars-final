@@ -188,7 +188,7 @@ const LoginPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full rounded mb-10 p-2 text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full rounded mb-10 p-2 text-white bg-blue-800 hover:bg-blue-900 focus:outline-none focus:ring-2"
           >
             {loading ? <RiLoader2Fill /> : 'ورود'}
           </button>

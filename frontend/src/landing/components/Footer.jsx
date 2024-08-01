@@ -7,7 +7,7 @@ import { RiTentLine, RiUser3Fill } from "@remixicon/react";
 
 const Footer = () => {
     return (
-        <footer dir='ltr' className="text-right mb-0 bg-gray-200 bottom-0 w-full">
+        <footer dir='ltr' style={{marginBottom:'0'}} className="text-right bg-gray-200 bottom-0 w-full">
             <hr className="my-2 sm:mx-auto lg:my-2" />
             <div className="mx-auto w-full max-w-screen-xl px-8 p-6">
                 <div className="md:flex md:justify-between ">

@@ -223,21 +223,21 @@ const BookingsPage = () => {
               // </div>
 
               <div className="w-full flex justify-between rounded-lg overflow-hidden border bg-white my-4 py-4" key={index}>
-                <div className="px-6 py-4">
+                <div className="px-2 py-4">
                   <div className="font-bold text-xl mb-2"> {item.house.name} {persianHouseType(item.house.houseType)}</div>
                   <div className="mb-2 text-gray-500">کد رزرو: {item._id}</div>
                 </div>
 
-                <div className="px-6 my-auto">
+                <div className="px-2 my-auto">
                   <div className="mb-2 text-gray-500"> {new Date(item.checkIn).toLocaleString("fa").split(',')[0]}</div>
                   <div className="mb-2 text-gray-500"> الی </div>
                   <div className="mb-2 text-gray-500"> {new Date(item.checkOut).toLocaleString("fa").split(',')[0]}</div>
                 </div>
 
-                <div className="px-6 my-auto">
+                <div className="px-2 my-auto">
                   <p className="mb-2 text-gray-500 inline"> {item.price} تومان</p>
                 </div>
-                <div className="px-6 my-auto">
+                <div className="px-2 my-auto">
                   <a href="#" className="bg-blue-800 hover:bg-blue-900 mx-4 text-white font-bold py-4 px-6 rounded shadow-lg">
                     لغو رزرو
                   </a>

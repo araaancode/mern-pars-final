@@ -16,6 +16,16 @@ import { MdOutlineKebabDining, MdOutlineCoffeeMaker, MdOutlineMicrowave } from "
 import { IoIosFootball } from "react-icons/io";
 import BookingWidget from "../components/BookingWidget";
 import HeaderLog from "../components/HeaderLog";
+import { FaCircleCheck } from "react-icons/fa6";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { IoCalendarOutline } from "react-icons/io5";
+import { TbClockHour7 } from "react-icons/tb";
+import { RiGroup2Line } from "react-icons/ri";
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import MapPage from "../components/MapPage"
 import Footer from "../components/Footer"
@@ -74,58 +84,110 @@ export default function BookingPage() {
   return (
     <>
       <HeaderLog />
-      <div className="flex flex-col md:flex-row gap-4 p-4">
-        {/* First Column */}
-        <div className="flex-1 p-4 h-screen">
-          <h2 className="text-2xl font-bold text-blue-800 mb-2">وضعیت رزرو</h2>
+      <div className="flex flex-col md:flex-row p-4 rtl mt-4">
+
+        {/* User Basic Information Column 1 */}
+        <div className="w-full md:w-3/5 py-6 bg-white mb-4 md:mb-0">
+          {/* <div className="flex justify-between px-2 py-2 mx-6">
+            <h1 className="text-2xl text-blue-800 font-bold">وضعیت رزرو</h1>
+            <p className="text-gray-100">----------------------------------------------</p>
+            <span className="bg-blue-100 p-4 text-blue-800 rounded-full">در انتظار تایید</span>
+          </div> */}
+
+          <div class="flex items-center w-full px-4 py-2 bg-white">
+            <div class="flex-none">
+              <h1 className="text-2xl text-blue-800">وضعیت رزرو</h1>
+            </div>
+
+            <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+
+            <div class="flex-none">
+              <span className="bg-blue-100 py-4 px-12 text-blue-800 rounded-full">در انتظار تایید</span>
+            </div>
+          </div>
+
+          <div className="flex border items-center mx-6 my-6 p-4 rounded-md">
+            <img src="https://www.homsa.net/images/users/12102/profile_pic_12102_e9400585-7f38-4ae6-affb-95c8cfa83b9e_225x225.jpeg" alt="avatar" className="rounded-full w-14 h-14" />
+            <h1 className="text-gray-500 mx-2">میزبان</h1>
+            <h1 className="mx-2">نام میزبان</h1>
+            <h1 className="mx-2"><FaCircleCheck className="text-green-400 w-7 h-7" /></h1>
+          </div>
+
+          <div className="flex border items-center mx-6 my-6 p-4 rounded-md">
+            <img src="https://cdn-icons-png.flaticon.com/128/17384/17384295.png" alt="avatar" className="rounded-full w-14 h-14" />
+            <h1 className="text-gray-500 mx-2">شما</h1>
+          </div>
+
+          <div className="flex justify-center items-center my-2 p-2">
+            <button className="rounded mx-auto mb-0 py-4 px-12 w-50 text-white bg-blue-800 shadow-lg hover:bg-blue-900 focus:outline-none focus:ring-2">تایید رزرو</button>
+          </div>
         </div>
 
-        {/* Second Column */}
-        <div className="flex-1 p-4">
-          <div className="flex items-center justify-center min-h-screen">
-            <div className="max-w-sm w-full py-6 px-3">
-              <div className="bg-white shadow-xl rounded-lg overflow-hidden">
-                <div className="bg-cover bg-center h-56 p-4" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80)" }}>
-                  <div className="flex justify-end">
-                    <svg className="h-6 w-6 text-white fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path d="M12.76 3.76a6 6 0 0 1 8.48 8.48l-8.53 8.54a1 1 0 0 1-1.42 0l-8.53-8.54a6 6 0 0 1 8.48-8.48l.76.75.76-.75zm7.07 7.07a4 4 0 1 0-5.66-5.66l-1.46 1.47a1 1 0 0 1-1.42 0L9.83 5.17a4 4 0 1 0-5.66 5.66L12 18.66l7.83-7.83z"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <p className="uppercase tracking-wide text-sm font-bold text-gray-700">Detached house • 5y old</p>
-                  <p className="text-3xl text-gray-900">{booking.price}</p>
-                  <p className="text-gray-700">742 Evergreen Terrace</p>
-                </div>
-                <div className="flex p-4 border-t border-gray-300 text-gray-700">
-                  <div className="flex-1 inline-flex items-center">
-                    <svg className="h-6 w-6 text-gray-600 fill-current mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path d="M0 16L3 5V1a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v4l3 11v5a1 1 0 0 1-1 1v2h-1v-2H2v2H1v-2a1 1 0 0 1-1-1v-5zM19 5h1V1H4v4h1V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1h2V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1zm0 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V6h-2v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6H3.76L1.04 16h21.92L20.24 6H19zM1 17v4h22v-4H1zM6 4v4h4V4H6zm8 0v4h4V4h-4z"></path>
-                    </svg>
-                    <p><span className="text-gray-900 font-bold">3</span> Bedrooms</p>
-                  </div>
-                  <div className="flex-1 inline-flex items-center">
-                    <svg className="h-6 w-6 text-gray-600 fill-current mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path fillRule="evenodd" d="M17.03 21H7.97a4 4 0 0 1-1.3-.22l-1.22 2.44-.9-.44 1.22-2.44a4 4 0 0 1-1.38-1.55L.5 11h7.56a4 4 0 0 1 1.78.42l2.32 1.16a4 4 0 0 0 1.78.42h9.56l-2.9 5.79a4 4 0 0 1-1.37 1.55l1.22 2.44-.9.44-1.22-2.44a4 4 0 0 1-1.3.22zM21 11h2.5a.5.5 0 1 1 0 1h-9.06a4.5 4.5 0 0 1-2-.48l-2.32-1.15A3.5 3.5 0 0 0 8.56 10H.5a.5.5 0 0 1 0-1h8.06c.7 0 1.38.16 2 .48l2.32 1.15a3.5 3.5 0 0 0 1.56.37H20V2a1 1 0 0 0-1.74-.67c.64.97.53 2.29-.32 3.14l-.35.36-3.54-3.54.35-.35a2.5 2.5 0 0 1 3.15-.32A2 2 0 0 1 21 2v9zm-5.48-9.65l2 2a1.5 1.5 0 0 0-2-2zm-10.23 17A3 3 0 0 0 7.97 20h9.06a3 3 0 0 0 2.68-1.66L21.88 14h-7.94a5 5 0 0 1-2.23-.53L9.4 12.32A3 3 0 0 0 8.06 12H2.12l3.17 6.34z"></path>
-                    </svg>
-                    <p><span className="text-gray-900 font-bold">2</span> Bathrooms</p>
-                  </div>
-                </div>
-                <div className="px-4 pt-3 pb-4 border-t border-gray-300 bg-gray-100">
-                  <div className="text-xs uppercase font-bold text-gray-600 tracking-wide">Realtor</div>
-                  <div className="flex items-center pt-2">
-                    <div className="bg-cover bg-center w-10 h-10 rounded-full mr-3" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1500522144261-ea64433bbe27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80)' }}>
-                    </div>
-                    <div>
-                      <p className="font-bold text-gray-900">Tiffany Heffner</p>
-                      <p className="text-sm text-gray-700">(555) 555-4321</p>
-                    </div>
-                  </div>
-                </div>
+        {/* Update User Information Column 2 */}
+        <div className="w-full flex flex-col justify-between md:w-2/5 bg-white border border-gray-200 rounded-lg shadow mx-4">
+
+          <div className="flex bg-white rounded-lg flex-col justify-between mt-10 mb-6 md:flex-row">
+            <div className="flex flex-col mx-4">
+              <h1 className="block text-2xl">رزرو واحد آپارتمانی تک خوابه یاس 1 نزدیک نمک</h1>
+              <span className="flex items-center mt-4 text-gray-400 font-sm"><HiOutlineLocationMarker className="w-6 h-6" /> مازندران, چالوس</span>
+              <span className="block text-gray-400 font-sm">شناسه اقامتگاه: 24183</span>
+              <span className="block text-gray-400 font-sm">کد رزرو: 566272</span>
+            </div>
+            <div className="flex justify-center mx-4 items-center">
+              <img style={{ width: '200px', height: '80px' }} src="https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720" alt="house image"
+                className="object-cover rounded-md" />
+            </div>
+
+          </div>
+          <div className="border border-gray-200 mb-0 mx-4"></div>
+
+          <div className="flex flex-col">
+            <div className="flex items-center w-full mb-0 px-0 py-6">
+              <div class="flex-none">
+                <h1 className="mx-4 flex items-center text-gray-400"><RiGroup2Line className="w-6 h-6 ml-2" /> تعداد نفرات </h1>
+              </div>
+
+              <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+              <div class="flex-none">
+                <span className="mx-4">2</span>
+              </div>
+            </div>
+            <div className="flex items-center w-full mb-0 px-0 py-6">
+              <div class="flex-none">
+                <h1 className="mx-4 flex items-center text-gray-400"><IoCalendarOutline className="w-6 h-6 ml-2" /> تاریخ رزرو </h1>
+              </div>
+
+              <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+              <div class="flex-none">
+                <span className="mx-4">1987/08/15</span>
+              </div>
+            </div>
+            <div className="flex items-center w-full mb-0 px-0 py-6">
+              <div class="flex-none">
+                <h1 className="mx-4 flex items-center text-gray-400 text-gray-400"><TbClockHour7 className="w-6 h-6 ml-2" /> مدت کل اقامت </h1>
+              </div>
+
+              <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+              <div class="flex-none">
+                <span className="mx-4">3 شب</span>
               </div>
             </div>
           </div>
+
+
+          <div className="border border-gray-200 mb-0"></div>
+          <div className="flex items-center w-full bg-blue-50 mb-0 px-0 py-6">
+            <div class="flex-none">
+              <h1 className="mx-4">هزینه کل</h1>
+            </div>
+
+            <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+            <div class="flex-none">
+              <span className="text-2xl mx-4">305145</span>
+            </div>
+          </div>
         </div>
+        <ToastContainer />
       </div>
       <Footer />
     </>
