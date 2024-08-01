@@ -191,7 +191,7 @@ const BookingsPage = () => {
         {items.length > 0 ? (
           <div className="w-full md:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow mx-10">
             <div className='flex justify-between items-center'>
-              <div className="mb-4 ml-6" style={{ width: '80%' }}>
+              <div className="mb-4 ml-2" style={{ width: '80%' }}>
                 <input
                   style={{ borderRadius: '5px', padding: '20px', border: '1px solid black' }}
                   type="text"
@@ -238,7 +238,7 @@ const BookingsPage = () => {
                   <p className="mb-2 text-gray-500 inline"> {item.price} تومان</p>
                 </div>
                 <div className="px-2 my-auto">
-                  <a href="#" className="bg-blue-800 hover:bg-blue-900 mx-4 text-white font-bold py-4 px-6 rounded shadow-lg">
+                  <a href="#" className="bg-blue-800 hover:bg-blue-900 mx-2 text-white font-bold py-4 px-6 rounded shadow-lg">
                     لغو رزرو
                   </a>
 

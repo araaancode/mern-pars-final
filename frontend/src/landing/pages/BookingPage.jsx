@@ -33,11 +33,11 @@ import Footer from "../components/Footer"
 export default function BookingPage() {
   const { id } = useParams();
 
-
   const [booking, setBooking] = useState(null);
   const [user, setUser] = useState('')
   const [items, setItems] = useState([])
   const [house, setHouse] = useState(null);
+  const [owner, setOwner] = useState(null);
 
   const userToken = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
 
@@ -62,14 +62,12 @@ export default function BookingPage() {
           'authorization': 'Bearer ' + userToken
         }
       }).then(response => {
-        // console.log(response.data.bookings);
         const foundBooking = response.data.bookings.find(({ _id }) => _id === id);
         if (foundBooking) {
           setBooking(foundBooking);
         }
       });
     }
-
 
   }, [id, userToken]);
 
@@ -78,7 +76,13 @@ export default function BookingPage() {
   }
 
 
-  console.log(booking);
+  axios.get(`/api/users/owners/${booking.owner}`)
+  .then((res) => {
+    setOwner(res.data.owner)
+  })
+  .catch((err) => {
+    console.error(err)
+  });
 
 
   return (
@@ -94,14 +98,14 @@ export default function BookingPage() {
             <span className="bg-blue-100 p-4 text-blue-800 rounded-full">در انتظار تایید</span>
           </div> */}
 
-          <div class="flex items-center w-full px-4 py-2 bg-white">
-            <div class="flex-none">
+          <div className="flex items-center w-full px-4 py-2 bg-white">
+            <div className="flex-none">
               <h1 className="text-2xl text-blue-800">وضعیت رزرو</h1>
             </div>
 
-            <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+            <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
 
-            <div class="flex-none">
+            <div className="flex-none">
               <span className="bg-blue-100 py-4 px-12 text-blue-800 rounded-full">در انتظار تایید</span>
             </div>
           </div>
@@ -109,7 +113,7 @@ export default function BookingPage() {
           <div className="flex border items-center mx-6 my-6 p-4 rounded-md">
             <img src="https://www.homsa.net/images/users/12102/profile_pic_12102_e9400585-7f38-4ae6-affb-95c8cfa83b9e_225x225.jpeg" alt="avatar" className="rounded-full w-14 h-14" />
             <h1 className="text-gray-500 mx-2">میزبان</h1>
-            <h1 className="mx-2">نام میزبان</h1>
+            {/* <h1 className="mx-2">{owner.name ? owner.name : owner.phone}</h1> */}
             <h1 className="mx-2"><FaCircleCheck className="text-green-400 w-7 h-7" /></h1>
           </div>
 
@@ -134,7 +138,7 @@ export default function BookingPage() {
               <span className="block text-gray-400 font-sm">کد رزرو: 566272</span>
             </div>
             <div className="flex justify-center mx-4 items-center">
-              <img style={{ width: '200px', height: '80px' }} src="https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720" alt="house image"
+              <img src="https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720" alt="house image"
                 className="object-cover rounded-md" />
             </div>
 
@@ -143,32 +147,32 @@ export default function BookingPage() {
 
           <div className="flex flex-col">
             <div className="flex items-center w-full mb-0 px-0 py-6">
-              <div class="flex-none">
+              <div className="flex-none">
                 <h1 className="mx-4 flex items-center text-gray-400"><RiGroup2Line className="w-6 h-6 ml-2" /> تعداد نفرات </h1>
               </div>
 
-              <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
-              <div class="flex-none">
+              <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+              <div className="flex-none">
                 <span className="mx-4">2</span>
               </div>
             </div>
             <div className="flex items-center w-full mb-0 px-0 py-6">
-              <div class="flex-none">
+              <div className="flex-none">
                 <h1 className="mx-4 flex items-center text-gray-400"><IoCalendarOutline className="w-6 h-6 ml-2" /> تاریخ رزرو </h1>
               </div>
 
-              <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
-              <div class="flex-none">
+              <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+              <div className="flex-none">
                 <span className="mx-4">1987/08/15</span>
               </div>
             </div>
             <div className="flex items-center w-full mb-0 px-0 py-6">
-              <div class="flex-none">
+              <div className="flex-none">
                 <h1 className="mx-4 flex items-center text-gray-400 text-gray-400"><TbClockHour7 className="w-6 h-6 ml-2" /> مدت کل اقامت </h1>
               </div>
 
-              <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
-              <div class="flex-none">
+              <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+              <div className="flex-none">
                 <span className="mx-4">3 شب</span>
               </div>
             </div>
@@ -177,12 +181,12 @@ export default function BookingPage() {
 
           <div className="border border-gray-200 mb-0"></div>
           <div className="flex items-center w-full bg-blue-50 mb-0 px-0 py-6">
-            <div class="flex-none">
+            <div className="flex-none">
               <h1 className="mx-4">هزینه کل</h1>
             </div>
 
-            <div class="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
-            <div class="flex-none">
+            <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
+            <div className="flex-none">
               <span className="text-2xl mx-4">305145</span>
             </div>
           </div>

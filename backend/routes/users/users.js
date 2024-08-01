@@ -8,6 +8,9 @@ const protect = require("../../middlewares/authUser")
 
 const { userUpload } = require("../../utils/upload")
 
+router.get('/owners', userCtrls.getOwners)
+router.get('/owners/:ownerId', userCtrls.getOwner)
+
 router.get('/me', protect, userCtrls.getMe)
 router.put('/update-profile', protect, userCtrls.updateProfile)
 router.put('/update-avatar', protect, userUpload.single('avatar'), userCtrls.updateAvatar)
@@ -26,6 +29,7 @@ router.get('/favorites', protect, userCtrls.getFavorites)
 router.get('/favorites/:houseId', protect, userCtrls.getFavorite)
 router.put('/add-favorite', protect, userCtrls.addFavorite)
 router.put('/delete-favorite', protect, userCtrls.deleteFavorite)
+
 
 
 module.exports = router

@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
-    "import":"node backend/seeder.js -i",
-    "remove":"node backend/seeder.js -d"
+    "import": "node backend/seeder.js -i",
+    "remove": "node backend/seeder.js -d"
   },
   "author": "araaancode@gmail.com",
   "license": "MIT",
@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.30.1",
     "monent": "^0.0.2-security",
+    "mongodb": "^6.8.0",
     "mongoose": "^8.5.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",

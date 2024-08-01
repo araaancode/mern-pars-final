@@ -3,11 +3,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const colors = require('colors');
 
-const House = require('./models/House');
-const houses = require("./data/houses")
-
 const Owner = require('./models/Owner');
-const owners = require("./data/owners")
+const House = require('./models/House');
+const {houses,owners} = require("./data/data")
 
 const connectDB = require('./config/db');
 
@@ -28,12 +26,14 @@ const importData = async () => {
 
     await House.insertMany(sampleHouses)
 
-    // import owners
-    const sampleOwners = owners.map((owner) => {
-      return { ...owner }
-    })
 
-    await Owner.insertMany(sampleOwners)
+      // import owners
+      const sampleOwners = owners.map((owner) => {
+        return { ...owner }
+      })
+  
+      await Owner.insertMany(sampleOwners)
+
 
     console.log('Data Imported!'.green.inverse)
     process.exit()

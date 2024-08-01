@@ -67,6 +67,31 @@ function makeRandomRating(min = 1, max = 5) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function getRandomIranianPhoneNumber() {
+    // Define mobile operator codes in Iran
+    const operatorCodes = [
+        '910', '911', '912', '913', '914', '915', '916', '917', '918', '919',
+        '920', '921', '922', '930', '931', '932', '933', '934', '935', '936',
+        '937', '938', '939', '990', '991', '992', '993', '994', '995', '996',
+        '997', '998'
+    ];
+
+    // Pick a random operator code
+    const randomOperatorCode = operatorCodes[Math.floor(Math.random() * operatorCodes.length)];
+
+    // Generate the rest of the number (7 digits)
+    let randomNumber = '';
+    for (let i = 0; i < 7; i++) {
+        randomNumber += Math.floor(Math.random() * 10);  // Generate random digit from 0 to 9
+    }
+
+    // Combine country code, operator code, and the random number
+    const iranianPhoneNumber = `0${randomOperatorCode}${randomNumber}`;
+
+    return iranianPhoneNumber;
+}
+
+
 function generateRandomHouseImage() {
     const apiKey = 'tqMsEOfDWYkmAJBdiJ66SLHP7-jwTwYyHdB1PY94kak'; // Replace with your Unsplash API key
     const url = `https://api.unsplash.com/photos/random?query=cottage&client_id=${apiKey}`;
@@ -89,11 +114,12 @@ function generateRandomHouseImage() {
 }
 
 let houses = []
+let owners = []
 
-for (let i = 1; i <= 1000; i++) {
-    let data = {
+for (let i = 0; i < 1000; i++) {
+    let newHouses = {
         "owner": new ObjectId().toString(),
-        "name": `خانه ${i}`,
+        "name": `خانه ${i + 1}`,
         "province": makeRandomCity(cities),
         "city": makeRandomCity(cities),
         "price": makeRandomPrice(),
@@ -113,16 +139,30 @@ for (let i = 1; i <= 1000; i++) {
         ],
         "reviews": [
             {
-                "name": `کامنت ${i}`,
+                "name": `کامنت ${i + 1}`,
                 "rating": makeRandomRating(),
                 "comment": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. ",
-                "user":"66a281c79d053134cd52a7e6",
+                "user": "66a281c79d053134cd52a7e6",
             }
         ]
     }
 
-    houses.push(data)
+    houses.push(newHouses)
 }
 
-module.exports = houses
+for (let i = 0; i < houses.length; i++) {
+    newOwner = {
+        "_id": houses[i].owner,
+        "phone": getRandomIranianPhoneNumber(),
+        "password": bcrypt.hashSync('12345678', 12),
+        "name": `مالک ${i + 1}`,
+        "username": `username ${i + 1}`,
+        "email": `owner${i + 1}@owenr${i + 1}.com`
+    }
+
+    owners.push(newOwner)
+}
+
+
+module.exports = {houses,owners}
 

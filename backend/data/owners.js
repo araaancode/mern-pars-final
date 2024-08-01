@@ -2,9 +2,7 @@ const House = require("../models/House")
 const Owner = require("../models/Owner")
 
 const bcrypt = require("bcryptjs")
-
-let houses = require("./houses")
-
+// const { MongoClient } = require('mongodb');
 
 function getRandomIranianPhoneNumber() {
     // Define mobile operator codes in Iran
@@ -30,19 +28,125 @@ function getRandomIranianPhoneNumber() {
     return iranianPhoneNumber;
 }
 
-let owners = []
 
-for (let i = 0; i < houses.length; i++) {
-    let data = {
-        "owner": houses[i].owner,
-        "phone": getRandomIranianPhoneNumber(),
-        "password": bcrypt.hashSync('12345678', 12),
-        "username":`username ${i}`,
-        "email":`owner${i}@owenr${i}.com`
+// async function main() {
+//     const uri = "mongodb://localhost:27017/mernparsdb";
+
+//     const client = new MongoClient(uri);
+
+//     try {
+//         // Connect to the MongoDB cluster
+//         await client.connect();
+
+//         // Specify the database and collection
+//         const database = client.db('mernparsdb');
+//         const collection = database.collection('houses');
+
+//         // Query the collection (fetch data)
+//         const query = {}; // Define your query here
+//         const options = {
+//             // Optionally, you can add options like sort, limit, etc.
+//         };
+
+//         const results = await collection.find(query, options).toArray();
+
+//         return results
+//     } catch (error) {
+//         console.error('Error fetching data:', error);
+//     } finally {
+//         await client.close();
+//     }
+// }
+
+
+// let owners = []
+
+// main().then(async (houses) => {
+//     for (let i = 0; i < houses.length; i++) {
+        // let data = {
+        //     "_id": houses[i].owner,
+        //     "phone": getRandomIranianPhoneNumber(),
+        //     "password": bcrypt.hashSync('12345678', 12),
+        //     "name": `مالک ${i + 1}`,
+        //     "username": `username ${i + 1}`,
+        //     "email": `owner${i + 1}@owenr${i + 1}.com`
+        // }
+
+//         owners.push(data)
+//     }
+
+//     console.log(owners);
+
+// })
+
+
+// module.exports = owners
+
+
+
+
+const { MongoClient } = require('mongodb');
+
+async function main() {
+    const uri = "mongodb://localhost:27017/mernparsdb";
+
+    const client = new MongoClient(uri);
+
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+
+        // Specify the database and collection
+        const database = client.db('mernparsdb');
+        const collection = database.collection('houses');
+
+        // Query the collection (fetch data)
+        const query = {}; // Define your query here
+        const options = {
+            // Optionally, you can add options like sort, limit, etc.
+        };
+
+        const results = await collection.find(query, options).toArray();
+
+        return results
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    } finally {
+        await client.close();
     }
-
-    owners.push(data)
 }
 
-module.exports = owners
 
+let owners = []
+
+
+try {
+
+    main().then(async (houses) => {
+        for (let i = 0; i < houses.length; i++) {
+            newOwner = {
+                "_id": houses[i].owner,
+                "phone": getRandomIranianPhoneNumber(),
+                "password": bcrypt.hashSync('12345678', 12),
+                "name": `مالک ${i + 1}`,
+                "username": `username ${i + 1}`,
+                "email": `owner${i + 1}@owenr${i + 1}.com`
+            }
+    
+            owners=[...owners,newOwner]
+        }
+    })
+
+} catch (error) {
+    console.error(error.message);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        status: 'failure',
+        msg: "خطای داخلی سرور",
+        error
+    });
+}
+
+
+// module.exports = owners
+
+console.log(owners);

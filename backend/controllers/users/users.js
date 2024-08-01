@@ -293,8 +293,6 @@ exports.myBookings = async (req, res) => {
         const owner = bookings[0].owner
         let owners = await Owner.find({})
 
-        console.log(owners);
-
         if (bookings) {
             return res.status(StatusCodes.OK).json({
                 status: 'success',
@@ -448,6 +446,57 @@ exports.deleteFavorite = async (req, res) => {
             return res.status(StatusCodes.BAD_REQUEST).json({
                 status: 'failure',
                 msg: "خانه ها حذف نشد"
+            })
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
+}
+
+exports.getOwners=async(req,res)=>{
+    try {
+        let owners = await Owner.find({}).select('-password -phone -role')
+        if (owners.length > 0) {
+            return res.status(StatusCodes.OK).json({
+                status: 'success',
+                msg: "مالک ها پیدا شدند",
+                count: owners.length,
+                owners: owners
+            })
+        } else {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                status: 'failure',
+                msg: "مالک ها پیدا نشدند"
+            })
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
+}
+
+exports.getOwner=async(req,res)=>{
+    try {
+        let owner = await Owner.findById(req.params.ownerId).select('-password -phone -role')
+        if (owner) {
+            return res.status(StatusCodes.OK).json({
+                status: 'success',
+                msg: "مالک پیدا شد",
+                owner: owner
+            })
+        } else {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                status: 'failure',
+                msg: "مالک پیدا نشد"
             })
         }
     } catch (error) {
