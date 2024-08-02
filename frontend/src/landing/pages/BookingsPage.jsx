@@ -103,6 +103,38 @@ const BookingsPage = () => {
   });
 
 
+  const cancelBooking = async (id) => {
+    await axios.put(`/api/users/cancel-booking/${id}`, {}, {
+      headers: {
+        authorization: `Bearer ${userToken}`,
+      }
+    })
+      .then((res) => {
+        toast.info(res.data.msg, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+
+      })
+      .catch((err) => {
+        toast.error(err, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      });
+  }
+
+
 
   return (
     <>
@@ -238,7 +270,7 @@ const BookingsPage = () => {
                   <p className="mb-2 text-gray-500 inline"> {item.price} تومان</p>
                 </div>
                 <div className="px-2 my-auto">
-                  <a href="#" className="bg-blue-800 hover:bg-blue-900 mx-2 text-white font-bold py-4 px-6 rounded shadow-lg">
+                  <a href="#" onClick={()=>cancelBooking(item._id)} className="bg-blue-800 hover:bg-blue-900 mx-2 text-white font-bold py-4 px-6 rounded shadow-lg">
                     لغو رزرو
                   </a>
 

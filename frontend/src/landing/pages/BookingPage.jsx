@@ -87,10 +87,27 @@ export default function BookingPage() {
       }
     })
       .then((res) => {
-        console.log(res);
+        toast.info(res.data.msg, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+
       })
       .catch((err) => {
-        console.error(err)
+        toast.error(err, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       });
   }
 
