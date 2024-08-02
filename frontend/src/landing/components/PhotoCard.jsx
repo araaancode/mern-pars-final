@@ -55,41 +55,19 @@ const Card = ({ images, house }) => {
     const createFavorite = async (houseId) => {
         setFlag(!flag)
 
-        console.log(flag);
+        await axios.put('/api/users/handle-favorite', {
+            house: houseId
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + userToken
+            }
+        }).then((res) => {
+            console.log(res);
 
-        if (flag) {
-            await axios.put('/api/users/add-favorite', {
-                house: houseId
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': 'Bearer ' + userToken
-                }
-            }).then((res) => {
-                console.log(res);
-
-            }).catch((err) => {
-                console.log(err);
-            });
-        }
-
-
-        if (!flag) {
-            await axios.put('/api/users/delete-favorite', {
-                house: houseId
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': 'Bearer ' + userToken
-                }
-            }).then((res) => {
-                console.log(res);
-
-            }).catch((err) => {
-                console.log(err);
-            });
-        }
-
+        }).catch((err) => {
+            console.log(err);
+        });
 
     }
 
@@ -120,7 +98,7 @@ const Card = ({ images, house }) => {
                 )} */}
 
 
-                {findHouses.includes(house._id) ? (<RiHeart3Fill onClick={() => createFavorite(house._id)} style={{ width: '40px', height: '40px' }} className="absolute top-4 right-0 cursor-pointer text-white p-1 transform -translate-y-1/2 bg-opacity-20 m-3  focus:outline-none" />) : (<RiHeart3Line onClick={() => createFavorite(house._id)} style={{ width: '40px', height: '40px' }} className="absolute top-4 right-0 cursor-pointer text-white p-1 transform -translate-y-1/2 bg-opacity-20 m-3  focus:outline-none" />)}
+                {(findHouses.includes(house._id) || flag) ? (<RiHeart3Fill onClick={() => createFavorite(house._id)} style={{ width: '40px', height: '40px' }} className="absolute top-4 right-0 cursor-pointer text-white p-1 transform -translate-y-1/2 bg-opacity-20 m-3  focus:outline-none" />) : (<RiHeart3Line onClick={() => createFavorite(house._id)} style={{ width: '40px', height: '40px' }} className="absolute top-4 right-0 cursor-pointer text-white p-1 transform -translate-y-1/2 bg-opacity-20 m-3  focus:outline-none" />)}
 
 
                 <button
