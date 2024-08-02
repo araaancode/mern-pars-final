@@ -57,7 +57,6 @@ const Card = ({ images, house }) => {
 
         console.log(flag);
 
-
         if (flag) {
             await axios.put('/api/users/add-favorite', {
                 house: houseId

@@ -27,8 +27,10 @@ router.get('/houses/:houseId', userCtrls.getHouse)
 
 router.get('/favorites', protect, userCtrls.getFavorites)
 router.get('/favorites/:houseId', protect, userCtrls.getFavorite)
-router.put('/add-favorite', protect, userCtrls.addFavorite)
-router.put('/delete-favorite', protect, userCtrls.deleteFavorite)
+
+router.put('/handle-favorite', protect, userCtrls.handleFavorite)
+
+// router.put('/delete-favorite', protect, userCtrls.deleteFavorite)
 
 router.put('/confirm-booking/:bookingId', protect, userCtrls.confirmBooking)
 router.put('/cancel-booking/:bookingId', protect, userCtrls.cancelBooking)

@@ -376,19 +376,18 @@ exports.getFavorite = async (req, res) => {
 }
 
 
-exports.addFavorite = async (req, res) => {
+exports.handleFavorite = async (req, res) => {
     try {
 
         let user = await User.findById({ _id: req.user._id }).select('-password')
 
         if (user) {
             if (!user.favorites.includes(req.body.house)) {
-                user.favorites.push(req.body.house)
-            } else {
-                return res.status(StatusCodes.BAD_REQUEST).json({
-                    status: 'failure',
-                    msg: "خانه قبلا به لیست مورد علاقه اضافه شده است",
-                });
+               user.favorites.push(req.body.house)
+            }
+
+            else if (user.favorites.includes(req.body.house)) {
+                user.favorites = user.favorites.filter((item) => item != req.body.house)
             }
 
             let newUser = await user.save()
@@ -400,13 +399,10 @@ exports.addFavorite = async (req, res) => {
                     newUser
                 });
             }
-            // else {
-            //     res.status(StatusCodes.BAD_REQUEST).json({
-            //         status: 'failure',
-            //         msg: "خانه به لیست مورد علاقه اضافه نشد",
-            //     });
-            // }
+
+
         }
+
 
     } catch (error) {
         console.log(error);
@@ -520,11 +516,11 @@ exports.confirmBooking = async (req, res) => {
                     msg: "رزرو تایید شد",
                     booking: booking
                 })
-            }).catch(()=>{
+            }).catch(() => {
                 return res.status(StatusCodes.BAD_REQUEST).json({
                     status: 'failure',
                     msg: "رزرو تایید نشد",
-                }) 
+                })
             })
 
         } else {
@@ -558,11 +554,11 @@ exports.cancelBooking = async (req, res) => {
                     msg: "رزرو لغو شد",
                     booking: booking
                 })
-            }).catch(()=>{
+            }).catch(() => {
                 return res.status(StatusCodes.BAD_REQUEST).json({
                     status: 'failure',
                     msg: "رزرو لغو نشد",
-                }) 
+                })
             })
 
         } else {
