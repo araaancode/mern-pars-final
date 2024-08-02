@@ -149,6 +149,10 @@ const houseSchema = new mongoose.Schema({
         type: String,
     },
 
+    address: {
+        type: String,
+    },
+
     houseNumber: {
         type: String,
     },

@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 
 import AddressLink from "../components/AddressLink";
@@ -65,25 +66,20 @@ export default function BookingPage() {
         const foundBooking = response.data.bookings.find(({ _id }) => _id === id);
         if (foundBooking) {
           setBooking(foundBooking);
+          setHouse(foundBooking.house)
+          setOwner(foundBooking.owner)
         }
       });
     }
 
-  }, [id, userToken]);
+  }, []);
 
   if (!booking) {
     return '';
   }
 
 
-  axios.get(`/api/users/owners/${booking.owner}`)
-  .then((res) => {
-    setOwner(res.data.owner)
-  })
-  .catch((err) => {
-    console.error(err)
-  });
-
+  console.log(booking)
 
   return (
     <>
@@ -111,15 +107,15 @@ export default function BookingPage() {
           </div>
 
           <div className="flex border items-center mx-6 my-6 p-4 rounded-md">
-            <img src="https://www.homsa.net/images/users/12102/profile_pic_12102_e9400585-7f38-4ae6-affb-95c8cfa83b9e_225x225.jpeg" alt="avatar" className="rounded-full w-14 h-14" />
-            <h1 className="text-gray-500 mx-2">میزبان</h1>
-            {/* <h1 className="mx-2">{owner.name ? owner.name : owner.phone}</h1> */}
-            <h1 className="mx-2"><FaCircleCheck className="text-green-400 w-7 h-7" /></h1>
+            <img src={`../${owner.avatar}`} alt={owner.name} className="rounded-full w-14 h-14" />
+            <h1 className="text-gray-400 mx-2">میزبان</h1>
+            <h1 className="mr-4">{owner.name ? owner.name : owner.phone}</h1>
+            <FaCircleCheck className="text-green-400 w-6 h-6 mr-2" />
           </div>
 
           <div className="flex border items-center mx-6 my-6 p-4 rounded-md">
             <img src="https://cdn-icons-png.flaticon.com/128/17384/17384295.png" alt="avatar" className="rounded-full w-14 h-14" />
-            <h1 className="text-gray-500 mx-2">شما</h1>
+             <h1 className="mx-2">{user.name ? user.name : user.phone}</h1>
           </div>
 
           <div className="flex justify-center items-center my-2 p-2">
@@ -130,15 +126,15 @@ export default function BookingPage() {
         {/* Update User Information Column 2 */}
         <div className="w-full flex flex-col justify-between md:w-2/5 bg-white border border-gray-200 rounded-lg shadow mx-4">
 
-          <div className="flex bg-white rounded-lg flex-col justify-between mt-10 mb-6 md:flex-row">
+          <div className="flex bg-white rounded-lg flex-col justify-between mt-5 mb-6 md:flex-row">
             <div className="flex flex-col mx-4">
-              <h1 className="block text-2xl">رزرو واحد آپارتمانی تک خوابه یاس 1 نزدیک نمک</h1>
-              <span className="flex items-center mt-4 text-gray-400 font-sm"><HiOutlineLocationMarker className="w-6 h-6" /> مازندران, چالوس</span>
-              <span className="block text-gray-400 font-sm">شناسه اقامتگاه: 24183</span>
-              <span className="block text-gray-400 font-sm">کد رزرو: 566272</span>
+              <h1 className="block text-2xl">{house.name}</h1>
+              <span className="flex items-center mt-4 text-gray-400 font-sm"><HiOutlineLocationMarker className="w-6 h-6" />{house.city}</span>
+              <span className="block text-gray-400 font-sm">شناسه اقامتگاه: {house._id}</span>
+              <span className="block text-gray-400 font-sm">کد رزرو: {booking._id}</span>
             </div>
-            <div className="flex justify-center mx-4 items-center">
-              <img src="https://a0.muscache.com/im/pictures/0130ccbf-d3ec-407e-bb02-0e35754ced61.jpg?im_w=720" alt="house image"
+            <div className="mx-4 my-0">
+              <img src={house.cover} alt={house.name}
                 className="object-cover rounded-md" />
             </div>
 
@@ -153,7 +149,7 @@ export default function BookingPage() {
 
               <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
               <div className="flex-none">
-                <span className="mx-4">2</span>
+                <span className="mx-4">{booking.guests}</span>
               </div>
             </div>
             <div className="flex items-center w-full mb-0 px-0 py-6">
@@ -163,7 +159,7 @@ export default function BookingPage() {
 
               <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
               <div className="flex-none">
-                <span className="mx-4">1987/08/15</span>
+                <span className="mx-4">از {new Date(booking.checkIn).toLocaleDateString("fa")} تا {new Date(booking.checkOut).toLocaleDateString("fa")}</span>
               </div>
             </div>
             <div className="flex items-center w-full mb-0 px-0 py-6">
@@ -173,7 +169,7 @@ export default function BookingPage() {
 
               <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
               <div className="flex-none">
-                <span className="mx-4">3 شب</span>
+                <span className="mx-4">{differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))} شب</span>
               </div>
             </div>
           </div>

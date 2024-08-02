@@ -26,12 +26,16 @@ const bookingSchema = new mongoose.Schema({
     checkOut: {
         type: Date,
     },
-    guests:{
+    guests: {
         type: Number,
         default: 0
     },
-  
-},{ timestamps: true });
+    isConfirmed: {
+        type: Boolean,
+        default: false
+    },
+
+}, { timestamps: true });
 
 
 const Booking = mongoose.model('Booking', bookingSchema);

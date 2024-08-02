@@ -289,7 +289,7 @@ exports.createTicket = (req, res) => {
 
 exports.myBookings = async (req, res) => {
     try {
-        let bookings = await Booking.find({ user: req.user._id }).populate("house")
+        let bookings = await Booking.find({ user: req.user._id }).populate("owner house")
         const owner = bookings[0].owner
         let owners = await Owner.find({})
 
