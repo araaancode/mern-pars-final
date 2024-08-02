@@ -6,6 +6,7 @@ const protect = asyncHandler(async (req, res, next) => {
   let token
   const authHeader = req.headers.authorization
 
+
   if (authHeader && authHeader.startsWith('Bearer')) {
     try {
       // extract token from authHeader string

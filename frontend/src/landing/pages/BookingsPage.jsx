@@ -222,7 +222,7 @@ const BookingsPage = () => {
               //   {item.name} <span className="text-gray-500 text-sm">({item.category})</span>
               // </div>
 
-              <div className="w-full flex justify-between rounded-lg overflow-hidden border bg-white my-4 py-4" key={index}>
+              <div className="w-full flex justify-between rounded-lg overflow-hidden border bg-white my-4 py-4 mx-2" key={index}>
                 <div className="px-2 py-4">
                   <div className="font-bold text-xl mb-2"> {item.house.name} {persianHouseType(item.house.houseType)}</div>
                   <div className="mb-2 text-gray-500">کد رزرو: {item._id}</div>

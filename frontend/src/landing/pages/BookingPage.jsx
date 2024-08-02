@@ -42,6 +42,7 @@ export default function BookingPage() {
 
   const userToken = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
 
+  axios.defaults.headers.common['authorization'] = userToken;
 
   useEffect(() => {
     axios.get('/api/users/me', {
@@ -78,8 +79,22 @@ export default function BookingPage() {
     return '';
   }
 
+  const confirmBooking = async (e) => {
+    e.preventDefault();
+    await axios.put(`/api/users/confirm-booking/${booking._id}`, {}, {
+      headers: {
+        authorization: `Bearer ${userToken}`,
+      }
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err)
+      });
+  }
 
-  console.log(booking)
+
 
   return (
     <>
@@ -102,7 +117,7 @@ export default function BookingPage() {
             <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
 
             <div className="flex-none">
-              <span className="bg-blue-100 py-4 px-12 text-blue-800 rounded-full">در انتظار تایید</span>
+              {booking.isConfirmed ? (<span className="bg-blue-100 py-4 px-12 text-green-800 rounded-full"> تایید شده</span>) : (<span className="bg-blue-100 py-4 px-12 text-blue-800 rounded-full">در انتظار تایید</span>)}
             </div>
           </div>
 
@@ -115,11 +130,14 @@ export default function BookingPage() {
 
           <div className="flex border items-center mx-6 my-6 p-4 rounded-md">
             <img src="https://cdn-icons-png.flaticon.com/128/17384/17384295.png" alt="avatar" className="rounded-full w-14 h-14" />
-             <h1 className="mx-2">{user.name ? user.name : user.phone}</h1>
+            <h1 className="mx-2">{user.name ? user.name : user.phone}</h1>
           </div>
 
           <div className="flex justify-center items-center my-2 p-2">
-            <button className="rounded mx-auto mb-0 py-4 px-12 w-50 text-white bg-blue-800 shadow-lg hover:bg-blue-900 focus:outline-none focus:ring-2">تایید رزرو</button>
+            {booking.isConfirmed ? (
+            <button disabled="true" style={{cursor:'not-allowed'}} className="rounded mx-auto mb-0 py-4 px-12 w-50 text-white bg-green-800 shadow-lg focus:outline-none focus:ring-2">تایید شده</button>
+            ) : (<button onClick={confirmBooking} className="rounded mx-auto mb-0 py-4 px-12 w-50 text-white bg-blue-800 shadow-lg hover:bg-blue-900 focus:outline-none focus:ring-2">تایید رزرو</button>)}
+
           </div>
         </div>
 
@@ -183,7 +201,7 @@ export default function BookingPage() {
 
             <div className="flex-grow border-t border-dashed border-gray-300 mx-4"></div>
             <div className="flex-none">
-              <span className="text-2xl mx-4">305145</span>
+              <span className="text-2xl mx-4">{booking.price}</span>
             </div>
           </div>
         </div>
