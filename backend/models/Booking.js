@@ -32,7 +32,6 @@ const bookingSchema = new mongoose.Schema({
     },
     isConfirmed: {
         type: Boolean,
-        default: false
     },
 
 }, { timestamps: true });

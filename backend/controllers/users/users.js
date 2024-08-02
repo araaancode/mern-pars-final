@@ -290,8 +290,6 @@ exports.createTicket = (req, res) => {
 exports.myBookings = async (req, res) => {
     try {
         let bookings = await Booking.find({ user: req.user._id }).populate("owner house")
-        const owner = bookings[0].owner
-        let owners = await Owner.find({})
 
         if (bookings) {
             return res.status(StatusCodes.OK).json({
@@ -458,7 +456,7 @@ exports.deleteFavorite = async (req, res) => {
     }
 }
 
-exports.getOwners=async(req,res)=>{
+exports.getOwners = async (req, res) => {
     try {
         let owners = await Owner.find({}).select('-password -phone -role')
         if (owners.length > 0) {
@@ -484,7 +482,7 @@ exports.getOwners=async(req,res)=>{
     }
 }
 
-exports.getOwner=async(req,res)=>{
+exports.getOwner = async (req, res) => {
     try {
         let owner = await Owner.findById(req.params.ownerId).select('-password -phone -role')
         if (owner) {
@@ -499,6 +497,82 @@ exports.getOwner=async(req,res)=>{
                 msg: "مالک پیدا نشد"
             })
         }
+    } catch (error) {
+        console.error(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
+}
+
+exports.confirmBooking = async (req, res) => {
+    try {
+        let bookings = await Booking.find({ user: req.user._id })
+        let findBooking = bookings.find(booking => booking._id == req.params.bookingId)
+
+        if (findBooking) {
+            findBooking.isConfirmed = true
+            await findBooking.save().then((booking) => {
+                return res.status(StatusCodes.OK).json({
+                    status: 'success',
+                    msg: "رزرو تایید شد",
+                    booking: booking
+                })
+            }).catch(()=>{
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    status: 'failure',
+                    msg: "رزرو تایید نشد",
+                }) 
+            })
+
+        } else {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                status: 'failure',
+                msg: "رزرو پیدا نشد"
+            })
+        }
+
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'failure',
+            msg: "خطای داخلی سرور",
+            error
+        });
+    }
+}
+
+exports.cancelBooking = async (req, res) => {
+    try {
+        let bookings = await Booking.find({ user: req.user._id })
+        let findBooking = bookings.find(booking => booking._id == req.params.bookingId)
+
+        if (findBooking) {
+            findBooking.isConfirmed = false
+            await findBooking.save().then((booking) => {
+                return res.status(StatusCodes.OK).json({
+                    status: 'success',
+                    msg: "رزرو لغو شد",
+                    booking: booking
+                })
+            }).catch(()=>{
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    status: 'failure',
+                    msg: "رزرو لغو نشد",
+                }) 
+            })
+
+        } else {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                status: 'failure',
+                msg: "رزرو پیدا نشد"
+            })
+        }
+
+
     } catch (error) {
         console.error(error.message);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

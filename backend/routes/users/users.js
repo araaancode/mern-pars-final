@@ -30,6 +30,7 @@ router.get('/favorites/:houseId', protect, userCtrls.getFavorite)
 router.put('/add-favorite', protect, userCtrls.addFavorite)
 router.put('/delete-favorite', protect, userCtrls.deleteFavorite)
 
-
+router.put('/confirm-booking/:bookingId', protect, userCtrls.confirmBooking)
+router.put('/cancel-booking/:bookingId', protect, userCtrls.cancelBooking)
 
 module.exports = router
