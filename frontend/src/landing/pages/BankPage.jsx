@@ -120,8 +120,8 @@ const BankPage = () => {
 
         {/* Update User Information Column 2 */}
         {isClicked ? (
-          <div className="w-full md:w-3/4 py-6 px-6 bg-white border border-gray-200 min-h-screen rounded-lg shadow m-auto mx-6">
-            <h1 className='px-8 my-2 text-blue-800 text-xl font-bold'>افزودن اطلاعات حساب</h1>
+          <div className="w-full md:w-3/4 py-6 px-6 bg-white border border-gray-200 mt-0 rounded-lg shadow mx-6 h-50">
+            <h1 className='px-8 mt-12 mb-2 text-blue-800 text-xl font-bold'>افزودن اطلاعات حساب</h1>
             <p className='px-8 my-2'>افزودن اطلاعات حساب
               جهت واریز مبالغ اجاره اقامتگاهتان اطلاعات مربوط به حساب بانکی خود را وارد نمایید</p>
             <div className="flex w-full justify-center items-center">
@@ -168,11 +168,11 @@ const BankPage = () => {
                   >
                     شماره شبا<span className='text-red-500 mr-2'>*</span>
                   </label>
-                  <div class="flex items-center">
-                    <span style={{ padding: '15px', height: '60px', borderTopLeftRadius: '5px', borderBottomLeftRadius: '5px' }} class="inline-flex items-center px-4 border border-gray-400">
+                  <div className="flex items-center">
+                    <span style={{ padding: '15px', height: '60px', borderTopLeftRadius: '5px', borderBottomLeftRadius: '5px' }} className="inline-flex items-center px-4 border border-gray-400">
                       IR
                     </span>
-                    <input style={{ padding: '15px', height: '60px', borderTopRightRadius: '5px', borderBottomRightRadius: '5px', borderTopLeftRadius: '0', borderBottomLeftRadius: '0' }} type="text" class="rounded-none border border-gray-400 block w-full focus:outline-none" />
+                    <input style={{ padding: '15px', height: '60px', borderTopRightRadius: '5px', borderBottomRightRadius: '5px', borderTopLeftRadius: '0', borderBottomLeftRadius: '0' }} type="text" className="rounded-none border border-gray-400 block w-full focus:outline-none" />
                   </div>
 
                 </div>

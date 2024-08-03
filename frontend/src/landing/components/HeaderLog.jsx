@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { RiTentLine, RiUser3Fill, RiSearchLine, RiMenuLine } from "@remixicon/react";
 import { FaUserCircle, FaSearch, FaHome } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux'
+import { PiSpinnerBold } from "react-icons/pi";
+
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios"
 
@@ -184,7 +185,7 @@ const convertCityPersianToEnglish = (city) => {
 
 const HeaderLog = () => {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [city, setCity] = useState(null);
     const userToken = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
@@ -211,6 +212,7 @@ const HeaderLog = () => {
                 const res = await axios.post('/api/users/search-houses', { city: convertCityPersianToEnglish(city) });
                 navigate(`/search-houses?city=${convertCityPersianToEnglish(city)}`);
 
+                console.log(res);
             } catch (err) {
                 toast.error("جستجوی شما نتیجه ای نداشت!!", {
                     position: "top-right",
@@ -253,7 +255,7 @@ const HeaderLog = () => {
                                 className="bg-white rounded-full focus:outline-none w-full shadow rounded-full hover:shadow-md"
                             />
                             <button onClick={(e) => searchHouse(e)} type="button" className="absolute left-2 mt-2 p-3 bg-blue-800 rounded-full text-white">
-                                <FaSearch className='text-sm' />
+                               {loading ?  <PiSpinnerBold className='text-sm' /> :  <FaSearch className='text-sm' />}
                             </button>
                         </div>
                     </form>
