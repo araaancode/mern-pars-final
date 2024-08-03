@@ -35,11 +35,6 @@ import { PiArrowLeftBold } from "react-icons/pi";
 
 // end icons
 
-// import DatePicker from "react-multi-date-picker";
-// import persian from "react-date-object/calendars/persian";
-// import persian_fa from "react-date-object/locales/persian_fa";
-
-
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import persian from "react-date-object/calendars/persian";
