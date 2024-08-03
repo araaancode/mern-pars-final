@@ -45,6 +45,143 @@ import "react-multi-date-picker/styles/backgrounds/bg-white.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const convertCityPersianToEnglish = (city) => {
+
+    switch (city) {
+        case "اراک":
+            return "arak"
+            break;
+
+        case "اردبیل":
+            return "ardebil"
+            break;
+
+
+        case "ارومیه":
+            return "oromieh"
+            break;
+
+
+        case "اصفهان":
+            return "isfahan"
+            break;
+
+        case "اهواز":
+            return "ahvaz"
+            break;
+
+        case "ایلام":
+            return "elam"
+            break;
+
+        case "بجنورد":
+            return "bognord"
+            break;
+
+        case "بندرعباس":
+            return "bandar_abbas"
+            break;
+
+        case "بوشهر":
+            return "boshehr"
+            break;
+
+        case "بیرجند":
+            return "birgand"
+            break;
+
+        case "تبریز":
+            return "tabriz"
+            break;
+
+        case "تهران":
+            return "tehran"
+            break;
+
+        case "خرم آباد":
+            return "khoram_abad"
+            break;
+
+        case "رشت":
+            return "rasht"
+            break;
+
+        case "زاهدان":
+            return "zahedan"
+            break;
+
+        case "زنجان":
+            return "zanjan"
+            break;
+
+        case "ساری":
+            return "sari"
+            break;
+
+        case "سمنان":
+            return "semnan"
+            break;
+
+        case "سنندج":
+            return "sanandaj"
+            break;
+
+        case "شهرکرد":
+            return "sharekord"
+            break;
+
+
+        case "شیراز":
+            return "shiraz"
+            break;
+
+
+        case "قزوین":
+            return "ghazvin"
+            break;
+
+        case "قم":
+            return "ghom"
+            break;
+
+        case "کرج":
+            return "karaj"
+            break;
+
+        case "کرمان":
+            return "kerman"
+            break;
+
+        case "کرمانشاه":
+            return "kermanshah"
+            break;
+
+
+        case "گرگان":
+            return "gorgan"
+            break;
+
+        case "مشهد":
+            return "mashhad"
+            break;
+
+        case "همدان":
+            return "hamedan"
+            break;
+
+        case "یاسوج":
+            return "yasoj"
+            break;
+
+        case "یزد":
+            return "yazd"
+            break;
+
+        default:
+            break;
+    }
+}
+
 
 
 const Navbar = () => {
@@ -59,7 +196,8 @@ const Navbar = () => {
     const [city, setCity] = useState(null);
 
     const cityChange = (e) => {
-        setCity(e.target.value);
+        setCity(convertCityPersianToEnglish(e.target.value));
+        // console.log(convertCityPersianToEnglish(e.target.value));
     }
 
     const decrement = (e) => {
@@ -93,10 +231,12 @@ const Navbar = () => {
             setLoading(true);
             setError(null);
 
+            setCity(city.city)
+
             try {
-                const res = await axios.post('/api/users/search-houses', { city: city.city });
+                const res = await axios.post('/api/users/search-houses', { city: city });
                 setHouses(res.data.houses)
-                navigate(`/search-houses?city=${city.city}&dates=${dates}&count=${count}`);
+                navigate(`/search-houses?city=${city}&dates=${dates}&count=${count}`);
 
             } catch (err) {
                 console.log(err);
@@ -198,19 +338,35 @@ const Navbar = () => {
                                 >
                                     {city ? (
                                         <span className="flex items-center">
-                                            <img
-                                                src={city.image}
-                                                alt={city.city}
-                                                className="w-14 h-14 rounded-full mr-2"
-                                            />
-                                            {city.cityName}
+                                            {city.image ? (
+                                                <div>
+                                                    <img
+                                                        src={city.image}
+                                                        alt={city.city}
+                                                        className="w-14 h-14 rounded-full mr-2"
+                                                    />
+                                                    {city.cityName}
+                                                </div>
+
+                                            ) : (
+                                                <div>
+                                                    <img
+                                                        src="https://cdn-icons-png.flaticon.com/128/921/921439.png"
+                                                        alt={city}
+                                                        className="w-12 h-12 rounded-full mx-2"
+                                                    />
+                                                    {convertCityPersianToEnglish(city)}
+                                                </div>
+                                            )}
+
+
                                         </span>
                                     ) : (
                                         <div className='flex items-center justify-center'>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="text-gray-300 w-6 h-6">
                                                 <path fillRule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clipRule="evenodd" />
                                             </svg>
-                                            <input style={{ fontSize: '18px', width: '100px' }} className="mx-2 my-4 focus:outline-none" placeholder='شهر' />
+                                            <input onChange={cityChange} style={{ fontSize: '18px', width: '100px' }} className="mx-2 my-4 focus:outline-none" placeholder='شهر' />
                                         </div>
                                     )}
                                     <svg
@@ -232,7 +388,7 @@ const Navbar = () => {
 
                                 {isOpen && (
 
-                                    <div style={{ width: '800px', marginTop: '30px' }}
+                                    <div style={{ width: '650px', margin: '20px 25%' }}
                                         className="absolute rounded-full shadow-lg bg-white z-10 "
                                         role="listbox"
                                         aria-labelledby="dropdown-label"
@@ -267,20 +423,6 @@ const Navbar = () => {
 
                     <div className="border-l border-gray-300"></div>
 
-                    {/* in */}
-                    {/* <div style={{ width: '220px' }} className="flex justify-center items-center">
-                        <SlCalender className='w-8 h-8 text-gray-400' />
-                        <span style={{ fontSize: '18px' }} className='mx-2 text-gray-400'> ورود</span>
-                        <DatePicker
-                            value={checkInValue}
-                            onChange={setCheckInValue}
-                            calendar={persian}
-                            locale={persian_fa}
-                            className="blue"
-                            style={{ border: 'none' }}
-                        />
-                    </div> */}
-
                     <div style={{ fontSize: '18px', width: '260px' }} className='flex justify-center items-center'>
                         <SlCalender className='w-8 h-8 text-gray-400 ml-2' />
                         <DatePicker
@@ -301,42 +443,11 @@ const Navbar = () => {
                             inputClassName="custom-input"
                             monthYearSeparator="|"
                         />
-                        {/* <div>
-                            <p>
-                                <strong>Check-in Date:</strong>{" "}
-                                {dates[0] ? dates[0].format("YYYY/MM/DD") : "Not selected"}
-                            </p>
-                            <p>
-                                <strong>Check-out Date:</strong>{" "}
-                                {dates[1] ? dates[1].format("YYYY/MM/DD") : "Not selected"}
-                            </p>
-                        </div> */}
+
                     </div>
 
 
                     <div className="border-l border-gray-300"></div>
-                    {/* out */}
-                    {/* <div style={{ width: '220px' }} className="flex justify-center items-center">
-                        <PiArrowLeftBold className='w-8 h-8 text-gray-400' />
-                        <span style={{ fontSize: '18px' }} className='mx-2 text-gray-400'> خروج</span>
-                        <DatePicker
-                            value={checkOutValue}
-                            onChange={setCheckOutValue}
-                            calendar={persian}
-                            locale={persian_fa}
-                            className="blue"
-                            style={{ border: 'none' }}
-                        />
-                    </div> */}
-                    {/* <div className="border-l border-gray-300"></div> */}
-                    {/* users count */}
-                    {/* <div className='flex justify-center items-center w-30'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="text-gray-300 w-6 h-6">
-                            <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
-                        </svg>
-
-                        <input style={{ width: '100px', fontSize: '18px' }} type="number" placeholder="تعداد" min={1} className="placeholder-gray-500 px-3 pl-8 py-1 mr-2 outline-none transition duration-700 ease-in-out focus:shadow-outline" />
-                    </div> */}
 
                     <div className='flex justify-center items-center w-30'>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="text-gray-300 w-6 h-6">
@@ -369,54 +480,6 @@ const Navbar = () => {
                     </button>
                 </div>
             </form>
-
-            {/* <nav className='flex bg-white mx-20 my-50 px-5 py-3 rounded-lg justify-between'>
-                <a href="#">
-                    <PiHouseLight className='w-8 h-8' />
-                    <span className='mt-6 text-gray-500 text-bold font-sm hover:text-black' style={{ fontSize: '14px' }}>کلبه</span>
-                </a>
-
-                <a href="#">
-                    <PiWarehouseLight className='w-8 h-8' />
-                    <span className='mt-6 text-gray-500 text-bold font-sm hover:text-black' style={{ fontSize: '14px' }}>ویلا</span>
-                </a>
-
-                <a href="#">
-                    <PiBuildingApartmentLight className='w-8 h-8' />
-                    <span className='mt-6 text-gray-500 text-bold font-sm hover:text-black' style={{ fontSize: '14px' }}>آپارتمان</span>
-                </a>
-
-                <a href="#">
-                    <PiBeachBallLight className='w-8 h-8' />
-                    <span className='mt-6 text-gray-500 text-bold font-sm hover:text-black' style={{ fontSize: '14px' }}>ساحلی</span>
-                </a>
-
-                <a href="#">
-                    <PiSwimmingPoolLight className='w-8 h-8' />
-                    <span className='mt-6 text-gray-500 text-bold font-sm hover:text-black' style={{ fontSize: '14px' }}>استخردار</span>
-                </a>
-
-                <a href="#">
-                    <PiGlobeHemisphereEastLight className='w-8 h-8' />
-                    <span className='mt-6 text-gray-500 text-bold font-sm hover:text-black' style={{ fontSize: '14px' }}>بوم گردی</span>
-                </a>
-
-                <a href="#">
-                    <PiGiftLight className="w-10 h-10" />
-                    <span className='mt-6 text-gray-500 text-bold font-sm hover:text-black' style={{ fontSize: '14px' }}>پیشنهاد ویژه</span>
-                </a>
-
-                <a href="#">
-                    <PiTreeLight className='w-8 h-8' />
-                    <span className='mt-6 text-gray-500 text-bold font-sm hover:text-black' style={{ fontSize: '14px' }}>باغ </span>
-                </a>
-
-                <a href="#">
-                    <PiSealPercentLight className='w-8 h-8' />
-                    <span className='mt-6 text-gray-500 text-bold font-sm hover:text-black' style={{ fontSize: '14px' }}>تخفیف دار</span>
-                </a>
-
-            </nav> */}
             <ToastContainer />
         </div>
     )

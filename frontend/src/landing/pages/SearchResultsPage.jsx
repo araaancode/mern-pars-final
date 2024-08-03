@@ -152,11 +152,12 @@ const SearchResultsPage = () => {
 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6">
-        {currenthouses.map(house => (
+        {currenthouses ? (currenthouses.map(house => (
           <PhotoCard key={house._id} house={house} images={house.images} />
           // <PhotoCard key={index} images={houses[index].images} house={houses[index]} />
-
-        ))}
+        ))) : (
+          <h1>نتیجه ای پیدا نشد</h1>
+        )}
       </div>
       <div className="flex justify-center mt-4">
         {Array(Math.ceil(houses.length / itemsPerPage)).fill().map((_, index) => (
