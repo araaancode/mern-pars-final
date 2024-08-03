@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 const SupportPage = () => {
 
 
@@ -51,8 +52,15 @@ const SupportPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission (e.g., send the data to a server)
-    console.log("Form submitted:", formData);
-    alert("Thank you for contacting support!");
+    toast.info('پیام شما با موفقیت ارسال شد', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
 
     // Clear form after submission
     setFormData({
@@ -167,7 +175,7 @@ const SupportPage = () => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-900 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="w-full bg-blue-800 text-white py-2 px-4 rounded-md hover:bg-blue-900 focus:outline-none"
                 >
                   ارسال پیام
                 </button>
