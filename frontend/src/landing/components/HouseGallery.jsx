@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "./Image";
-import {RiGridFill} from "@remixicon/react"
+import { RiGridFill } from "@remixicon/react"
 
 const houseImageUrl = 'https://via.placeholder.com/150';
 
@@ -28,16 +28,16 @@ export default function HouseGallery({ house }) {
           <div className="container mx-auto p-4">
             {/* First Row */}
             <div className="grid grid-cols-1 gap-4 mb-4">
-              <img src={images[0]} alt="Image 1" className="w-full" />
+              <img src={images[0]} alt={house.name} className="w-full" />
             </div>
             {/* Second Row */}
             <div className="grid grid-cols-2 gap-4 mb-4">
-              <img style={{ height: '350px' }} src={images[1]} alt="Image 2" className="w-full" />
-              <img style={{ height: '350px' }} src={images[2]} alt="Image 3" className="w-full" />
+              <img style={{ height: '350px' }} src={images[1]} alt={house.name} className="w-full" />
+              <img style={{ height: '350px' }} src={images[2]} alt={house.name} className="w-full" />
             </div>
             {/* Third Row */}
             <div className="grid grid-cols-1 gap-4">
-              <img src={images[3]} alt="Image 4" className="w-full" />
+              <img src={images[3]} alt={house.name} className="w-full" />
             </div>
           </div>
           {/* ))} */}
@@ -87,33 +87,33 @@ export default function HouseGallery({ house }) {
         {/* </div> */}
 
         <div style={{ height: '485px' }} className="relative group">
-          <img style={{borderTopLeftRadius:'20px',borderBottomLeftRadius:'20px'}} src={house.cover} alt="" className="w-full h-full object-cover" />
-          <div style={{borderTopLeftRadius:'20px',borderBottomLeftRadius:'20px'}} className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
+          <img style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }} src={house.cover} alt="" className="w-full h-full object-cover" />
+          <div style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }} className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
         </div>
 
         {/*  */}
         <div className="w-1/4 px-1 my-3 ml-1 flex flex-col justify-between">
           <div className="relative group h-1/2 mb-2">
-            <img src={house.images[0]} alt="" style={{height:'238px'}} className="w-full object-cover" />
+            <img src={house.images[0]} alt="" style={{ height: '238px' }} className="w-full object-cover" />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
           </div>
           <div className="relative group h-1/2">
-            <img src={house.images[1]} alt="" style={{height:'238px'}} className="w-full object-cover" />
+            <img src={house.images[1]} alt="" style={{ height: '238px' }} className="w-full object-cover" />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
           </div>
         </div>
         <div className="w-1/4 px-1 my-3 flex flex-col justify-between">
           <div className="relative group h-1/2 mb-2">
-            <img src={house.images[2]} alt="" style={{height:'238px',borderTopRightRadius:'20px'}} className="w-full object-cover" />
-            <div style={{height:'238px',borderTopRightRadius:'20px'}} className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
+            <img src={house.images[2]} alt="" style={{ height: '238px', borderTopRightRadius: '20px' }} className="w-full object-cover" />
+            <div style={{ height: '238px', borderTopRightRadius: '20px' }} className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
           </div>
           <div className="relative group h-1/2">
-            <img src={house.images[3]} alt="" style={{height:'238px',borderBottomRightRadius:'20px'}} className="w-full object-cover" />
-            <div style={{height:'238px',borderBottomRightRadius:'20px'}} className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
+            <img src={house.images[3]} alt="" style={{ height: '238px', borderBottomRightRadius: '20px' }} className="w-full object-cover" />
+            <div style={{ height: '238px', borderBottomRightRadius: '20px' }} className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-300 hover:cursor-pointer"></div>
           </div>
         </div>
       </div>
-      <button style={{borderRadius:'5px'}} onClick={() => setShowAllPhotos(true)} className="flex gap-1 absolute bottom-2 right-2 py-2 pr-2 mx-10 my-4 bg-white rounded-2xl border border-black shadow shadow-md shadow-gray-500">
+      <button style={{ borderRadius: '5px' }} onClick={() => setShowAllPhotos(true)} className="flex gap-1 absolute bottom-2 right-2 py-2 pr-2 mx-10 my-4 bg-white rounded-2xl border border-black shadow shadow-md shadow-gray-500">
         <RiGridFill className="mx-2" />
         دیدن همه عکس ها
       </button>
