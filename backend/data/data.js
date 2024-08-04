@@ -116,6 +116,7 @@ function generateRandomHouseImage() {
 let houses = []
 let owners = []
 
+
 for (let i = 0; i < 1000; i++) {
     let newHouses = {
         "owner": new ObjectId().toString(),
@@ -165,4 +166,5 @@ for (let i = 0; i < houses.length; i++) {
 
 
 module.exports = {houses,owners}
+
 
